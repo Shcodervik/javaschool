@@ -13,6 +13,7 @@ public class CargoEntity {
     private int cargoStateIdCargoState;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idCargo")
     public int getIdCargo() {
         return idCargo;

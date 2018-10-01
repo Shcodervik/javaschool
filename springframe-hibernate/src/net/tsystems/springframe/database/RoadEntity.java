@@ -13,6 +13,7 @@ public class RoadEntity {
     private String destinationCity;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idRoad")
     public int getIdRoad() {
         return idRoad;

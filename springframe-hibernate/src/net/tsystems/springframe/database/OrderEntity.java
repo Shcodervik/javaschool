@@ -13,6 +13,7 @@ public class OrderEntity {
     private Timestamp closeDt;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idOrder")
     public int getIdOrder() {
         return idOrder;

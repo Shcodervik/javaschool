@@ -10,6 +10,7 @@ public class RoutepointtypeEntity {
     private String rpType;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idRPType")
     public int getIdRpType() {
         return idRpType;

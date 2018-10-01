@@ -15,6 +15,7 @@ public class RoutepointEntity {
     private int cargoCargoStateIdCargoState;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idRoutePoint")
     public int getIdRoutePoint() {
         return idRoutePoint;

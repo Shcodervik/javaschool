@@ -13,6 +13,7 @@ public class UserEntity {
     private int driverIdDriver;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idUser")
     public int getIdUser() {
         return idUser;

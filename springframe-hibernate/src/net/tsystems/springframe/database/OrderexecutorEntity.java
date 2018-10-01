@@ -13,6 +13,7 @@ public class OrderexecutorEntity {
     private int truckIdTruck;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idOrderExecutor")
     public int getIdOrderExecutor() {
         return idOrderExecutor;
