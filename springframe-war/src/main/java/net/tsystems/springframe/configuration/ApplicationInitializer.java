@@ -30,5 +30,9 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", new DispatcherServlet(annotationConfigWebApplicationContext));
         dynamic.addMapping("/");
         dynamic.setLoadOnStartup(NumberUtils.INTEGER_ONE);
+
+        ServletRegistration.Dynamic faces = servletContext.addServlet("faces", new DispatcherServlet(annotationConfigWebApplicationContext));
+        faces.addMapping("*.jsf, /faces/*");
+        faces.setLoadOnStartup(NumberUtils.INTEGER_ONE);
     }
 }
