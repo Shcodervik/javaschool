@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:mysql://localhost:3306</property>
+        <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+        <mapping class="net.tsystems.springframe.database.CargoEntity"/>
+        <mapping class="net.tsystems.springframe.database.CargostateEntity"/>
+        <mapping class="net.tsystems.springframe.database.CityEntity"/>
+        <mapping class="net.tsystems.springframe.database.DriverEntity"/>
+        <mapping class="net.tsystems.springframe.database.DriverstateEntity"/>
+        <mapping class="net.tsystems.springframe.database.DriverworkinfoEntity"/>
+        <mapping class="net.tsystems.springframe.database.OrderEntity"/>
+        <mapping class="net.tsystems.springframe.database.OrderexecutorEntity"/>
+        <mapping class="net.tsystems.springframe.database.RoadEntity"/>
+        <mapping class="net.tsystems.springframe.database.RoutepointEntity"/>
+        <mapping class="net.tsystems.springframe.database.RoutepointtypeEntity"/>
+        <mapping class="net.tsystems.springframe.database.TruckEntity"/>
+        <mapping class="net.tsystems.springframe.database.TruckstateEntity"/>
+        <mapping class="net.tsystems.springframe.database.UserEntity"/>
+        <!-- <property name="connection.username"/> -->
+        <!-- <property name="connection.password"/> -->
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+    </session-factory>
+</hibernate-configuration>
