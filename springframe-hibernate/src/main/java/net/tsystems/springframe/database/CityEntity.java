@@ -10,6 +10,7 @@ public class CityEntity {
     private String name;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idCity")
     public int getIdCity() {
         return idCity;

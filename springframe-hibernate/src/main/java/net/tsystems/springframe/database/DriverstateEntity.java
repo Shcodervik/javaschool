@@ -10,6 +10,7 @@ public class DriverstateEntity {
     private String driverState;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idDriverState")
     public int getIdDriverState() {
         return idDriverState;

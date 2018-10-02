@@ -11,6 +11,7 @@ public class DriverEntity {
     private String surname;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idDriver")
     public int getIdDriver() {
         return idDriver;

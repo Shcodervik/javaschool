@@ -16,6 +16,7 @@ public class DriverworkinfoEntity {
     private int driverStateIdDriverState;
 
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name = "idDriverWorkInfo")
     public int getIdDriverWorkInfo() {
         return idDriverWorkInfo;
