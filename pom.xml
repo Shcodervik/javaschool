@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>springframe-war</module>
+        <module>springframe-services</module>
     </modules>
     <name>Spring Frame</name>
 
