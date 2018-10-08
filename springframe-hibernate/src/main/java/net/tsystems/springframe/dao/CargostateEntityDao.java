@@ -5,6 +5,6 @@ import net.tsystems.springframe.database.CargostateEntity;
 import java.util.List;
 
 public interface CargostateEntityDao {
-    CargostateEntity getCargostateById(int idCargostate);
-    List<CargostateEntity> getAllCargostates();
+    CargostateEntity getCargoStateById(int idCargoState);
+    List<CargostateEntity> getAllCargoStates();
 }

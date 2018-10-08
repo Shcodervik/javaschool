@@ -5,7 +5,7 @@ import net.tsystems.springframe.database.OrderexecutorEntity;
 import java.util.List;
 
 public interface OrderexecutorEntityDao {
-    OrderexecutorEntity getOrderexecutorById(int idOrderexecutor);
-    List<OrderexecutorEntity> getAllOrderexecutors();
-    List<OrderexecutorEntity> getAllOrderexecutorsByOrder(int idOrder);
+    OrderexecutorEntity getOrderExecutorById(int idOrderExecutor);
+    List<OrderexecutorEntity> getAllOrderExecutors();
+    List<OrderexecutorEntity> getAllOrderExecutorsByOrder(int idOrder);
 }

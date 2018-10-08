@@ -5,6 +5,6 @@ import net.tsystems.springframe.database.RoutepointtypeEntity;
 import java.util.List;
 
 public interface RoutepointtypeEntityDao {
-    RoutepointtypeEntity getRoutepointtypeById(int idOrder);
-    List<RoutepointtypeEntity> getAllRoutepointtypes();
+    RoutepointtypeEntity getRoutePointTypeById(int idRoutePointType);
+    List<RoutepointtypeEntity> getAllRoutePointTypes();
 }
