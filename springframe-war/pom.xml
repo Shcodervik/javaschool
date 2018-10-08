@@ -85,6 +85,13 @@
             <version>8.0.12</version>
         </dependency>
 
+        <dependency>
+            <groupId>javax.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
@@ -99,7 +106,7 @@
                             <classpathPrefix>lib/</classpathPrefix>
                         </manifest>
                         <manifestEntries>
-                            <Implementation-Build>${project.version}.$\{buildNumber}</Implementation-Build>
+                            <Implementation-Build>${project.version}.$/{buildNumber}</Implementation-Build>
                         </manifestEntries>
                     </archive>
                     <failOnMissingWebXml>false</failOnMissingWebXml>

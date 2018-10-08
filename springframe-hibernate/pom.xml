@@ -71,7 +71,8 @@
         <version>5.3.6.Final</version>
     </dependency>
 
-    <!-- END Hibernate dependencies -->
+
+        <!-- END Hibernate dependencies -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

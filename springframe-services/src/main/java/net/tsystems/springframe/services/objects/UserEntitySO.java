@@ -6,7 +6,7 @@ public class UserEntitySO {
     private int idUser;
     private String username;
     private String passHash;
-    private Byte isEmployee;
+    private boolean isEmployee;
     private int driverIdDriver;
 
     public int getIdUser() {
@@ -33,11 +33,11 @@ public class UserEntitySO {
         this.passHash = passHash;
     }
 
-    public Byte getIsEmployee() {
+    public boolean getIsEmployee() {
         return isEmployee;
     }
 
-    public void setIsEmployee(Byte isEmployee) {
+    public void setIsEmployee(boolean isEmployee) {
         this.isEmployee = isEmployee;
     }
 

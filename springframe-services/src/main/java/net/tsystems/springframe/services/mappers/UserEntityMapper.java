@@ -10,6 +10,6 @@ import org.mapstruct.factory.Mappers;
 public interface UserEntityMapper {
     UserEntityMapper INSTANCE = Mappers.getMapper(UserEntityMapper.class);
 
-   // @Mapping(source="idUser", target="idUser")
+    @Mapping(target="isEmployee", expression="java(net.tsystems.springframe.services.Utils.byteToBool(userEntity.getIsEmployee()))")
     UserEntitySO userEntityToDto(UserEntity userEntity);
 }

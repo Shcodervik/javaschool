@@ -11,6 +11,7 @@
     <modules>
         <module>springframe-war</module>
         <module>springframe-services</module>
+        <module>springframe-hibernate</module>
     </modules>
     <name>Spring Frame</name>
 

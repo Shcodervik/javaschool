@@ -8,6 +8,6 @@ import org.mapstruct.factory.Mappers;
 public interface OrderEntityMapper {
     OrderEntityMapper INSTANCE = Mappers.getMapper(OrderEntityMapper.class);
 
-   // @Mapping(target="Closed", expression="java(Util.byteToBool())")
+    @Mapping(target="closed", expression="java(net.tsystems.springframe.services.Utils.byteToBool(orderEntity.getClosed()))")
     OrderEntitySO orderEntityToDto(OrderEntity orderEntity);
 }
