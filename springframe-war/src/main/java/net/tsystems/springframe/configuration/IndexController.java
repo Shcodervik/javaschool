@@ -8,22 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-//@Controller
+@Controller
 public class IndexController {
-  //  int visitorCount = 0;
-//    @RequestMapping(method = RequestMethod.GET, value = "index")
-//    public String index() {
-//       // model.addAttribute("visitorCount", visitorCount++);
-//        return "index";
-//    }
 
-
-
-   /* @RequestMapping(value = "/index", method = RequestMethod.GET)
-    public ModelAndView secondPage(ModelAndView modelAndView) {
-        modelAndView.setViewName("/pages/home");
-        //modelAndView.setViewName("index");
-        return modelAndView;
-    }*/
+    @RequestMapping("/index")
+    public String getIndex(){
+        return "index";
+    }
 
 }
