@@ -1,8 +1,11 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
+@Service
 public class OrderEntitySO {
     private int idOrder;
     private boolean closed;

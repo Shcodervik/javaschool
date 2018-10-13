@@ -7,7 +7,6 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper
-
 public interface RoutepointEntityMapper {
     RoutepointEntityMapper INSTANCE = Mappers.getMapper(RoutepointEntityMapper.class);
     @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.byteToBool(orderEntity.getClosed()))")

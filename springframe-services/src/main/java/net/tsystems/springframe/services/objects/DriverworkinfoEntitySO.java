@@ -1,8 +1,11 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Date;
 import java.util.Objects;
 
+@Service
 public class DriverworkinfoEntitySO {
     private int idDriverWorkInfo;
     private Date startDt;

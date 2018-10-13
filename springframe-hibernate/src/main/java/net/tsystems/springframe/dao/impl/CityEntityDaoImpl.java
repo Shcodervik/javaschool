@@ -6,12 +6,14 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Repository("cityEntityDao")
 public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> implements CityEntityDao {
     @Override
+    @Transactional
     public CityEntity getCityById(int idCity) {
         Criteria crit = getCriteria();
         crit.add(Restrictions.eq("idCity", idCity));
@@ -21,7 +23,7 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     }
 
     @Override
-
+    @Transactional
     public List<CityEntity> getAllCities() {
         Criteria criteria = getCriteria();
         List<CityEntity> cities = (List<CityEntity>)criteria.list();
@@ -33,4 +35,7 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     public Session getEntityManager() {
         return null;
     }
+
+
+
 }
