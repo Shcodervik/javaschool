@@ -10,7 +10,8 @@ public interface DriverEntityDao {
     List<DriverEntity> getDriversBySurname(String surname);
     List<DriverEntity> getAllDrivers();
     /*
-    * DriverState from Driverworkinfo?
+    * TODO: driverState from Driverworkinfo. Just int? or what?
     * */
-    List<DriverEntity> getAllDriversByState(String driverState);
+
+    List<DriverEntity> getAllDriversByState(int driverState);
 }

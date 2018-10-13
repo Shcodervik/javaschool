@@ -1,22 +1,18 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "routepoint", schema = "logiweb")
-@IdClass(RoutepointEntityPK.class)
+@Table(name = "routepoint")
 public class RoutepointEntity {
     private int idRoutePoint;
-    private int routePointTypeIdRpType;
-    private int orderIdOrder;
-    private int cityIdCity;
-    private int cargoIdCargo;
-    private int cargoCargoStateIdCargoState;
+    private CargoEntity cargoIdCargo;
+    private CityEntity cityIdCity;
+    private OrderEntity orderIdOrder;
+    private RoutepointtypeEntity routePointTypeIdRpType;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idRoutePoint")
+    @Column(name = "idRoutePoint", nullable = false)
     public int getIdRoutePoint() {
         return idRoutePoint;
     }
@@ -25,71 +21,60 @@ public class RoutepointEntity {
         this.idRoutePoint = idRoutePoint;
     }
 
-    @Id
-    @Column(name = "RoutePointType_idRPType")
-    public int getRoutePointTypeIdRpType() {
-        return routePointTypeIdRpType;
-    }
-
-    public void setRoutePointTypeIdRpType(int routePointTypeIdRpType) {
-        this.routePointTypeIdRpType = routePointTypeIdRpType;
-    }
-
-    @Id
-    @Column(name = "Order_idOrder")
-    public int getOrderIdOrder() {
-        return orderIdOrder;
-    }
-
-    public void setOrderIdOrder(int orderIdOrder) {
-        this.orderIdOrder = orderIdOrder;
-    }
-
-    @Id
-    @Column(name = "City_idCity")
-    public int getCityIdCity() {
-        return cityIdCity;
-    }
-
-    public void setCityIdCity(int cityIdCity) {
-        this.cityIdCity = cityIdCity;
-    }
-
-    @Id
-    @Column(name = "Cargo_idCargo")
-    public int getCargoIdCargo() {
-        return cargoIdCargo;
-    }
-
-    public void setCargoIdCargo(int cargoIdCargo) {
-        this.cargoIdCargo = cargoIdCargo;
-    }
-
-    @Id
-    @Column(name = "Cargo_CargoState_idCargoState")
-    public int getCargoCargoStateIdCargoState() {
-        return cargoCargoStateIdCargoState;
-    }
-
-    public void setCargoCargoStateIdCargoState(int cargoCargoStateIdCargoState) {
-        this.cargoCargoStateIdCargoState = cargoCargoStateIdCargoState;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         RoutepointEntity that = (RoutepointEntity) o;
-        return idRoutePoint == that.idRoutePoint &&
-                routePointTypeIdRpType == that.routePointTypeIdRpType &&
-                orderIdOrder == that.orderIdOrder &&
-                cityIdCity == that.cityIdCity &&
-                cargoIdCargo == that.cargoIdCargo &&
-                cargoCargoStateIdCargoState == that.cargoCargoStateIdCargoState;
+
+        if (idRoutePoint != that.idRoutePoint) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoutePoint, routePointTypeIdRpType, orderIdOrder, cityIdCity, cargoIdCargo, cargoCargoStateIdCargoState);
+        return idRoutePoint;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "Cargo_idCargo", referencedColumnName = "idCargo", nullable = false)
+    public CargoEntity getCargoIdCargo() {
+        return cargoIdCargo;
+    }
+
+    public void setCargoIdCargo(CargoEntity cargoIdCargo) {
+        this.cargoIdCargo = cargoIdCargo;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "City_idCity", referencedColumnName = "idCity", nullable = false)
+    public CityEntity getCityIdCity() {
+        return cityIdCity;
+    }
+
+    public void setCityIdCity(CityEntity cityIdCity) {
+        this.cityIdCity = cityIdCity;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = false)
+    public OrderEntity getOrderIdOrder() {
+        return orderIdOrder;
+    }
+
+    public void setOrderIdOrder(OrderEntity orderIdOrder) {
+        this.orderIdOrder = orderIdOrder;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "RoutePointType_idRPType", referencedColumnName = "idRPType", nullable = false)
+    public RoutepointtypeEntity getRoutePointTypeIdRpType() {
+        return routePointTypeIdRpType;
+    }
+
+    public void setRoutePointTypeIdRpType(RoutepointtypeEntity routePointTypeIdRpType) {
+        this.routePointTypeIdRpType = routePointTypeIdRpType;
     }
 }

@@ -1,10 +1,9 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "road", schema = "logiweb")
+@Table(name = "road")
 public class RoadEntity {
     private int idRoad;
     private Double length;
@@ -13,8 +12,7 @@ public class RoadEntity {
     private String destinationCity;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idRoad")
+    @Column(name = "idRoad", nullable = false)
     public int getIdRoad() {
         return idRoad;
     }
@@ -24,7 +22,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "Length")
+    @Column(name = "Length", nullable = true, precision = 0)
     public Double getLength() {
         return length;
     }
@@ -34,7 +32,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "SpeedLimit")
+    @Column(name = "SpeedLimit", nullable = true)
     public Integer getSpeedLimit() {
         return speedLimit;
     }
@@ -44,7 +42,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "OriginCity")
+    @Column(name = "OriginCity", nullable = true, length = 45)
     public String getOriginCity() {
         return originCity;
     }
@@ -54,7 +52,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "DestinationCity")
+    @Column(name = "DestinationCity", nullable = true, length = 45)
     public String getDestinationCity() {
         return destinationCity;
     }
@@ -67,16 +65,26 @@ public class RoadEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         RoadEntity that = (RoadEntity) o;
-        return idRoad == that.idRoad &&
-                Objects.equals(length, that.length) &&
-                Objects.equals(speedLimit, that.speedLimit) &&
-                Objects.equals(originCity, that.originCity) &&
-                Objects.equals(destinationCity, that.destinationCity);
+
+        if (idRoad != that.idRoad) return false;
+        if (length != null ? !length.equals(that.length) : that.length != null) return false;
+        if (speedLimit != null ? !speedLimit.equals(that.speedLimit) : that.speedLimit != null) return false;
+        if (originCity != null ? !originCity.equals(that.originCity) : that.originCity != null) return false;
+        if (destinationCity != null ? !destinationCity.equals(that.destinationCity) : that.destinationCity != null)
+            return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoad, length, speedLimit, originCity, destinationCity);
+        int result = idRoad;
+        result = 31 * result + (length != null ? length.hashCode() : 0);
+        result = 31 * result + (speedLimit != null ? speedLimit.hashCode() : 0);
+        result = 31 * result + (originCity != null ? originCity.hashCode() : 0);
+        result = 31 * result + (destinationCity != null ? destinationCity.hashCode() : 0);
+        return result;
     }
 }

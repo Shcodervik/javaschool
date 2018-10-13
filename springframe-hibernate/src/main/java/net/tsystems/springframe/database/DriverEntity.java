@@ -1,18 +1,16 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "driver", schema = "logiweb")
+@Table(name = "driver")
 public class DriverEntity {
     private int idDriver;
     private String name;
     private String surname;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idDriver")
+    @Column(name = "idDriver", nullable = false)
     public int getIdDriver() {
         return idDriver;
     }
@@ -22,7 +20,7 @@ public class DriverEntity {
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = true, length = 45)
     public String getName() {
         return name;
     }
@@ -32,7 +30,7 @@ public class DriverEntity {
     }
 
     @Basic
-    @Column(name = "Surname")
+    @Column(name = "Surname", nullable = true, length = 45)
     public String getSurname() {
         return surname;
     }
@@ -45,14 +43,21 @@ public class DriverEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         DriverEntity that = (DriverEntity) o;
-        return idDriver == that.idDriver &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname);
+
+        if (idDriver != that.idDriver) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idDriver, name, surname);
+        int result = idDriver;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        return result;
     }
 }

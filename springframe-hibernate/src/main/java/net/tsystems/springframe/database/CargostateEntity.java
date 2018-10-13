@@ -1,17 +1,15 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "cargostate", schema = "logiweb")
+@Table(name = "cargostate")
 public class CargostateEntity {
     private int idCargoState;
     private String cargoState;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idCargoState")
+    @Column(name = "idCargoState", nullable = false)
     public int getIdCargoState() {
         return idCargoState;
     }
@@ -21,7 +19,7 @@ public class CargostateEntity {
     }
 
     @Basic
-    @Column(name = "CargoState")
+    @Column(name = "CargoState", nullable = true, length = 45)
     public String getCargoState() {
         return cargoState;
     }
@@ -34,13 +32,19 @@ public class CargostateEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CargostateEntity that = (CargostateEntity) o;
-        return idCargoState == that.idCargoState &&
-                Objects.equals(cargoState, that.cargoState);
+
+        if (idCargoState != that.idCargoState) return false;
+        if (cargoState != null ? !cargoState.equals(that.cargoState) : that.cargoState != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCargoState, cargoState);
+        int result = idCargoState;
+        result = 31 * result + (cargoState != null ? cargoState.hashCode() : 0);
+        return result;
     }
 }

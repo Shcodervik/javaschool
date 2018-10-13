@@ -2,10 +2,9 @@ package net.tsystems.springframe.database;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Objects;
 
 @Entity
-@Table(name = "order", schema = "logiweb")
+@Table(name = "order")
 public class OrderEntity {
     private int idOrder;
     private Byte closed;
@@ -13,8 +12,7 @@ public class OrderEntity {
     private Timestamp closeDt;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idOrder")
+    @Column(name = "idOrder", nullable = false)
     public int getIdOrder() {
         return idOrder;
     }
@@ -24,7 +22,7 @@ public class OrderEntity {
     }
 
     @Basic
-    @Column(name = "Closed")
+    @Column(name = "Closed", nullable = true)
     public Byte getClosed() {
         return closed;
     }
@@ -34,7 +32,7 @@ public class OrderEntity {
     }
 
     @Basic
-    @Column(name = "CreateDT")
+    @Column(name = "CreateDT", nullable = true)
     public Timestamp getCreateDt() {
         return createDt;
     }
@@ -44,7 +42,7 @@ public class OrderEntity {
     }
 
     @Basic
-    @Column(name = "CloseDT")
+    @Column(name = "CloseDT", nullable = true)
     public Timestamp getCloseDt() {
         return closeDt;
     }
@@ -57,15 +55,23 @@ public class OrderEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         OrderEntity that = (OrderEntity) o;
-        return idOrder == that.idOrder &&
-                Objects.equals(closed, that.closed) &&
-                Objects.equals(createDt, that.createDt) &&
-                Objects.equals(closeDt, that.closeDt);
+
+        if (idOrder != that.idOrder) return false;
+        if (closed != null ? !closed.equals(that.closed) : that.closed != null) return false;
+        if (createDt != null ? !createDt.equals(that.createDt) : that.createDt != null) return false;
+        if (closeDt != null ? !closeDt.equals(that.closeDt) : that.closeDt != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrder, closed, createDt, closeDt);
+        int result = idOrder;
+        result = 31 * result + (closed != null ? closed.hashCode() : 0);
+        result = 31 * result + (createDt != null ? createDt.hashCode() : 0);
+        result = 31 * result + (closeDt != null ? closeDt.hashCode() : 0);
+        return result;
     }
 }

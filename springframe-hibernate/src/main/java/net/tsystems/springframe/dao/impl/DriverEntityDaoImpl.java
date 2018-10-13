@@ -48,8 +48,14 @@ public class DriverEntityDaoImpl extends AbstractDaoImpl<Integer, DriverEntity> 
         return drivers;
     }
 
+    /*
+    * TODO: realisation
+    * */
+
     @Override
-    public List<DriverEntity> getAllDriversByState(String driverState) {
+    public List<DriverEntity> getAllDriversByState(int driverState) {
         return null;
     }
+
+
 }

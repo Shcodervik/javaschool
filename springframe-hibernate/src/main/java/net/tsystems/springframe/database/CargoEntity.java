@@ -1,20 +1,17 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "cargo", schema = "logiweb")
-@IdClass(CargoEntityPK.class)
+@Table(name = "cargo")
 public class CargoEntity {
     private int idCargo;
     private String description;
     private Double weight;
-    private int cargoStateIdCargoState;
+    private CargostateEntity cargoStateIdCargoState;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idCargo")
+    @Column(name = "idCargo", nullable = false)
     public int getIdCargo() {
         return idCargo;
     }
@@ -24,7 +21,7 @@ public class CargoEntity {
     }
 
     @Basic
-    @Column(name = "Description")
+    @Column(name = "Description", nullable = true, length = 45)
     public String getDescription() {
         return description;
     }
@@ -34,7 +31,7 @@ public class CargoEntity {
     }
 
     @Basic
-    @Column(name = "Weight")
+    @Column(name = "Weight", nullable = true, precision = 0)
     public Double getWeight() {
         return weight;
     }
@@ -43,29 +40,35 @@ public class CargoEntity {
         this.weight = weight;
     }
 
-    @Id
-    @Column(name = "CargoState_idCargoState")
-    public int getCargoStateIdCargoState() {
-        return cargoStateIdCargoState;
-    }
-
-    public void setCargoStateIdCargoState(int cargoStateIdCargoState) {
-        this.cargoStateIdCargoState = cargoStateIdCargoState;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CargoEntity that = (CargoEntity) o;
-        return idCargo == that.idCargo &&
-                cargoStateIdCargoState == that.cargoStateIdCargoState &&
-                Objects.equals(description, that.description) &&
-                Objects.equals(weight, that.weight);
+
+        if (idCargo != that.idCargo) return false;
+        if (description != null ? !description.equals(that.description) : that.description != null) return false;
+        if (weight != null ? !weight.equals(that.weight) : that.weight != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCargo, description, weight, cargoStateIdCargoState);
+        int result = idCargo;
+        result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (weight != null ? weight.hashCode() : 0);
+        return result;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "CargoState_idCargoState", referencedColumnName = "idCargoState", nullable = false)
+    public CargostateEntity getCargoStateIdCargoState() {
+        return cargoStateIdCargoState;
+    }
+
+    public void setCargoStateIdCargoState(CargostateEntity cargoStateIdCargoState) {
+        this.cargoStateIdCargoState = cargoStateIdCargoState;
     }
 }

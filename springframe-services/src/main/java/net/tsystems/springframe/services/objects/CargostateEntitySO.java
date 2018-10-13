@@ -5,6 +5,7 @@ import java.util.Objects;
 public class CargostateEntitySO {
     private int idCargoState;
     private String cargoState;
+
     public int getIdCargoState() {
         return idCargoState;
     }

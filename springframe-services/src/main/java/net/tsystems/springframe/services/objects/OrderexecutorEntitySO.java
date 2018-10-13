@@ -4,9 +4,9 @@ import java.util.Objects;
 
 public class OrderexecutorEntitySO {
     private int idOrderExecutor;
-    private int orderIdOrder;
-    private int driverIdDriver;
-    private int truckIdTruck;
+    private OrderEntitySO orderIdOrder;
+    private DriverEntitySO driverIdDriver;
+    private TruckEntitySO truckIdTruck;
 
     public int getIdOrderExecutor() {
         return idOrderExecutor;
@@ -16,27 +16,27 @@ public class OrderexecutorEntitySO {
         this.idOrderExecutor = idOrderExecutor;
     }
 
-    public int getOrderIdOrder() {
+    public OrderEntitySO getOrderIdOrder() {
         return orderIdOrder;
     }
 
-    public void setOrderIdOrder(int orderIdOrder) {
+    public void setOrderIdOrder(OrderEntitySO orderIdOrder) {
         this.orderIdOrder = orderIdOrder;
     }
 
-    public int getDriverIdDriver() {
+    public DriverEntitySO getDriverIdDriver() {
         return driverIdDriver;
     }
 
-    public void setDriverIdDriver(int driverIdDriver) {
+    public void setDriverIdDriver(DriverEntitySO driverIdDriver) {
         this.driverIdDriver = driverIdDriver;
     }
 
-    public int getTruckIdTruck() {
+    public TruckEntitySO getTruckIdTruck() {
         return truckIdTruck;
     }
 
-    public void setTruckIdTruck(int truckIdTruck) {
+    public void setTruckIdTruck(TruckEntitySO truckIdTruck) {
         this.truckIdTruck = truckIdTruck;
     }
 
@@ -46,9 +46,9 @@ public class OrderexecutorEntitySO {
         if (o == null || getClass() != o.getClass()) return false;
         OrderexecutorEntitySO that = (OrderexecutorEntitySO) o;
         return idOrderExecutor == that.idOrderExecutor &&
-                orderIdOrder == that.orderIdOrder &&
-                driverIdDriver == that.driverIdDriver &&
-                truckIdTruck == that.truckIdTruck;
+                Objects.equals(orderIdOrder, that.orderIdOrder) &&
+                Objects.equals(driverIdDriver, that.driverIdDriver) &&
+                Objects.equals(truckIdTruck, that.truckIdTruck);
     }
 
     @Override

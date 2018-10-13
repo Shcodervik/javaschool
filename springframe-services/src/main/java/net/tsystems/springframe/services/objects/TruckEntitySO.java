@@ -6,7 +6,7 @@ public class TruckEntitySO {
     private int idTruck;
     private String serial;
     private Double capacity;
-    private int truckStateIdTruckState;
+    private TruckstateEntitySO truckStateIdTruckState;
 
     public int getIdTruck() {
         return idTruck;
@@ -32,11 +32,11 @@ public class TruckEntitySO {
         this.capacity = capacity;
     }
 
-    public int getTruckStateIdTruckState() {
+    public TruckstateEntitySO getTruckStateIdTruckState() {
         return truckStateIdTruckState;
     }
 
-    public void setTruckStateIdTruckState(int truckStateIdTruckState) {
+    public void setTruckStateIdTruckState(TruckstateEntitySO truckStateIdTruckState) {
         this.truckStateIdTruckState = truckStateIdTruckState;
     }
 
@@ -46,9 +46,9 @@ public class TruckEntitySO {
         if (o == null || getClass() != o.getClass()) return false;
         TruckEntitySO that = (TruckEntitySO) o;
         return idTruck == that.idTruck &&
-                truckStateIdTruckState == that.truckStateIdTruckState &&
                 Objects.equals(serial, that.serial) &&
-                Objects.equals(capacity, that.capacity);
+                Objects.equals(capacity, that.capacity) &&
+                Objects.equals(truckStateIdTruckState, that.truckStateIdTruckState);
     }
 
     @Override

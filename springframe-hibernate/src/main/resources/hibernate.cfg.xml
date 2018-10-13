@@ -20,6 +20,8 @@
         <mapping class="net.tsystems.springframe.database.TruckEntity"/>
         <mapping class="net.tsystems.springframe.database.TruckstateEntity"/>
         <mapping class="net.tsystems.springframe.database.UserEntity"/>
+
+
         <!-- <property name="connection.username"/> -->
         <!-- <property name="connection.password"/> -->
 

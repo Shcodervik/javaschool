@@ -1,20 +1,17 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "truck", schema = "logiweb")
-@IdClass(TruckEntityPK.class)
+@Table(name = "truck")
 public class TruckEntity {
     private int idTruck;
     private String serial;
     private Double capacity;
-    private int truckStateIdTruckState;
+    private TruckstateEntity truckStateIdTruckState;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idTruck")
+    @Column(name = "idTruck", nullable = false)
     public int getIdTruck() {
         return idTruck;
     }
@@ -24,7 +21,7 @@ public class TruckEntity {
     }
 
     @Basic
-    @Column(name = "Serial")
+    @Column(name = "Serial", nullable = true, length = 45)
     public String getSerial() {
         return serial;
     }
@@ -34,7 +31,7 @@ public class TruckEntity {
     }
 
     @Basic
-    @Column(name = "Capacity")
+    @Column(name = "Capacity", nullable = true, precision = 0)
     public Double getCapacity() {
         return capacity;
     }
@@ -43,29 +40,35 @@ public class TruckEntity {
         this.capacity = capacity;
     }
 
-    @Id
-    @Column(name = "TruckState_idTruckState")
-    public int getTruckStateIdTruckState() {
-        return truckStateIdTruckState;
-    }
-
-    public void setTruckStateIdTruckState(int truckStateIdTruckState) {
-        this.truckStateIdTruckState = truckStateIdTruckState;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         TruckEntity that = (TruckEntity) o;
-        return idTruck == that.idTruck &&
-                truckStateIdTruckState == that.truckStateIdTruckState &&
-                Objects.equals(serial, that.serial) &&
-                Objects.equals(capacity, that.capacity);
+
+        if (idTruck != that.idTruck) return false;
+        if (serial != null ? !serial.equals(that.serial) : that.serial != null) return false;
+        if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTruck, serial, capacity, truckStateIdTruckState);
+        int result = idTruck;
+        result = 31 * result + (serial != null ? serial.hashCode() : 0);
+        result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
+        return result;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "TruckState_idTruckState", referencedColumnName = "idTruckState", nullable = false)
+    public TruckstateEntity getTruckStateIdTruckState() {
+        return truckStateIdTruckState;
+    }
+
+    public void setTruckStateIdTruckState(TruckstateEntity truckStateIdTruckState) {
+        this.truckStateIdTruckState = truckStateIdTruckState;
     }
 }
