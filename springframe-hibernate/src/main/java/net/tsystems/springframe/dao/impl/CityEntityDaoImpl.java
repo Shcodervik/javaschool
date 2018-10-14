@@ -2,6 +2,7 @@ package net.tsystems.springframe.dao.impl;
 
 import net.tsystems.springframe.dao.CityEntityDao;
 import net.tsystems.springframe.database.CityEntity;
+import net.tsystems.springframe.SessionService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;

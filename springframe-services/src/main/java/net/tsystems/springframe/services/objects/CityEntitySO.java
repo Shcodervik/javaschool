@@ -1,5 +1,4 @@
 package net.tsystems.springframe.services.objects;
-
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;
