@@ -2,6 +2,7 @@ package net.tsystems.springframe.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.util.List;
 
 import net.tsystems.springframe.SessionService;
 import net.tsystems.springframe.dao.AbstractDao;
@@ -23,14 +24,13 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
         this.persistentClass = (Class<T>)((ParameterizedType)this.getClass().getGenericSuperclass()).getActualTypeArguments()[1];
     }
 
-    /*@Autowired
-    @Qualifier("SessionService")
-    private SessionService sessionService;*/
-
     public Session getSession()
     {
         return SessionService.getSession();
     }
+
+
+
 
     @SuppressWarnings("unchecked")
     public T getById(PK id)
@@ -55,6 +55,7 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
     {
         getSession().delete(entity);
     }
+
 
     public Criteria getCriteria()
     {

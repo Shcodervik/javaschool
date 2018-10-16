@@ -8,7 +8,7 @@
 <f:view>
     <h:outputLabel value="Hello, world"/>
     <ul>
-        <ui:repeat value="#{listCities}" var="city">
+        <ui:repeat value="#{citiesBean.getCities()}" var="city">
             <li>
                 <h:link value="#{city.name}" outcome="city">
                     <f:param name="id" value="#{city.idCity}" />

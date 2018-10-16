@@ -5,6 +5,7 @@ import net.tsystems.springframe.database.CityEntity;
 import net.tsystems.springframe.SessionService;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,6 +14,12 @@ import java.util.List;
 
 @Repository("cityEntityDao")
 public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> implements CityEntityDao {
+
+    private Session currentSession;
+    private Transaction currentTransaction;
+    public CityEntityDaoImpl() {
+    }
+
     @Override
     @Transactional
     public CityEntity getCityById(int idCity) {
@@ -30,6 +37,15 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
         List<CityEntity> cities = (List<CityEntity>)criteria.list();
 
         return cities;
+    }
+
+    @Override
+    @Transactional
+    public void deleteAllCities() {
+        List<CityEntity> entityList = getAllCities();
+        for (CityEntity entity : entityList) {
+            delete(entity);
+        }
     }
 
     @Override

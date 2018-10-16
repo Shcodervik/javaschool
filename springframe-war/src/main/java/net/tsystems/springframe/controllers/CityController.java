@@ -2,6 +2,8 @@ package net.tsystems.springframe.controllers;
 
 
 import net.tsystems.springframe.SessionService;
+import net.tsystems.springframe.dao.CityEntityDao;
+import net.tsystems.springframe.dao.impl.CityEntityDaoImpl;
 import net.tsystems.springframe.services.objects.CityEntitySO;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -16,25 +18,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-@Controller
+//@Controller
 public class CityController {
-    /*private CityEntitySO cityEntitySO;
+    //private CityEntitySO cityEntitySO;
 
-    @Autowired(required=true)
+   /* @Autowired(required=true)
     @Qualifier(value="cityEntitySO")
     public void setPersonService(CityEntitySO ps){
         this.cityEntitySO = ps;
     }*/
 
-    @RequestMapping(value = "/cities", method = RequestMethod.GET)
-    public String listPersons(Model model) {
-        Session session = SessionService.getSession();
+ /*   @RequestMapping(value = "/cities", method = RequestMethod.GET)
+    public String listCities(Model model) {
+        /*Session session = SessionService.getSession();
         Query query = session.createQuery("from CityEntity");
         //model.addAttribute("cityEntity", new CityEntity());
-        List c = query.list();
+        List c = query.list();*/
+  /*      CityEntityDao dao = new CityEntityDaoImpl();
+        List c =  dao.getAllCities();
         model.addAttribute("listCities", c);
         return "cities";
-    }
+    }*/
 
     //For add and update person both
     /*@RequestMapping(value= "/city/add", method = RequestMethod.POST)
