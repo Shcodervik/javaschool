@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface CityEntityMapper {
     CityEntityMapper INSTANCE = Mappers.getMapper(CityEntityMapper.class);
     CityEntitySO cityEntityToDto(CityEntity cityEntity);
+    CityEntity cityDtoToEntity(CityEntitySO cityEntitySO);
 }

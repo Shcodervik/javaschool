@@ -9,6 +9,7 @@ public class TruckEntity {
     private String serial;
     private Double capacity;
     private TruckstateEntity truckStateIdTruckState;
+    private int driversNumber;
 
     @Id
     @Column(name = "idTruck", nullable = false)
@@ -70,5 +71,15 @@ public class TruckEntity {
 
     public void setTruckStateIdTruckState(TruckstateEntity truckStateIdTruckState) {
         this.truckStateIdTruckState = truckStateIdTruckState;
+    }
+
+    @Basic
+    @Column(name = "DriversNumber", nullable = false)
+    public int getDriversNumber() {
+        return driversNumber;
+    }
+
+    public void setDriversNumber(int driversNumber) {
+        this.driversNumber = driversNumber;
     }
 }

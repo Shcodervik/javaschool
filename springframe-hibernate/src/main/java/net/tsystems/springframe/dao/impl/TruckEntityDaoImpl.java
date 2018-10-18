@@ -55,4 +55,12 @@ public class TruckEntityDaoImpl extends AbstractDaoImpl<Integer, TruckEntity> im
         List<TruckEntity> trucksByState = (List<TruckEntity>)criteria.list();
         return trucksByState;
     }
+
+    @Override
+    public List<TruckEntity> getTrucksByDriversNumber(int driversNumber) {
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("DriversNumber", driversNumber));
+        List<TruckEntity> trucksByDriversNumber = (List<TruckEntity>)criteria.list();
+        return trucksByDriversNumber;
+    }
 }

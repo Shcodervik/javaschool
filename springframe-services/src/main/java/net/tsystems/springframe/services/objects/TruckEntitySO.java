@@ -10,6 +10,7 @@ public class TruckEntitySO {
     private String serial;
     private Double capacity;
     private TruckstateEntitySO truckStateIdTruckState;
+    private int driversNumber;
 
     public int getIdTruck() {
         return idTruck;
@@ -43,6 +44,14 @@ public class TruckEntitySO {
         this.truckStateIdTruckState = truckStateIdTruckState;
     }
 
+    public int getDriversNumber() {
+        return driversNumber;
+    }
+
+    public void setDriversNumber(int driversNumber) {
+        this.driversNumber = driversNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,11 +60,12 @@ public class TruckEntitySO {
         return idTruck == that.idTruck &&
                 Objects.equals(serial, that.serial) &&
                 Objects.equals(capacity, that.capacity) &&
-                Objects.equals(truckStateIdTruckState, that.truckStateIdTruckState);
+                Objects.equals(truckStateIdTruckState, that.truckStateIdTruckState)&&
+                driversNumber == that.driversNumber;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idTruck, serial, capacity, truckStateIdTruckState);
+        return Objects.hash(idTruck, serial, capacity, truckStateIdTruckState, driversNumber);
     }
 }

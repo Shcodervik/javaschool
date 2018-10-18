@@ -76,7 +76,7 @@ public class UserEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver", nullable = false)
+    @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver", nullable = true)
     public DriverEntity getDriverIdDriver() {
         return driverIdDriver;
     }

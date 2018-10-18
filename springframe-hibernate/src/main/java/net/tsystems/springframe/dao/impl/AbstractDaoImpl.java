@@ -57,8 +57,7 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
     }
 
 
-    public Criteria getCriteria()
-    {
+    public Criteria getCriteria() {
         return getSession().createCriteria(persistentClass);
     }
 

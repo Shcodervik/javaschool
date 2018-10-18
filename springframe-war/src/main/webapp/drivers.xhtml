@@ -6,18 +6,17 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 <f:view>
-
     <h:panelGrid id = "panel" columns = "2" border = "1"
-                  cellpadding = "10" cellspacing = "1">
+                 cellpadding = "10" cellspacing = "1">
 
         <f:facet name = "header">
-            <h:outputText value = "Cities"/>
+            <h:outputText value = "Drivers"/>
         </f:facet>
-            <h:dataTable value="#{citiesBean.getCities()}" var="city">
-                <h:column><h:outputLabel value = "#{city.idCity}"/></h:column>
-                <h:column><h:outputLabel value="#{city.name}"/></h:column>
-            </h:dataTable>
+        <h:dataTable value="#{driversBean.getDrivers()}" var="driver">
+            <h:column><h:outputLabel value = "#{driver.idDriver}"/></h:column>
+            <h:column><h:outputLabel value="#{driver.name}"/></h:column>
+            <h:column><h:outputLabel value="#{driver.surname}"/></h:column>
+        </h:dataTable>
     </h:panelGrid>
-
 </f:view>
 </html>

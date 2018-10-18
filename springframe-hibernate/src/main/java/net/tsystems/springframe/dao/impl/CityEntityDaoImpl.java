@@ -21,7 +21,6 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     }
 
     @Override
-    @Transactional
     public CityEntity getCityById(int idCity) {
         Criteria crit = getCriteria();
         crit.add(Restrictions.eq("idCity", idCity));
@@ -31,7 +30,6 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     }
 
     @Override
-    @Transactional
     public List<CityEntity> getAllCities() {
         Criteria criteria = getCriteria();
         List<CityEntity> cities = (List<CityEntity>)criteria.list();
@@ -40,13 +38,13 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     }
 
     @Override
-    @Transactional
     public void deleteAllCities() {
         List<CityEntity> entityList = getAllCities();
         for (CityEntity entity : entityList) {
             delete(entity);
         }
     }
+
 
     @Override
     public Session getEntityManager() {
