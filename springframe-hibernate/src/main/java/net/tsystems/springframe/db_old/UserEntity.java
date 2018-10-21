@@ -1,4 +1,4 @@
-package net.tsystems.springframe.database;
+package net.tsystems.springframe.db_old;
 
 import javax.persistence.*;
 
@@ -76,7 +76,7 @@ public class UserEntity {
     }
 
     @OneToOne
-    @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver")
+    @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver", nullable = true)
     public DriverEntity getDriverIdDriver() {
         return driverIdDriver;
     }

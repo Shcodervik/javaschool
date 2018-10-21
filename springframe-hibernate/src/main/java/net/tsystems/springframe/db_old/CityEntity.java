@@ -1,4 +1,4 @@
-package net.tsystems.springframe.database;
+package net.tsystems.springframe.db_old;
 
 import javax.persistence.*;
 
@@ -10,7 +10,7 @@ public class CityEntity {
 
     @Id
     @Column(name = "idCity", unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.TABLE)
     public int getIdCity() {
         return idCity;
     }

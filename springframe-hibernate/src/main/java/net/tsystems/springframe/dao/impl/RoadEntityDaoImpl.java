@@ -33,7 +33,7 @@ public class RoadEntityDaoImpl extends AbstractDaoImpl<Integer, RoadEntity> impl
         return roads;
     }
 
-    @Override
+  /*  @Override
     public List<RoadEntity> getAllRoadsByOriginCity(String originCity) {
         Criteria crit = getCriteria();
         crit.add(Restrictions.eq("OriginCity", originCity));
@@ -49,5 +49,5 @@ public class RoadEntityDaoImpl extends AbstractDaoImpl<Integer, RoadEntity> impl
         List<RoadEntity> roadsByDestinationCity = (List<RoadEntity>)crit.list();
 
         return roadsByDestinationCity;
-    }
+    }*/
 }

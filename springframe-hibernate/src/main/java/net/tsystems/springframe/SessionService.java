@@ -1,16 +1,19 @@
 package net.tsystems.springframe;
 
 import org.hibernate.HibernateException;
-import org.hibernate.Metamodel;
-import org.hibernate.query.Query;
+//import org.hibernate.Metamodel;
+//import org.hibernate.query.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
 
 public class SessionService {
     private static final SessionFactory ourSessionFactory;
+
 
     static {
         try {
@@ -23,8 +26,18 @@ public class SessionService {
         }
     }
 
+
     public static Session getSession() throws HibernateException {
             return ourSessionFactory.openSession();
+    }
+
+    @Bean
+    @Autowired
+    public HibernateTransactionManager createTransactionManager(SessionFactory sessionFactory) {
+        HibernateTransactionManager transactionManager = new HibernateTransactionManager();
+        transactionManager.setSessionFactory(sessionFactory);
+
+        return transactionManager;
     }
 
     /*public static void main(final String[] args) throws Exception {

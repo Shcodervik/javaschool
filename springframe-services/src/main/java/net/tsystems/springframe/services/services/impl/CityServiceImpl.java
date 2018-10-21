@@ -1,6 +1,5 @@
 package net.tsystems.springframe.services.services.impl;
 
-import net.tsystems.springframe.dao.CityEntityDao;
 import net.tsystems.springframe.dao.impl.CityEntityDaoImpl;
 import net.tsystems.springframe.database.CityEntity;
 import net.tsystems.springframe.services.mappers.CityEntityMapper;
@@ -16,7 +15,13 @@ import java.util.List;
 public class CityServiceImpl implements CityService {
 
     @Autowired
-    private CityEntityDaoImpl dao = new CityEntityDaoImpl();
+    private CityEntityDaoImpl dao;
+
+    public CityServiceImpl(){
+      dao  = new CityEntityDaoImpl();
+    }
+
+
 
 
 
@@ -28,63 +33,59 @@ public class CityServiceImpl implements CityService {
     @Override
     @Transactional
     public boolean addCity(CityEntitySO city) {
-        if (city == null)
-        {
+        if (city == null) {
             return false;
         }
-
-        try
-        {
-
-           // ShaPasswordEncoder encoder = new ShaPasswordEncoder(512);
-           // user.setPassword(encoder.encodePassword(user.getPassword(), null));
-            CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-            dao.create(cityEntity);
-            return true;
-        }
-        catch (Exception e)
-        {
-           // LOG.error("Failed to add user");
-            e.printStackTrace();
-        }
-
-        return false;
+        CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
+        dao.create(cityEntity);
+        return true;
     }
 
     @Override
     @Transactional
     public boolean updateCity(CityEntitySO city) {
-        return false;
+        if (city == null) {
+            return false;
+        }
+        CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
+        dao.update(cityEntity);
+        return true;
     }
 
     @Override
     @Transactional
     public boolean deleteCity(CityEntitySO city) {
-        return false;
+        if (city == null) {
+            return false;
+        }
+
+        CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
+        dao.delete(cityEntity);
+        return true;
     }
 
     @Override
     @Transactional
     public CityEntitySO getCityById(int id) {
-        return null;
+        CityEntitySO result = null;
+        CityEntity cityEntity = (CityEntity) dao.getById(id);
+        if (cityEntity != null) {
+            result = CityEntityMapper.INSTANCE.cityEntityToDto(cityEntity);
+        }
+        return result;
+
     }
 
     @Override
     @Transactional
     public List<CityEntitySO> getAllCities() {
-        //
         final List<CityEntitySO> result = new ArrayList<CityEntitySO>();
-
         List<CityEntity> citiesEntity = dao.getAllCities();
-
-        if (CollectionUtils.isEmpty(citiesEntity))
-        {
+        if (CollectionUtils.isEmpty(citiesEntity)) {
             //LOG.error("NULL reference on users");
             return result;
         }
-
-        for (CityEntity data : citiesEntity)
-        {
+        for (CityEntity data : citiesEntity) {
             CityEntitySO city = CityEntityMapper.INSTANCE.cityEntityToDto(data);
             result.add(city);
         }

@@ -1,4 +1,4 @@
-package net.tsystems.springframe.database;
+package net.tsystems.springframe.db_old;
 
 import javax.persistence.*;
 
@@ -8,8 +8,8 @@ public class TruckEntity {
     private int idTruck;
     private String serial;
     private Double capacity;
-    private int driversNumber;
     private TruckstateEntity truckStateIdTruckState;
+    private int driversNumber;
 
     @Id
     @Column(name = "idTruck", nullable = false)
@@ -41,16 +41,6 @@ public class TruckEntity {
         this.capacity = capacity;
     }
 
-    @Basic
-    @Column(name = "DriversNumber", nullable = false)
-    public int getDriversNumber() {
-        return driversNumber;
-    }
-
-    public void setDriversNumber(int driversNumber) {
-        this.driversNumber = driversNumber;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -59,7 +49,6 @@ public class TruckEntity {
         TruckEntity that = (TruckEntity) o;
 
         if (idTruck != that.idTruck) return false;
-        if (driversNumber != that.driversNumber) return false;
         if (serial != null ? !serial.equals(that.serial) : that.serial != null) return false;
         if (capacity != null ? !capacity.equals(that.capacity) : that.capacity != null) return false;
 
@@ -71,7 +60,6 @@ public class TruckEntity {
         int result = idTruck;
         result = 31 * result + (serial != null ? serial.hashCode() : 0);
         result = 31 * result + (capacity != null ? capacity.hashCode() : 0);
-        result = 31 * result + driversNumber;
         return result;
     }
 
@@ -83,5 +71,15 @@ public class TruckEntity {
 
     public void setTruckStateIdTruckState(TruckstateEntity truckStateIdTruckState) {
         this.truckStateIdTruckState = truckStateIdTruckState;
+    }
+
+    @Basic
+    @Column(name = "DriversNumber", nullable = false)
+    public int getDriversNumber() {
+        return driversNumber;
+    }
+
+    public void setDriversNumber(int driversNumber) {
+        this.driversNumber = driversNumber;
     }
 }
