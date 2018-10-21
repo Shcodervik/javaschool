@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
+    <f:facet name="header">
+        <h:outputText value="Edit Driver"/>
+    </f:facet>
+    <h:form>
+        <h:dataTable value="#{driversBean.getDriver()}" var="driver">
+            <h:column>
+                <h:outputLabel value="Name: "/>
+                <h:inputText maxlength="150" id="inputDriverName"
+                             binding="#{driversBean.newName}" value="#{driver.name}">
+                </h:inputText>
+            </h:column>
+            <h:column>
+                <h:outputLabel value="Surname: "/>
+                <h:inputText maxlength="150" id="inputDriverSurname"
+                             binding="#{driversBean.newSurname}" value="#{driver.surname}">
+                </h:inputText>
+            </h:column><h:column>
+                <h:outputLabel value="UIN: "/>
+                <h:inputText maxlength="150" id="inputDriverUIN"
+                             binding="#{driversBean.newValueUIN}" value="#{driver.UIN}">
+                </h:inputText>
+            </h:column>
+            <h:column>
+
+                <p:commandButton action="#{driversBean.update(driversBean.newValueUIN.value,
+                    driversBean.newName.value, driversBean.newSurname.value)}"
+                                 value="Update">
+                    <!--<f:setPropertyActionListener value="#{city.name}"
+                                                 target="#{citiesBean.newName}" />-->
+                </p:commandButton>
+                <p:commandButton action="drivers.xhtml" value="Cancel"/>
+
+            </h:column>
+        </h:dataTable>
+    </h:form>
+</f:view>
+</html>

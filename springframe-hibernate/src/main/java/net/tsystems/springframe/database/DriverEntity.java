@@ -8,6 +8,7 @@ public class DriverEntity {
     private int idDriver;
     private String name;
     private String surname;
+    private String UIN;
 
     @Id
     @Column(name = "idDriver", nullable = false)
@@ -29,6 +30,7 @@ public class DriverEntity {
         this.name = name;
     }
 
+
     @Basic
     @Column(name = "Surname", nullable = true, length = 45)
     public String getSurname() {
@@ -37,6 +39,16 @@ public class DriverEntity {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    @Basic
+    @Column(name = "UIN", nullable = true, length = 45)
+    public String getUIN() {
+        return UIN;
+    }
+
+    public void setUIN(String UIN) {
+        this.UIN = UIN;
     }
 
     @Override
@@ -49,6 +61,7 @@ public class DriverEntity {
         if (idDriver != that.idDriver) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        if (UIN != null ? !UIN.equals(that.UIN) : that.UIN != null) return false;
 
         return true;
     }
@@ -58,6 +71,7 @@ public class DriverEntity {
         int result = idDriver;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (UIN != null ? UIN.hashCode() : 0);
         return result;
     }
 }

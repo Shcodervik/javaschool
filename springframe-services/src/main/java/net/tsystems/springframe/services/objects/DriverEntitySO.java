@@ -9,6 +9,7 @@ public class DriverEntitySO {
     private int idDriver;
     private String name;
     private String surname;
+    private String UIN;
 
     public int getIdDriver() {
         return idDriver;
@@ -34,6 +35,14 @@ public class DriverEntitySO {
         this.surname = surname;
     }
 
+    public String getUIN() {
+        return UIN;
+    }
+
+    public void setUIN(String UIN) {
+        this.UIN = UIN;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -41,12 +50,13 @@ public class DriverEntitySO {
         DriverEntitySO that = (DriverEntitySO) o;
         return idDriver == that.idDriver &&
                 Objects.equals(name, that.name) &&
-                Objects.equals(surname, that.surname);
+                Objects.equals(surname, that.surname) &&
+                Objects.equals(UIN, that.UIN);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idDriver, name, surname);
+        return Objects.hash(idDriver, name, surname, UIN);
     }
 
 

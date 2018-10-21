@@ -35,6 +35,15 @@ public class DriverEntityDaoImpl extends AbstractDaoImpl<Integer, DriverEntity> 
     }
 
     @Override
+    public DriverEntity getDriverByUIN(String UIN) {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("UIN", UIN));
+        DriverEntity driver = (DriverEntity)crit.uniqueResult();
+
+        return driver;
+    }
+
+    @Override
     @Transactional
     public List<DriverEntity> getDriversByName(String name) {
         Criteria criteria = getCriteria();
