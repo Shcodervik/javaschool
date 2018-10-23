@@ -14,7 +14,9 @@ import javax.faces.component.html.HtmlInputText;
 import javax.persistence.Converter;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ViewScoped
 @ManagedBean(name = "driversBean")
@@ -63,13 +65,13 @@ public class DriversBean implements Serializable {
         this.driver = driver;
     }
 
-    public List<DriverEntitySO> getDriver() {
+    public Set<DriverEntitySO> getDriver() {
         if (driver == null) {
             int editId = editDriverId;
             this.driver = driverService.getDriverById(editId);
             this.newName.setValue(this.driver.getName());
         }
-        ArrayList<DriverEntitySO> result = new ArrayList<>();
+        HashSet<DriverEntitySO> result = new HashSet<>();
         result.add(driver);
         return result;
     }

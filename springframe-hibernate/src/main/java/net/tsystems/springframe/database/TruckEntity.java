@@ -75,7 +75,7 @@ public class TruckEntity {
         return result;
     }
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "TruckState_idTruckState", referencedColumnName = "idTruckState", nullable = false)
     public TruckstateEntity getTruckStateIdTruckState() {
         return truckStateIdTruckState;

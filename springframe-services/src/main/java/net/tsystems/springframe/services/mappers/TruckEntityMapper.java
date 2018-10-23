@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface TruckEntityMapper {
     TruckEntityMapper INSTANCE = Mappers.getMapper(TruckEntityMapper.class);
     TruckEntitySO truckEntityToDto(TruckEntity truckEntity);
+    TruckEntity truckDtoToEntity(TruckEntitySO truckEntitySO);
 }
