@@ -6,19 +6,22 @@ import net.tsystems.springframe.services.mappers.DriverEntityMapper;
 import net.tsystems.springframe.services.objects.DriverEntitySO;
 import net.tsystems.springframe.services.services.DriverService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("driverService")
 public class DriverServiceImpl implements DriverService {
 
-    @Autowired
+
     private DriverEntityDaoImpl dao;
 
-    public DriverServiceImpl(){
-        dao  = new DriverEntityDaoImpl();
+    @Autowired
+    public void setDao(DriverEntityDaoImpl dao) {
+        this.dao = dao;
     }
 
     @Override

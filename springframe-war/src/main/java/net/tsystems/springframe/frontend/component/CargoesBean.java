@@ -6,6 +6,7 @@ import net.tsystems.springframe.services.services.CargoService;
 import net.tsystems.springframe.services.services.CargostateService;
 import net.tsystems.springframe.services.services.impl.CargoServiceImpl;
 import net.tsystems.springframe.services.services.impl.CargostateServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.faces.bean.ManagedBean;
@@ -21,8 +22,8 @@ import java.util.Set;
 @ManagedBean(name = "cargoesBean")
 @Component(value = "cargoesBean")
 public class CargoesBean implements Serializable {
-    private CargoService cargoService = new CargoServiceImpl();
-    private CargostateService cargoStateService = new CargostateServiceImpl();
+    private CargoService cargoService;
+    private CargostateService cargoStateService;
 
     CargoEntitySO cargo;
     CargostateEntitySO cargoState;
@@ -33,7 +34,8 @@ public class CargoesBean implements Serializable {
     private String cargoStateName;
 
     private static int editCargoId;
-    public void setEditCargoId(int cargoId){
+
+    public void setEditCargoId(int cargoId) {
         editCargoId = cargoId;
     }
 
@@ -78,7 +80,7 @@ public class CargoesBean implements Serializable {
         return cargoService.getAllCargoes();
     }
 
-    public List getCargoStates(){
+    public List getCargoStates() {
         return cargoStateService.getAllCargoStates();
     }
 
@@ -86,33 +88,29 @@ public class CargoesBean implements Serializable {
         Set<String> result = new HashSet<>();
         Set<CargostateEntitySO> states = new HashSet<>();
         states.addAll(getCargoStates());
-        for(CargostateEntitySO state : states){
+        for (CargostateEntitySO state : states) {
             result.add(state.getCargoState());
         }
         return result;
 
     }
 
-    public String newCargo()
-    {
+    public String newCargo() {
         return "addCargo.xhtml?faces-redirect=true";
     }
 
-    public String editCargo()
-    {
+    public String editCargo() {
         return "editCargo?faces-redirect=true";
     }
 
-    public String delete()
-    {
+    public String delete() {
         int editId = editCargoId;
         CargoEntitySO cargo = cargoService.getCargoById(editId);
         cargoService.deleteCargo(cargo);
         return "cargoes?faces-redirect=true";
     }
 
-    public String update(String newDescription, String newWeight, String cargoState)
-    {
+    public String update(String newDescription, String newWeight, String cargoState) {
         this.cargoState = cargoStateService.getCargoStateByState(cargoState);
         this.cargo.setDescription(newDescription);
         this.cargo.setWeight(Double.valueOf(newWeight));
@@ -121,8 +119,7 @@ public class CargoesBean implements Serializable {
         return "cargoes?faces-redirect=true";
     }
 
-    public String create(String newDescription, String newWeight, String cargoState)
-    {
+    public String create(String newDescription, String newWeight, String cargoState) {
         CargoEntitySO cargo = new CargoEntitySO();
         this.cargoState = cargoStateService.getCargoStateByState(cargoState);
         cargo.setDescription(newDescription);
@@ -130,5 +127,14 @@ public class CargoesBean implements Serializable {
         cargo.setCargoStateIdCargoState(this.cargoState);
         cargoService.addCargo(cargo);
         return "cargoes?faces-redirect=true";
+    }
+
+    @Autowired
+    public void setCargoService(CargoService cargoService) {
+        this.cargoService = cargoService;
+    }
+    @Autowired
+    public void setCargoStateService(CargostateService cargoStateService) {
+        this.cargoStateService = cargoStateService;
     }
 }

@@ -6,11 +6,14 @@ import net.tsystems.springframe.services.mappers.CargostateEntityMapper;
 import net.tsystems.springframe.services.objects.CargostateEntitySO;
 import net.tsystems.springframe.services.services.CargostateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Component
 public class CargostateServiceImpl implements CargostateService {
     @Autowired
     private CargostateEntityDaoImpl dao;

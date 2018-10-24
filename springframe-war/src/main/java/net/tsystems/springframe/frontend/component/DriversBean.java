@@ -5,6 +5,8 @@ import net.tsystems.springframe.dao.impl.DriverEntityDaoImpl;
 import net.tsystems.springframe.services.objects.DriverEntitySO;
 import net.tsystems.springframe.services.services.DriverService;
 import net.tsystems.springframe.services.services.impl.DriverServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.context.SessionScoped;
@@ -18,12 +20,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "driversBean")
 @Component(value = "driversBean")
 public class DriversBean implements Serializable {
 
-    private DriverService driverService = new DriverServiceImpl();
+    @Autowired
+    @Qualifier("driverService")
+    DriverService driverService;
 
     DriverEntitySO driver;
 
@@ -75,7 +79,7 @@ public class DriversBean implements Serializable {
         result.add(driver);
         return result;
     }
-    public List getDrivers() {
+    public List<DriverEntitySO> getDrivers() {
         return driverService.getAllDrivers();
     }
 
@@ -119,4 +123,8 @@ public class DriversBean implements Serializable {
         return "drivers?faces-redirect=true";
     }
 
+
+    public void setDriverService(DriverService driverService) {
+        this.driverService = driverService;
+    }
 }
