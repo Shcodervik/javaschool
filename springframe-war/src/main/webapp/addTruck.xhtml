@@ -11,29 +11,30 @@
     <h:outputLink value="trucks.xhtml">Show All Trucks >></h:outputLink>
     <h1>Add Truck</h1>
     <h:form id="addTruckForm">
-        <h:outputLabel value="Serial: "/>
+        <p:outputLabel value="Serial: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputTruckSerial" binding="#{trucksBean.newSerial}"/>
+        <p:inputText maxlength="150" id="inputTruckSerial" binding="#{trucksBean.newSerial}"/>
         <br/>
-        <h:outputLabel value="Capacity: "/>
+        <p:outputLabel value="Capacity: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputTruckCapacity" binding="#{trucksBean.newCapacity}"/>
+        <p:inputText maxlength="150" id="inputTruckCapacity" binding="#{trucksBean.newCapacity}"/>
         <br/>
-        <h:outputLabel value="State: "/>
+        <p:outputLabel value="State: "/>
         <br/>
-        <p:selectOneMenu binding="#{trucksBean.newTruckState}" required="true" style="width:200px">
+        <p:selectOneMenu id="selectMenuTruck" binding="#{trucksBean.newTruckState}" required="true" style="width:200px">
             <f:selectItems value="#{trucksBean.truckStateNames}" />
         </p:selectOneMenu>
         <br/>
 
-        <h:outputLabel value="Count of drivers: "/>
+        <p:outputLabel value="Count of drivers: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputDriversNumber" binding="#{trucksBean.newDriversNumber}"/>
+        <p:inputText maxlength="150" id="inputDriversNumber" binding="#{trucksBean.newDriversNumber}"/>
         <br/>
-        <h:commandButton action="#{trucksBean.create(trucksBean.newSerial.value,
+        <p:commandButton action="#{trucksBean.create(trucksBean.newSerial.value,
             trucksBean.newCapacity.value,trucksBean.newDriversNumber.value, trucksBean.newTruckState.value)}" type="submit"
                          value="Save">
-        </h:commandButton>
+        </p:commandButton>
+        <p:commandButton action="trucks.xhtml" value="Cancel"/>
 
 
     </h:form>

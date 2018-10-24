@@ -25,10 +25,11 @@
                         <f:selectItems value="#{cargoesBean.cargoStateNames}" />
                     </p:selectOneMenu>
                     <br/>
-                    <h:commandButton action="#{cargoesBean.create(cargoesBean.newDescription.value,
+                    <p:commandButton action="#{cargoesBean.create(cargoesBean.newDescription.value,
                     cargoesBean.newWeight.value, cargoesBean.newCargoState.value)}" type="submit"
                                      value="Save">
-                    </h:commandButton>
+                    </p:commandButton>
+                    <p:commandButton action="cargoes.xhtml" value="Cancel"/>
 
         </h:form>
     </ui:define>

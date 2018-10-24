@@ -4,29 +4,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 <ui:composition template="templates/adminTemplate.xhtml">
 <ui:define name="content">
     <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
     <h:form id="addDriverForm">
         <h:outputText value="Add Driver"/>
         <br/>
-        <h:outputLabel value="UIN: "/>
+        <p:outputLabel value="UIN: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputDriverId" binding="#{driversBean.newValueUIN}"/>
+        <p:inputText maxlength="150" id="inputDriverId" binding="#{driversBean.newValueUIN}"/>
         <br/>
-        <h:outputLabel value="Name: "/>
+        <p:outputLabel value="Name: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputDriverName" binding="#{driversBean.newName}"/>
+        <p:inputText maxlength="150" id="inputDriverName" binding="#{driversBean.newName}"
+                     required="true" requiredMessage="Please, enter name!"/>
         <br/>
-        <h:outputLabel value="Surname: "/>
+        <p:outputLabel value="Surname: "/>
         <br/>
-        <h:inputText maxlength="150" id="inputDriverSurname" binding="#{driversBean.newSurname}"/>
+        <p:inputText maxlength="150" id="inputDriverSurname" binding="#{driversBean.newSurname}"
+                     required="true" requiredMessage="Please, enter surname!"/>
         <br/>
-        <h:commandButton action="#{driversBean.create(driversBean.newValueUIN.value,
+        <p:commandButton action="#{driversBean.create(driversBean.newValueUIN.value,
             driversBean.newName.value, driversBean.newSurname.value)}" type="submit"
                          value="Save">
-        </h:commandButton>
+        </p:commandButton>
+        <p:commandButton action="drivers.xhtml" value="Cancel"/>
 
 
     </h:form>

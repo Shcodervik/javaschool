@@ -18,6 +18,10 @@ body{
 
 }
 
+input{
+    margin-bottom:10px !important;
+}
+
 /****Header****/
 
 div#page{

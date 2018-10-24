@@ -7,8 +7,11 @@ import net.tsystems.springframe.services.services.TruckService;
 import net.tsystems.springframe.services.services.TruckstateService;
 import net.tsystems.springframe.services.services.impl.TruckServiceImpl;
 import net.tsystems.springframe.services.services.impl.TruckstateServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
@@ -19,13 +22,18 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@ViewScoped
+@SessionScoped
 @ManagedBean(name = "trucksBean")
 @Component(value = "trucksBean")
 public class TrucksBean implements Serializable {
 
-    private TruckService truckService = new TruckServiceImpl();
-    private TruckstateService truckStateService = new TruckstateServiceImpl();
+    @Autowired
+    @Qualifier("truckService")
+    private TruckService truckService;
+
+    @Autowired
+    @Qualifier("truckStateService")
+    private TruckstateService truckStateService;
 
     TruckEntitySO truck;
     TruckstateEntitySO truckState;
@@ -119,11 +127,15 @@ public class TrucksBean implements Serializable {
 
     public String newTruck()
     {
+        clearItems();
         return "addTruck.xhtml?faces-redirect=true";
     }
 
     public String editTruck()
     {
+        clearItems();
+        int editId = this.editTruckId;
+        this.truck = truckService.getTruckById(editId);
         return "editTruck?faces-redirect=true";
     }
 
@@ -155,6 +167,14 @@ public class TrucksBean implements Serializable {
         truck.setTruckStateIdTruckState(this.truckState);
         truckService.addTruck(truck);
         return "trucks?faces-redirect=true";
+    }
+
+    public void clearItems(){
+        this.truck = null;
+        this.newTruckState = null;
+        this.newDriversNumber = null;
+        this.newCapacity = null;
+        this.newSerial = null;
     }
 
 

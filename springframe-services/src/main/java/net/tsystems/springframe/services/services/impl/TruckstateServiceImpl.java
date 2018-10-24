@@ -6,20 +6,27 @@ import net.tsystems.springframe.services.mappers.TruckstateEntityMapper;
 import net.tsystems.springframe.services.objects.TruckstateEntitySO;
 import net.tsystems.springframe.services.services.TruckstateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("truckStateService")
 public class TruckstateServiceImpl implements TruckstateService {
 
     @Autowired
     private TruckstateEntityDaoImpl dao;
 
-    public TruckstateServiceImpl(){
-        dao  = new TruckstateEntityDaoImpl();
+    @Autowired
+    public void setDao(TruckstateEntityDaoImpl dao) {
+        this.dao = dao;
     }
+
+    //public TruckstateServiceImpl(){
+   //     dao  = new TruckstateEntityDaoImpl();
+   // }
 
     @Override
     @Transactional

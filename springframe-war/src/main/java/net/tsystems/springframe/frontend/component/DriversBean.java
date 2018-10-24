@@ -90,8 +90,8 @@ public class DriversBean implements Serializable {
 
     public String editDriver()
     {
-        //int editId = this.editCityId;
-        //this.city = cityService.getCityById(editId);
+        int editId = this.editDriverId;
+        this.driver = driverService.getDriverById(editId);
 
         return "editDriver?faces-redirect=true";
     }
@@ -115,6 +115,7 @@ public class DriversBean implements Serializable {
 
     public String create(String newValueUIN, String newValueName, String newValueSurname)
     {
+        this.driver = null;
         DriverEntitySO driver = new DriverEntitySO();
         driver.setName(newValueName);
         driver.setSurname(newValueSurname);

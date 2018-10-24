@@ -9,27 +9,24 @@
 <ui:composition template="templates/adminTemplate.xhtml">
 <ui:define name="content">
     <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
-    <h1>Edit Truck</h1>
+    <h1>Edit Driver</h1>
     <h:form>
-        <h:dataTable value="#{driversBean.getDriver()}" var="driver">
-            <h:column>
-                <h:outputLabel value="Name: "/>
+        <p:dataTable value="#{driversBean.getDriver()}" var="driver">
+            <p:column>
+                <p:outputLabel value="Name: "/>
                 <br/>
-                <h:inputText maxlength="150" id="inputDriverName"
-                             binding="#{driversBean.newName}" value="#{driver.name}">
-                </h:inputText>
+                <p:inputText maxlength="150" id="inputDriverName"
+                             binding="#{driversBean.newName}" value="#{driver.name}"/>
                 <br/>
-                <h:outputLabel value="Surname: "/>
+                <p:outputLabel value="Surname: "/>
                 <br/>
-                <h:inputText maxlength="150" id="inputDriverSurname"
-                             binding="#{driversBean.newSurname}" value="#{driver.surname}">
-                </h:inputText>
+                <p:inputText maxlength="150" id="inputDriverSurname"
+                             binding="#{driversBean.newSurname}" value="#{driver.surname}"/>
                 <br/>
-                <h:outputLabel value="UIN: "/>
+                <p:outputLabel value="UIN: "/>
                 <br/>
-                <h:inputText maxlength="150" id="inputDriverUIN"
-                             binding="#{driversBean.newValueUIN}" value="#{driver.UIN}">
-                </h:inputText>
+                <p:inputText maxlength="150" id="inputDriverUIN"
+                             binding="#{driversBean.newValueUIN}" value="#{driver.UIN}"/>
                 <br/>
                 <p:commandButton action="#{driversBean.update(driversBean.newValueUIN.value,
                     driversBean.newName.value, driversBean.newSurname.value)}"
@@ -39,8 +36,8 @@
                 </p:commandButton>
                 <p:commandButton action="drivers.xhtml" value="Cancel"/>
 
-            </h:column>
-        </h:dataTable>
+            </p:column>
+        </p:dataTable>
     </h:form>
 </ui:define>
 </ui:composition>
