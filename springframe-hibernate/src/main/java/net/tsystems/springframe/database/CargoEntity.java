@@ -63,7 +63,7 @@ public class CargoEntity {
         return result;
     }
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "CargoState_idCargoState", referencedColumnName = "idCargoState", nullable = false)
     public CargostateEntity getCargoStateIdCargoState() {
         return cargoStateIdCargoState;

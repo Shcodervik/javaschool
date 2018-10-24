@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="templates/adminTemplate.xhtml">
+    <ui:define name="content">
+        <h1>Cargoes</h1>
+        <h:dataTable value="#{cargoesBean.getCargoes()}" var="cargo" styleClass="data-table">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="ID" />
+                </f:facet>
+                <h:outputLabel value = "#{cargo.idCargo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Description" />
+                </f:facet>
+                <h:outputLabel value="#{cargo.description}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Weight, kg" />
+                </f:facet>
+                <h:outputLabel value="#{cargo.weight}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="State" />
+                </f:facet>
+                <h:outputLabel value="#{cargo.cargoStateIdCargoState.cargoState}"/>
+            </h:column>
+            <h:column>
+                <h:form>
+                    <p:commandButton action="#{cargoesBean.editCargo}" value="Edit">
+                        <f:setPropertyActionListener value="#{cargo.idCargo}"
+                                                     target="#{cargoesBean.editCargoId}" />
+                    </p:commandButton>
+                    <p:commandButton action="#{cargoesBean.delete}" value="Delete">
+                        <f:setPropertyActionListener value="#{cargo.idCargo}"
+                                                     target="#{cargoesBean.editCargoId}" />
+                    </p:commandButton>
+
+
+                </h:form>
+            </h:column>
+        </h:dataTable>
+
+        <h:form>
+            <p:commandButton action="#{cargoesBean.newCargo()}" value="Add New Cargo"></p:commandButton>
+        </h:form>
+
+    </ui:define>
+</ui:composition>
+</html>

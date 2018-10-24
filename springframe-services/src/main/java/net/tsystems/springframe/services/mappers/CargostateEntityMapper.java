@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface CargostateEntityMapper {
     CargostateEntityMapper INSTANCE = Mappers.getMapper(CargostateEntityMapper.class);
     CargostateEntitySO cargostateEntityToDto(CargostateEntity cargostateEntity);
+    CargostateEntity cargostateDtoToEntity(CargostateEntitySO cargostateEntitySO);
 }

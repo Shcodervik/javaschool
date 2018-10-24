@@ -21,6 +21,15 @@ public class CargostateEntityDaoImpl extends AbstractDaoImpl<Integer, Cargostate
     }
 
     @Override
+    public CargostateEntity getCargoStateByState(String state) {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("cargoState", state));
+        CargostateEntity cargoState = (CargostateEntity)crit.uniqueResult();
+
+        return cargoState;
+    }
+
+    @Override
     public List<CargostateEntity> getAllCargoStates() {
         Criteria criteria = getCriteria();
         List<CargostateEntity> cargoStates = (List<CargostateEntity>)criteria.list();
