@@ -26,6 +26,14 @@ public class TruckstateEntityDaoImpl extends AbstractDaoImpl<Integer, Truckstate
     }
 
     @Override
+    public TruckstateEntity getTruckStateByState(String truckState) {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("truckState", truckState));
+        TruckstateEntity truckStateResult = (TruckstateEntity)crit.uniqueResult();
+        return truckStateResult;
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<TruckstateEntity> getAllTruckStates() {
         Criteria criteria = getCriteria();

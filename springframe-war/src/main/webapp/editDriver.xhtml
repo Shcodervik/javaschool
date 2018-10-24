@@ -6,32 +6,31 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<f:view>
+<ui:composition template="templates/adminTemplate.xhtml">
+<ui:define name="content">
     <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
-    <f:facet name="header">
-        <h:outputText value="Edit Driver"/>
-    </f:facet>
+    <h1>Edit Truck</h1>
     <h:form>
         <h:dataTable value="#{driversBean.getDriver()}" var="driver">
             <h:column>
                 <h:outputLabel value="Name: "/>
+                <br/>
                 <h:inputText maxlength="150" id="inputDriverName"
                              binding="#{driversBean.newName}" value="#{driver.name}">
                 </h:inputText>
-            </h:column>
-            <h:column>
+                <br/>
                 <h:outputLabel value="Surname: "/>
+                <br/>
                 <h:inputText maxlength="150" id="inputDriverSurname"
                              binding="#{driversBean.newSurname}" value="#{driver.surname}">
                 </h:inputText>
-            </h:column><h:column>
+                <br/>
                 <h:outputLabel value="UIN: "/>
+                <br/>
                 <h:inputText maxlength="150" id="inputDriverUIN"
                              binding="#{driversBean.newValueUIN}" value="#{driver.UIN}">
                 </h:inputText>
-            </h:column>
-            <h:column>
-
+                <br/>
                 <p:commandButton action="#{driversBean.update(driversBean.newValueUIN.value,
                     driversBean.newName.value, driversBean.newSurname.value)}"
                                  value="Update">
@@ -43,5 +42,6 @@
             </h:column>
         </h:dataTable>
     </h:form>
-</f:view>
+</ui:define>
+</ui:composition>
 </html>

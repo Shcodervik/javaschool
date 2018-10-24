@@ -13,6 +13,7 @@ public class TruckEntity {
 
     @Id
     @Column(name = "idTruck", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdTruck() {
         return idTruck;
     }
@@ -75,7 +76,7 @@ public class TruckEntity {
         return result;
     }
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "TruckState_idTruckState", referencedColumnName = "idTruckState", nullable = false)
     public TruckstateEntity getTruckStateIdTruckState() {
         return truckStateIdTruckState;

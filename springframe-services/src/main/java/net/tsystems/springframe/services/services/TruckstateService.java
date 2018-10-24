@@ -12,6 +12,7 @@ public interface TruckstateService {
     boolean deleteTruckState(TruckstateEntitySO truckState);
 
     TruckstateEntitySO getTruckStateById(int id);
+    TruckstateEntitySO getTruckStateByState(String state);
 
     List<TruckstateEntitySO> getAllTruckStates();
 }

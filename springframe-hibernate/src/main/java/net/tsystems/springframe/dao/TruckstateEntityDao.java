@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface TruckstateEntityDao {
     TruckstateEntity getTruckStateById(int idTruckState);
+    TruckstateEntity getTruckStateByState(String truckState);
     List<TruckstateEntity> getAllTruckStates();
 }

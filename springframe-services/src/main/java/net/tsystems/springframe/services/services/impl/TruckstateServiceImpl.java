@@ -67,6 +67,16 @@ public class TruckstateServiceImpl implements TruckstateService {
     }
 
     @Override
+    public TruckstateEntitySO getTruckStateByState(String state) {
+        TruckstateEntitySO result = null;
+        TruckstateEntity truckstateEntity = (TruckstateEntity) dao.getTruckStateByState(state);
+        if (truckstateEntity != null) {
+            result = TruckstateEntityMapper.INSTANCE.truckstateEntityToDto(truckstateEntity);
+        }
+        return result;
+    }
+
+    @Override
     @Transactional
     public List<TruckstateEntitySO> getAllTruckStates() {
         final List<TruckstateEntitySO> result = new ArrayList<TruckstateEntitySO>();

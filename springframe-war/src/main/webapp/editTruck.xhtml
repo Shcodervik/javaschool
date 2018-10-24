@@ -4,8 +4,41 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-<f:view>
-    <h:outputLabel value="Hello, world"/>
-</f:view>
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="templates/adminTemplate.xhtml">
+<ui:define name="content">
+    <h:outputLink value="trucks.xhtml">Show All Trucks >></h:outputLink>
+    <h1>Edit Truck</h1>
+    <h:form id="editTruckForm">
+        <h:dataTable value="#{trucksBean.getTruck()}" var="truck">
+            <h:column>
+                <h:outputLabel value="Serial: "/>
+                <br/>
+                <h:inputText maxlength="150" id="inputTruckSerial" binding="#{trucksBean.newSerial}" value="#{truck.serial}"/>
+                <br/>
+                <h:outputLabel value="Capacity: "/>
+                <br/>
+                <h:inputText maxlength="150" id="inputTruckCapacity" binding="#{trucksBean.newCapacity}" value="#{truck.capacity}"/>
+                <br/>
+                <h:outputLabel value="State: "/>
+                <br/>
+                <p:selectOneMenu binding="#{trucksBean.newTruckState}"  value="#{truck.truckStateIdTruckState.truckState}" required="true" style="width:200px">
+                    <f:selectItems value="#{trucksBean.truckStateNames}" />
+                </p:selectOneMenu>
+                <br/>
+                <h:outputLabel value="Count of drivers: "/>
+                <br/>
+                <h:inputText maxlength="150" id="inputDriversNumber" binding="#{trucksBean.newDriversNumber}" value="#{truck.driversNumber}"/>
+                <br/>
+                <h:commandButton action="#{trucksBean.update(trucksBean.newSerial.value,
+                    trucksBean.newCapacity.value,trucksBean.newDriversNumber.value, trucksBean.newTruckState.value)}" type="submit"
+                                 value="Save">
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+
+    </h:form>
+</ui:define>
+</ui:composition>
 </html>

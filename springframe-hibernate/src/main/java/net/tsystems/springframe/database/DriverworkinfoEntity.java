@@ -13,7 +13,8 @@ public class DriverworkinfoEntity {
     private DriverstateEntity driverStateIdDriverState;
 
     @Id
-    @Column(name = "idDriverWorkInfo", nullable = false)
+    @Column(name = "idDriverWorkInfo", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdDriverWorkInfo() {
         return idDriverWorkInfo;
     }

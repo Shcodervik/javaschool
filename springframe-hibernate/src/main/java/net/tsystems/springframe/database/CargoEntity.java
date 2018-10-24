@@ -11,7 +11,8 @@ public class CargoEntity {
     private CargostateEntity cargoStateIdCargoState;
 
     @Id
-    @Column(name = "idCargo", nullable = false)
+    @Column(name = "idCargo", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdCargo() {
         return idCargo;
     }

@@ -12,7 +12,8 @@ public class RoadEntity {
     private CityEntity originCity;
 
     @Id
-    @Column(name = "idRoad", nullable = false)
+    @Column(name = "idRoad", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdRoad() {
         return idRoad;
     }

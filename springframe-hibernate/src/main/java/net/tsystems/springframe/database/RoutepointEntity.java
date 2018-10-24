@@ -12,7 +12,8 @@ public class RoutepointEntity {
     private RoutepointtypeEntity routePointTypeIdRpType;
 
     @Id
-    @Column(name = "idRoutePoint", nullable = false)
+    @Column(name = "idRoutePoint", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdRoutePoint() {
         return idRoutePoint;
     }

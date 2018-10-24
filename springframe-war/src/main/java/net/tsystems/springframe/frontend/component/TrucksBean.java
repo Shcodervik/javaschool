@@ -100,6 +100,17 @@ public class TrucksBean implements Serializable {
         return truckStateService.getAllTruckStates();
     }
 
+    public Set getTruckStateNames() {
+        Set<String> result = new HashSet<>();
+        Set<TruckstateEntitySO> states = new HashSet<>();
+        states.addAll(getTruckStates());
+        for(TruckstateEntitySO state : states){
+            result.add(state.getTruckState());
+        }
+        return result;
+
+    }
+
     public String getTruckStateByTruck(){
         this.truckState = this.truck.getTruckStateIdTruckState();
         this.truckStateName = this.truckState.getTruckState();
@@ -123,9 +134,9 @@ public class TrucksBean implements Serializable {
         truckService.deleteTruck(truck);
         return "trucks?faces-redirect=true";
     }
-    public String update(String newSerial, String newCapacity, String newDriversNumber, String idTruckState)
+    public String update(String newSerial, String newCapacity, String newDriversNumber, String truckState)
     {
-        this.truckState = truckStateService.getTruckStateById(Integer.valueOf(idTruckState));
+        this.truckState = truckStateService.getTruckStateByState(truckState);
         this.truck.setSerial(newSerial);
         this.truck.setCapacity(Double.valueOf(newCapacity));
         this.truck.setDriversNumber(Integer.valueOf(newDriversNumber));
@@ -134,10 +145,10 @@ public class TrucksBean implements Serializable {
         return "trucks?faces-redirect=true";
     }
 
-    public String create(String newSerial, String newCapacity, String newDriversNumber, String idTruckState)
+    public String create(String newSerial, String newCapacity, String newDriversNumber, String truckState)
     {
         TruckEntitySO truck = new TruckEntitySO();
-        this.truckState = truckStateService.getTruckStateById(Integer.valueOf(idTruckState));
+        this.truckState = truckStateService.getTruckStateByState(truckState);
         truck.setSerial(newSerial);
         truck.setCapacity(Double.valueOf(newCapacity));
         truck.setDriversNumber(Integer.valueOf(newDriversNumber));

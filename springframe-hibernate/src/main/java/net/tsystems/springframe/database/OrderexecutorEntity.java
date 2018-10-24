@@ -11,7 +11,8 @@ public class OrderexecutorEntity {
     private TruckEntity truckIdTruck;
 
     @Id
-    @Column(name = "idOrderExecutor", nullable = false)
+    @Column(name = "idOrderExecutor", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdOrderExecutor() {
         return idOrderExecutor;
     }

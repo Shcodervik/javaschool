@@ -12,7 +12,8 @@ public class UserEntity {
     private DriverEntity driverIdDriver;
 
     @Id
-    @Column(name = "idUser", nullable = false)
+    @Column(name = "idUser", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdUser() {
         return idUser;
     }

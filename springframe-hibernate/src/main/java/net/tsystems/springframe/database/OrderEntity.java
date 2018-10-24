@@ -12,7 +12,8 @@ public class OrderEntity {
     private Timestamp closeDt;
 
     @Id
-    @Column(name = "idOrder", nullable = false)
+    @Column(name = "idOrder", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdOrder() {
         return idOrder;
     }

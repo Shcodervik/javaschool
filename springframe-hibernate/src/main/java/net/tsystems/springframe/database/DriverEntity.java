@@ -11,7 +11,8 @@ public class DriverEntity {
     private String UIN;
 
     @Id
-    @Column(name = "idDriver", nullable = false)
+    @Column(name = "idDriver", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdDriver() {
         return idDriver;
     }
