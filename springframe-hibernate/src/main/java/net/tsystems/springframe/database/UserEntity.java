@@ -1,20 +1,19 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "user", schema = "logiweb")
+@Table(name = "user")
 public class UserEntity {
     private int idUser;
     private String username;
     private String passHash;
     private Byte isEmployee;
-    private int driverIdDriver;
+    private DriverEntity driverIdDriver;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idUser")
+    @Column(name = "idUser", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdUser() {
         return idUser;
     }
@@ -24,7 +23,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "Username")
+    @Column(name = "Username", nullable = true, length = 45)
     public String getUsername() {
         return username;
     }
@@ -34,7 +33,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "PassHash")
+    @Column(name = "PassHash", nullable = true, length = 256)
     public String getPassHash() {
         return passHash;
     }
@@ -44,7 +43,7 @@ public class UserEntity {
     }
 
     @Basic
-    @Column(name = "IsEmployee")
+    @Column(name = "IsEmployee", nullable = true)
     public Byte getIsEmployee() {
         return isEmployee;
     }
@@ -53,30 +52,37 @@ public class UserEntity {
         this.isEmployee = isEmployee;
     }
 
-    @Basic
-    @Column(name = "Driver_idDriver")
-    public int getDriverIdDriver() {
-        return driverIdDriver;
-    }
-
-    public void setDriverIdDriver(int driverIdDriver) {
-        this.driverIdDriver = driverIdDriver;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         UserEntity that = (UserEntity) o;
-        return idUser == that.idUser &&
-                driverIdDriver == that.driverIdDriver &&
-                Objects.equals(username, that.username) &&
-                Objects.equals(passHash, that.passHash) &&
-                Objects.equals(isEmployee, that.isEmployee);
+
+        if (idUser != that.idUser) return false;
+        if (username != null ? !username.equals(that.username) : that.username != null) return false;
+        if (passHash != null ? !passHash.equals(that.passHash) : that.passHash != null) return false;
+        if (isEmployee != null ? !isEmployee.equals(that.isEmployee) : that.isEmployee != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idUser, username, passHash, isEmployee, driverIdDriver);
+        int result = idUser;
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (passHash != null ? passHash.hashCode() : 0);
+        result = 31 * result + (isEmployee != null ? isEmployee.hashCode() : 0);
+        return result;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver")
+    public DriverEntity getDriverIdDriver() {
+        return driverIdDriver;
+    }
+
+    public void setDriverIdDriver(DriverEntity driverIdDriver) {
+        this.driverIdDriver = driverIdDriver;
     }
 }

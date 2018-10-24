@@ -1,12 +1,15 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class CargoEntitySO {
     private int idCargo;
     private String description;
     private Double weight;
-    private int cargoStateIdCargoState;
+    private CargostateEntitySO cargoStateIdCargoState;
 
     public int getIdCargo() {
         return idCargo;
@@ -23,6 +26,7 @@ public class CargoEntitySO {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public Double getWeight() {
         return weight;
     }
@@ -30,27 +34,28 @@ public class CargoEntitySO {
     public void setWeight(Double weight) {
         this.weight = weight;
     }
-    public int getCargoStateIdCargoState() {
+
+    public CargostateEntitySO getCargoStateIdCargoState() {
         return cargoStateIdCargoState;
     }
 
-    public void setCargoStateIdCargoState(int cargoStateIdCargoState) {
-        this.cargoStateIdCargoState = cargoStateIdCargoState;
+    public void setCargoStateIdCargoState(CargostateEntitySO idCargoState) {
+        cargoStateIdCargoState = idCargoState;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CargoEntitySO that = (CargoEntitySO) o;
         return idCargo == that.idCargo &&
-                cargoStateIdCargoState == that.cargoStateIdCargoState &&
                 Objects.equals(description, that.description) &&
-                Objects.equals(weight, that.weight);
+                Objects.equals(weight, that.weight) &&
+                Objects.equals(cargoStateIdCargoState, that.cargoStateIdCargoState);
     }
 
     @Override
     public int hashCode() {
-            return Objects.hash(idCargo, description, weight, cargoStateIdCargoState);
-        }
-
+        return Objects.hash(idCargo, description, weight, cargoStateIdCargoState);
+    }
 }

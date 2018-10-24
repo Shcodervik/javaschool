@@ -1,20 +1,19 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "road", schema = "logiweb")
+@Table(name = "road")
 public class RoadEntity {
     private int idRoad;
     private Double length;
     private Integer speedLimit;
-    private String originCity;
-    private String destinationCity;
+    private CityEntity destinationCity;
+    private CityEntity originCity;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idRoad")
+    @Column(name = "idRoad", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdRoad() {
         return idRoad;
     }
@@ -24,7 +23,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "Length")
+    @Column(name = "Length", nullable = true, precision = 0)
     public Double getLength() {
         return length;
     }
@@ -34,7 +33,7 @@ public class RoadEntity {
     }
 
     @Basic
-    @Column(name = "SpeedLimit")
+    @Column(name = "SpeedLimit", nullable = true)
     public Integer getSpeedLimit() {
         return speedLimit;
     }
@@ -43,40 +42,45 @@ public class RoadEntity {
         this.speedLimit = speedLimit;
     }
 
-    @Basic
-    @Column(name = "OriginCity")
-    public String getOriginCity() {
-        return originCity;
-    }
-
-    public void setOriginCity(String originCity) {
-        this.originCity = originCity;
-    }
-
-    @Basic
-    @Column(name = "DestinationCity")
-    public String getDestinationCity() {
-        return destinationCity;
-    }
-
-    public void setDestinationCity(String destinationCity) {
-        this.destinationCity = destinationCity;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         RoadEntity that = (RoadEntity) o;
-        return idRoad == that.idRoad &&
-                Objects.equals(length, that.length) &&
-                Objects.equals(speedLimit, that.speedLimit) &&
-                Objects.equals(originCity, that.originCity) &&
-                Objects.equals(destinationCity, that.destinationCity);
+
+        if (idRoad != that.idRoad) return false;
+        if (length != null ? !length.equals(that.length) : that.length != null) return false;
+        if (speedLimit != null ? !speedLimit.equals(that.speedLimit) : that.speedLimit != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoad, length, speedLimit, originCity, destinationCity);
+        int result = idRoad;
+        result = 31 * result + (length != null ? length.hashCode() : 0);
+        result = 31 * result + (speedLimit != null ? speedLimit.hashCode() : 0);
+        return result;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "DestinationCity", referencedColumnName = "idCity", nullable = false)
+    public CityEntity getDestinationCity() {
+        return destinationCity;
+    }
+
+    public void setDestinationCity(CityEntity destinationCity) {
+        this.destinationCity = destinationCity;
+    }
+
+    @OneToOne
+    @JoinColumn(name = "OriginCity", referencedColumnName = "idCity", nullable = false)
+    public CityEntity getOriginCity() {
+        return originCity;
+    }
+
+    public void setOriginCity(CityEntity originCity) {
+        this.originCity = originCity;
     }
 }

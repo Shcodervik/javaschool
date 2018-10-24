@@ -5,6 +5,7 @@ import net.tsystems.springframe.database.TruckstateEntity;
 import java.util.List;
 
 public interface TruckstateEntityDao {
-    TruckstateEntity getTruckstateById(int idTruckState);
-    List<TruckstateEntity> getAllTruckstates();
+    TruckstateEntity getTruckStateById(int idTruckState);
+    TruckstateEntity getTruckStateByState(String truckState);
+    List<TruckstateEntity> getAllTruckStates();
 }

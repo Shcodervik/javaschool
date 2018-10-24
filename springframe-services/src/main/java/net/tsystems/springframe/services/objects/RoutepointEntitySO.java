@@ -1,14 +1,16 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class RoutepointEntitySO {
     private int idRoutePoint;
-    private int routePointTypeIdRpType;
-    private int orderIdOrder;
-    private int cityIdCity;
-    private int cargoIdCargo;
-    private int cargoCargoStateIdCargoState;
+    private RoutepointtypeEntitySO routePointTypeIdRpType;
+    private OrderEntitySO orderIdOrder;
+    private CityEntitySO cityIdCity;
+    private CargoEntitySO cargoIdCargo;
 
     public int getIdRoutePoint() {
         return idRoutePoint;
@@ -18,64 +20,52 @@ public class RoutepointEntitySO {
         this.idRoutePoint = idRoutePoint;
     }
 
-    public int getRoutePointTypeIdRpType() {
+    public RoutepointtypeEntitySO getRoutePointTypeIdRpType() {
         return routePointTypeIdRpType;
     }
 
-    public void setRoutePointTypeIdRpType(int routePointTypeIdRpType) {
+    public void setRoutePointTypeIdRpType(RoutepointtypeEntitySO routePointTypeIdRpType) {
         this.routePointTypeIdRpType = routePointTypeIdRpType;
     }
 
-    public int getOrderIdOrder() {
+    public OrderEntitySO getOrderIdOrder() {
         return orderIdOrder;
     }
 
-    public void setOrderIdOrder(int orderIdOrder) {
+    public void setOrderIdOrder(OrderEntitySO orderIdOrder) {
         this.orderIdOrder = orderIdOrder;
     }
 
-    public int getCityIdCity() {
+    public CityEntitySO getCityIdCity() {
         return cityIdCity;
     }
 
-    public void setCityIdCity(int cityIdCity) {
+    public void setCityIdCity(CityEntitySO cityIdCity) {
         this.cityIdCity = cityIdCity;
     }
 
-    public int getCargoIdCargo() {
+    public CargoEntitySO getCargoIdCargo() {
         return cargoIdCargo;
     }
 
-    public void setCargoIdCargo(int cargoIdCargo) {
+    public void setCargoIdCargo(CargoEntitySO cargoIdCargo) {
         this.cargoIdCargo = cargoIdCargo;
     }
 
-    public int getCargoCargoStateIdCargoState() {
-        return cargoCargoStateIdCargoState;
-    }
-
-    public void setCargoCargoStateIdCargoState(int cargoCargoStateIdCargoState) {
-        this.cargoCargoStateIdCargoState = cargoCargoStateIdCargoState;
-    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoutepointEntitySO that = (RoutepointEntitySO) o;
         return idRoutePoint == that.idRoutePoint &&
-                routePointTypeIdRpType == that.routePointTypeIdRpType &&
-                orderIdOrder == that.orderIdOrder &&
-                cityIdCity == that.cityIdCity &&
-                cargoIdCargo == that.cargoIdCargo &&
-                cargoCargoStateIdCargoState == that.cargoCargoStateIdCargoState;
+                Objects.equals(routePointTypeIdRpType, that.routePointTypeIdRpType) &&
+                Objects.equals(orderIdOrder, that.orderIdOrder) &&
+                Objects.equals(cityIdCity, that.cityIdCity) &&
+                Objects.equals(cargoIdCargo, that.cargoIdCargo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRoutePoint, routePointTypeIdRpType, orderIdOrder, cityIdCity, cargoIdCargo, cargoCargoStateIdCargoState);
+        return Objects.hash(idRoutePoint, routePointTypeIdRpType, orderIdOrder, cityIdCity, cargoIdCargo);
     }
-
-
-
-
 }

@@ -7,7 +7,7 @@ import java.util.List;
 public interface RoadEntityDao {
     RoadEntity getRoadById(int idRoad);
     List<RoadEntity> getAllRoads();
-    List<RoadEntity> getAllRoadsByOriginCity();
-    List<RoadEntity> getAllRoadsByDestinationCity();
+  //  List<RoadEntity> getAllRoadsByOriginCity(String originCity);
+  //  List<RoadEntity> getAllRoadsByDestinationCity(String destinationCity);
 
 }
