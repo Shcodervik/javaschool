@@ -17,12 +17,11 @@ import java.util.List;
 @Component("truckService")
 public class TruckServiceImpl implements TruckService {
 
-    @Autowired
     private TruckEntityDaoImpl dao;
-    //private TruckstateEntityDaoImpl daoState;
 
-    public TruckServiceImpl(){
-        dao  = new TruckEntityDaoImpl();
+    @Autowired
+    public void setDao(TruckEntityDaoImpl dao) {
+        this.dao = dao;
     }
 
     @Override

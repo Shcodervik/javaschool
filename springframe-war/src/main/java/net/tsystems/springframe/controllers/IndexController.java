@@ -5,7 +5,12 @@ import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 
-
+/**
+ * Controller for index-page. Here will be mappings for admin and other employees.
+ *
+ * @author shcodervik
+ *
+ */
 
 @Controller
 public class IndexController {
@@ -14,6 +19,7 @@ public class IndexController {
     public String getIndex(){
         return "main";
     }
+
 
 
 }

@@ -20,6 +20,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+
+/**
+ * Been for drivers.
+ *
+ * @author shcodervik
+ *
+ */
 @SessionScoped
 @ManagedBean(name = "driversBean")
 @Component(value = "driversBean")
@@ -85,11 +92,13 @@ public class DriversBean implements Serializable {
 
     public String newDriver()
     {
+        clearItems();
         return "addDriver.xhtml?faces-redirect=true";
     }
 
     public String editDriver()
     {
+        clearItems();
         int editId = this.editDriverId;
         this.driver = driverService.getDriverById(editId);
 
@@ -124,8 +133,15 @@ public class DriversBean implements Serializable {
         return "drivers?faces-redirect=true";
     }
 
-
+    @Autowired
     public void setDriverService(DriverService driverService) {
         this.driverService = driverService;
+    }
+
+    public void clearItems(){
+        this.driver = null;
+        this.newName = null;
+        this.newSurname = null;
+        this.newValueUIN = null;
     }
 }

@@ -22,6 +22,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Been for trucks. It joins truck and truckState for viewing.
+ *
+ * @author shcodervik
+ *
+ */
 @SessionScoped
 @ManagedBean(name = "trucksBean")
 @Component(value = "trucksBean")

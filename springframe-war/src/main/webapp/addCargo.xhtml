@@ -11,15 +11,15 @@
         <h:outputLink value="cargoes.xhtml">Show All Cargoes >></h:outputLink>
         <h1>Add Cargo</h1>
         <h:form id="addCargoForm">
-                    <h:outputLabel value="Description: "/>
+                    <p:outputLabel value="Description: "/>
                     <br/>
-                    <h:inputText maxlength="150" id="inputCargoDescription" binding="#{cargoesBean.newDescription}"/>
+                    <p:inputText maxlength="150" id="inputCargoDescription" binding="#{cargoesBean.newDescription}"/>
                     <br/>
-                    <h:outputLabel value="Weight: "/>
+                    <p:outputLabel value="Weight: "/>
                     <br/>
-                    <h:inputText maxlength="150" id="inputCargoWeight" binding="#{cargoesBean.newWeight}"/>
+                    <p:inputText maxlength="150" id="inputCargoWeight" binding="#{cargoesBean.newWeight}"/>
                     <br/>
-                    <h:outputLabel value="State: "/>
+                    <p:outputLabel value="State: "/>
                     <br/>
                     <p:selectOneMenu binding="#{cargoesBean.newCargoState}" required="true" style="width:200px">
                         <f:selectItems value="#{cargoesBean.cargoStateNames}" />

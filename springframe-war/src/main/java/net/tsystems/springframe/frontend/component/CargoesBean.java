@@ -7,8 +7,10 @@ import net.tsystems.springframe.services.services.CargostateService;
 import net.tsystems.springframe.services.services.impl.CargoServiceImpl;
 import net.tsystems.springframe.services.services.impl.CargostateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
@@ -18,11 +20,24 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-@ViewScoped
+/**
+ * Been for cargo. It joins cargo and cargoState for viewing.
+ *
+ * @author shcodervik
+ *
+ */
+
+@SessionScoped
 @ManagedBean(name = "cargoesBean")
 @Component(value = "cargoesBean")
 public class CargoesBean implements Serializable {
+
+    @Autowired
+    @Qualifier("cargoService")
     private CargoService cargoService;
+
+    @Autowired
+    @Qualifier("cargoStateService")
     private CargostateService cargoStateService;
 
     CargoEntitySO cargo;
@@ -96,10 +111,14 @@ public class CargoesBean implements Serializable {
     }
 
     public String newCargo() {
+        clearItems();
         return "addCargo.xhtml?faces-redirect=true";
     }
 
     public String editCargo() {
+        clearItems();
+        int editId = this.editCargoId;
+        this.cargo = cargoService.getCargoById(editId);
         return "editCargo?faces-redirect=true";
     }
 
@@ -136,5 +155,12 @@ public class CargoesBean implements Serializable {
     @Autowired
     public void setCargoStateService(CargostateService cargoStateService) {
         this.cargoStateService = cargoStateService;
+    }
+
+    public void clearItems(){
+        this.cargo = null;
+        this.newDescription = null;
+        this.newWeight = null;
+        this.newCargoState = null;
     }
 }

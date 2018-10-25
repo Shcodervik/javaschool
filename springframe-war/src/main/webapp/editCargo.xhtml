@@ -11,28 +11,28 @@
     <h:outputLink value="cargoes.xhtml">Show All Cargoes >></h:outputLink>
     <h1>Edit Cargo</h1>
     <h:form id="editCargoForm">
-        <h:dataTable value="#{cargoesBean.getCargo()}" var="cargo">
-            <h:column>
-                <h:outputLabel value="Description: "/>
+        <p:dataTable value="#{cargoesBean.getCargo()}" var="cargo">
+            <p:column>
+                <p:outputLabel id="Description" value="Description: "/>
                 <br/>
-                <h:inputText maxlength="150" id="inputCargoDescription" binding="#{cargoesBean.newDescription}" value="#{cargo.description}"/>
+                <p:inputText maxlength="150" id="inputCargoDescription" binding="#{cargoesBean.newDescription}" value="#{cargo.description}"/>
                 <br/>
-                <h:outputLabel value="Weight: "/>
+                <p:outputLabel id="Weight" value="Weight: "/>
                 <br/>
-                <h:inputText maxlength="150" id="inputCargoWeight" binding="#{cargoesBean.newWeight}" value="#{cargo.weight}"/>
+                <p:inputText maxlength="150" id="inputCargoWeight" binding="#{cargoesBean.newWeight}" value="#{cargo.weight}"/>
                 <br/>
-                <h:outputLabel value="State: "/>
+                <p:outputLabel id="State" value="State: "/>
                 <br/>
-                <p:selectOneMenu binding="#{cargoesBean.newCargoState}"  value="#{cargo.cargoStateIdCargoState.cargoState}" required="true" style="width:200px">
-                    <f:selectItems value="#{cargoesBean.cargoStateNames}" />
+                <p:selectOneMenu id="selectMenuCargo" binding="#{cargoesBean.newCargoState}"  value="#{cargo.cargoStateIdCargoState.cargoState}" required="true" style="width:200px">
+                    <f:selectItems id="selectItems" value="#{cargoesBean.cargoStateNames}" />
                 </p:selectOneMenu>
                 <br/>
-                <h:commandButton action="#{cargoesBean.update(cargoesBean.newDescription.value,
+                <p:commandButton action="#{cargoesBean.update(cargoesBean.newDescription.value,
                     cargoesBean.newWeight.value, cargoesBean.newCargoState.value)}" type="submit"
                                  value="Save">
-                </h:commandButton>
-            </h:column>
-        </h:dataTable>
+                </p:commandButton>
+            </p:column>
+        </p:dataTable>
 
     </h:form>
 </ui:define>

@@ -21,6 +21,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Been for cities.
+ *
+ * @author shcodervik
+ *
+ */
 @ViewScoped
 @ManagedBean(name = "citiesBean")
 @Component(value = "citiesBean")

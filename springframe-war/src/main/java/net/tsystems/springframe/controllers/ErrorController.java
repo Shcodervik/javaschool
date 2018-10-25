@@ -1,19 +1,33 @@
 package net.tsystems.springframe.controllers;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.RequestDispatcher;
 
+/**
+ * Controller for error pages.
+ *
+ * @author shcodervik
+ *
+ */
 @Controller
 public class ErrorController {
 
-    @RequestMapping(value = "errors", method = RequestMethod.GET)
-    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+    @RequestMapping("/error")
+    public String handleError() {
+        //do something like logging
+        return "error";
+    }
 
-        ModelAndView errorPage = new ModelAndView("errorPage");
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
+        ModelAndView errorPage = new ModelAndView("templates/error");
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);
 
@@ -34,14 +48,21 @@ public class ErrorController {
                 errorMsg = "Http Error Code: 500. Internal Server Error";
                 break;
             }
+            default:{ break; }
         }
         errorPage.addObject("errorMsg", errorMsg);
         return errorPage;
     }
 
     private int getErrorCode(HttpServletRequest httpRequest) {
-        return (Integer) httpRequest
-                .getAttribute("javax.servlet.error.status_code");
+       // int response = httpRequest.getIntHeader("statusCode");
+
+        Object status = httpRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
+        return (Integer)status;
+
+
+               // .getAttribute("javax.servlet.error.status_code");
     }
+
 }
 

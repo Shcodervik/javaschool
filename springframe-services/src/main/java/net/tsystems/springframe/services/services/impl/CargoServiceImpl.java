@@ -1,3 +1,11 @@
+/*
+ * Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+ * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+ * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+ * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+ * Vestibulum commodo. Ut rhoncus gravida arcu.
+ */
+
 package net.tsystems.springframe.services.services.impl;
 
 import net.tsystems.springframe.dao.impl.CargoEntityDaoImpl;
@@ -13,14 +21,15 @@ import org.springframework.util.CollectionUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class CargoServiceImpl implements CargoService {
-    @Autowired
-    private CargoEntityDaoImpl dao;
-    //private TruckstateEntityDaoImpl daoState;
 
-    public CargoServiceImpl(){
-        dao  = new CargoEntityDaoImpl();
+@Component("cargoService")
+public class CargoServiceImpl implements CargoService {
+
+    private CargoEntityDaoImpl dao;
+
+    @Autowired
+    public void setDao(CargoEntityDaoImpl dao) {
+        this.dao = dao;
     }
 
 
@@ -75,7 +84,6 @@ public class CargoServiceImpl implements CargoService {
         final List<CargoEntitySO> result = new ArrayList<CargoEntitySO>();
         List<CargoEntity> cargoesEntity = dao.getAllCargo();
         if (CollectionUtils.isEmpty(cargoesEntity)) {
-            //LOG.error("NULL reference on users");
             return result;
         }
         for (CargoEntity data : cargoesEntity) {

@@ -9,12 +9,12 @@
 <ui:composition template="templates/adminTemplate.xhtml">
 <ui:define name="content">
     <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
-    <h:form id="addDriverForm">
+    <h:form id="addDriverForm" onsubmit="return checkForm(this.form)">
         <h:outputText value="Add Driver"/>
         <br/>
         <p:outputLabel value="UIN: "/>
         <br/>
-        <p:inputText maxlength="150" id="inputDriverId" binding="#{driversBean.newValueUIN}"/>
+        <p:inputText maxlength="150" required="true" requiredMessage="Please, enter UIN!" id="inputDriverId" binding="#{driversBean.newValueUIN}"/>
         <br/>
         <p:outputLabel value="Name: "/>
         <br/>
@@ -28,8 +28,8 @@
         <br/>
         <p:commandButton action="#{driversBean.create(driversBean.newValueUIN.value,
             driversBean.newName.value, driversBean.newSurname.value)}" type="submit"
-                         value="Save">
-        </p:commandButton>
+                         value="Save"/>
+
         <p:commandButton action="drivers.xhtml" value="Cancel"/>
 
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@Component
+@Component("cargoStateService")
 public class CargostateServiceImpl implements CargostateService {
     @Autowired
     private CargostateEntityDaoImpl dao;

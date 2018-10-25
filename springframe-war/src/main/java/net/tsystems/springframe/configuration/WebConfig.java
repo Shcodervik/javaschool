@@ -8,6 +8,10 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+
+/**
+ * @author shcodervik
+ */
 @EnableWebMvc
 @Configuration
 @ComponentScan({"net.tsystems.springframe"})

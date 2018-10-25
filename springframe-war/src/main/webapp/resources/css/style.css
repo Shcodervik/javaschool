@@ -39,9 +39,8 @@ div#header{
 .site-wrap{
     transition: left 0.2s;
     min-width: 100%;
-   // background: url("#{resource['images:smiley.jpg']}");
     background: url("#{resource['images:snow-micro-circles.png']}") repeat center;
-    min-height: 750px;
+    min-height: 550px;
     position: relative;
     top: 0;
     bottom: 100%;
@@ -53,7 +52,7 @@ div#logo{
     width: auto;
     height: auto;
     float: left;
-   // margin-left: 30px;
+
 }
 
 /****Menu****/
@@ -86,6 +85,10 @@ div#menu{
     color: #ffffff;
     text-decoration: none;
 }
+.sf-menu li.active a{
+    color: #41dcf3;
+    text-decoration: none;
+}
 .sf-menu li a:hover{
     color: #41dcf3;
     cursor: pointer;
@@ -97,13 +100,13 @@ div#content{
     margin-left:5%;
     margin-right:5%;
     padding:20px;
-    min-height: 750px;
+    min-height: 550px;
     z-index: 2;
 }
 
 .opacity-text{
     background: rgba(255,255,255, 0.6);
-    min-height: 700px;
+    min-height: 500px;
     padding: 20px 30px;
 }
 
@@ -118,13 +121,7 @@ div#content{
 
 }
 
-.data-table th:first-child {
-  //  border-top-left-radius: 10px;
-}
-.data-table th:last-child {
- //   border-top-right-radius: 10px;
- //   border-right: none;
-}
+
 .data-table th, .data-table td {
 
     border-style: solid;
@@ -145,15 +142,10 @@ div#content{
 }
 .data-table td {
     padding: 10px 20px;
-   // background: #E1E1E1;
+
 }
 
-.data-table tr:last-child td:first-child {
-   // border-radius: 0 0 0 10px;
-}
-.data-table tr:last-child td:last-child {
-   // border-radius: 0 0 10px 0;
-}
+
 .data-table tr td:last-child {
     border-right: none;
 }
