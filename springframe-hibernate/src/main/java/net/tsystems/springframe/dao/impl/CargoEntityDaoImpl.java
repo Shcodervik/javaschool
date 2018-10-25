@@ -33,8 +33,10 @@ public class CargoEntityDaoImpl extends AbstractDaoImpl<Integer, CargoEntity> im
 
         @Override
         public List<CargoEntity> getAllCargoByState(String state){
-            //TODO: override
-            return null;
+            Criteria criteria = getCriteria();
+            criteria.add(Restrictions.eq("CargoState", state));
+            List<CargoEntity> cargoes = (List<CargoEntity>)criteria.list();
+            return cargoes;
         }
 
     @Override

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <h:body>
+        <h:outputLink value="cities.xhtml">Show All Cities >></h:outputLink>
+        <f:facet name="header">
+            <h:outputText value="Edit City"/>
+        </f:facet>
+        <h:form>
+            <h:dataTable value="#{citiesBean.getCity()}" var="city">
+                <h:column>
+                    <h:inputText maxlength="150" id="inputCityName"
+                                 binding="#{citiesBean.newName}" value="#{city.name}">
+                    </h:inputText>
+                </h:column>
+                <h:column>
+
+                        <p:commandButton action="#{citiesBean.update(citiesBean.newName.value)}"
+                                         value="Update">
+                            <!--<f:setPropertyActionListener value="#{city.name}"
+                                                         target="#{citiesBean.newName}" />-->
+                        </p:commandButton>
+                        <p:commandButton action="cities.xhtml" value="Cancel"/>
+
+                </h:column>
+            </h:dataTable>
+        </h:form>
+    </h:body>
+</f:view>
+</html>

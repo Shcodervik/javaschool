@@ -1,17 +1,15 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "routepointtype", schema = "logiweb")
+@Table(name = "routepointtype")
 public class RoutepointtypeEntity {
     private int idRpType;
     private String rpType;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idRPType")
+    @Column(name = "idRPType", nullable = false)
     public int getIdRpType() {
         return idRpType;
     }
@@ -21,7 +19,7 @@ public class RoutepointtypeEntity {
     }
 
     @Basic
-    @Column(name = "RPType")
+    @Column(name = "RPType", nullable = true, length = 45)
     public String getRpType() {
         return rpType;
     }
@@ -34,13 +32,19 @@ public class RoutepointtypeEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         RoutepointtypeEntity that = (RoutepointtypeEntity) o;
-        return idRpType == that.idRpType &&
-                Objects.equals(rpType, that.rpType);
+
+        if (idRpType != that.idRpType) return false;
+        if (rpType != null ? !rpType.equals(that.rpType) : that.rpType != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idRpType, rpType);
+        int result = idRpType;
+        result = 31 * result + (rpType != null ? rpType.hashCode() : 0);
+        return result;
     }
 }

@@ -1,13 +1,16 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class UserEntitySO {
     private int idUser;
     private String username;
     private String passHash;
-    private Byte isEmployee;
-    private int driverIdDriver;
+    private boolean isEmployee;
+    private DriverEntitySO driverIdDriver;
 
     public int getIdUser() {
         return idUser;
@@ -33,36 +36,36 @@ public class UserEntitySO {
         this.passHash = passHash;
     }
 
-    public Byte getIsEmployee() {
+    public boolean getIsEmployee() {
         return isEmployee;
     }
 
-    public void setIsEmployee(Byte isEmployee) {
+    public void setIsEmployee(boolean isEmployee) {
         this.isEmployee = isEmployee;
     }
 
-    public int getDriverIdDriver() {
+    public DriverEntitySO getDriverIdDriver() {
         return driverIdDriver;
     }
 
-    public void setDriverIdDriver(int driverIdDriver) {
+    public void setDriverIdDriver(DriverEntitySO driverIdDriver) {
         this.driverIdDriver = driverIdDriver;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserEntitySO that = (UserEntitySO) o;
         return idUser == that.idUser &&
-                driverIdDriver == that.driverIdDriver &&
+                isEmployee == that.isEmployee &&
                 Objects.equals(username, that.username) &&
                 Objects.equals(passHash, that.passHash) &&
-                Objects.equals(isEmployee, that.isEmployee);
+                Objects.equals(driverIdDriver, that.driverIdDriver);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(idUser, username, passHash, isEmployee, driverIdDriver);
     }
-
 }

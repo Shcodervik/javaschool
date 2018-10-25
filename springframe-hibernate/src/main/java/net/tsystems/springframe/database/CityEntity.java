@@ -1,17 +1,16 @@
 package net.tsystems.springframe.database;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
-@Table(name = "city", schema = "logiweb")
+@Table(name = "city")
 public class CityEntity {
     private int idCity;
     private String name;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "idCity")
+    @Column(name = "idCity", unique = true, nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getIdCity() {
         return idCity;
     }
@@ -21,7 +20,7 @@ public class CityEntity {
     }
 
     @Basic
-    @Column(name = "Name")
+    @Column(name = "Name", nullable = true, length = 45)
     public String getName() {
         return name;
     }
@@ -34,13 +33,19 @@ public class CityEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         CityEntity that = (CityEntity) o;
-        return idCity == that.idCity &&
-                Objects.equals(name, that.name);
+
+        if (idCity != that.idCity) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+
+        return true;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idCity, name);
+        int result = idCity;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 }

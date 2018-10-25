@@ -11,10 +11,11 @@ import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
 
+
 /**
  * @author storgovt
  */
-public class ApplicationInitializer implements WebApplicationInitializer {
+public class ApplicationInitializer  implements WebApplicationInitializer {
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -31,8 +32,6 @@ public class ApplicationInitializer implements WebApplicationInitializer {
         dynamic.addMapping("/");
         dynamic.setLoadOnStartup(NumberUtils.INTEGER_ONE);
 
-        ServletRegistration.Dynamic faces = servletContext.addServlet("faces", new DispatcherServlet(annotationConfigWebApplicationContext));
-        faces.addMapping("*.jsf, /faces/*");
-        faces.setLoadOnStartup(NumberUtils.INTEGER_ONE);
     }
+
 }

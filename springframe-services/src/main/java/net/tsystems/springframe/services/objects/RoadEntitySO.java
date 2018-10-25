@@ -1,13 +1,16 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class RoadEntitySO {
     private int idRoad;
     private Double length;
     private Integer speedLimit;
-    private String originCity;
-    private String destinationCity;
+    private CityEntitySO originCity;
+    private CityEntitySO destinationCity;
 
     public int getIdRoad() {
         return idRoad;
@@ -33,19 +36,19 @@ public class RoadEntitySO {
         this.speedLimit = speedLimit;
     }
 
-    public String getOriginCity() {
+    public CityEntitySO getOriginCity() {
         return originCity;
     }
 
-    public void setOriginCity(String originCity) {
+    public void setOriginCity(CityEntitySO originCity) {
         this.originCity = originCity;
     }
 
-    public String getDestinationCity() {
+    public CityEntitySO getDestinationCity() {
         return destinationCity;
     }
 
-    public void setDestinationCity(String destinationCity) {
+    public void setDestinationCity(CityEntitySO destinationCity) {
         this.destinationCity = destinationCity;
     }
 

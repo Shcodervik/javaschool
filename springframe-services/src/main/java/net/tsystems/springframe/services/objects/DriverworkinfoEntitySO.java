@@ -1,14 +1,17 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Date;
 import java.util.Objects;
 
+@Service
 public class DriverworkinfoEntitySO {
     private int idDriverWorkInfo;
     private Date startDt;
     private Date stopDt;
-    private int driverIdDriver;
-    private int driverStateIdDriverState;
+    private DriverEntitySO driverIdDriver;
+    private DriverstateEntitySO driverStateIdDriverState;
 
     public int getIdDriverWorkInfo() {
         return idDriverWorkInfo;
@@ -34,19 +37,19 @@ public class DriverworkinfoEntitySO {
         this.stopDt = stopDt;
     }
 
-    public int getDriverIdDriver() {
+    public DriverEntitySO getDriverIdDriver() {
         return driverIdDriver;
     }
 
-    public void setDriverIdDriver(int driverIdDriver) {
+    public void setDriverIdDriver(DriverEntitySO driverIdDriver) {
         this.driverIdDriver = driverIdDriver;
     }
 
-    public int getDriverStateIdDriverState() {
+    public DriverstateEntitySO getDriverStateIdDriverState() {
         return driverStateIdDriverState;
     }
 
-    public void setDriverStateIdDriverState(int driverStateIdDriverState) {
+    public void setDriverStateIdDriverState(DriverstateEntitySO driverStateIdDriverState) {
         this.driverStateIdDriverState = driverStateIdDriverState;
     }
 
@@ -56,10 +59,10 @@ public class DriverworkinfoEntitySO {
         if (o == null || getClass() != o.getClass()) return false;
         DriverworkinfoEntitySO that = (DriverworkinfoEntitySO) o;
         return idDriverWorkInfo == that.idDriverWorkInfo &&
-                driverIdDriver == that.driverIdDriver &&
-                driverStateIdDriverState == that.driverStateIdDriverState &&
                 Objects.equals(startDt, that.startDt) &&
-                Objects.equals(stopDt, that.stopDt);
+                Objects.equals(stopDt, that.stopDt) &&
+                Objects.equals(driverIdDriver, that.driverIdDriver) &&
+                Objects.equals(driverStateIdDriverState, that.driverStateIdDriverState);
     }
 
     @Override

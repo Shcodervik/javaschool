@@ -68,10 +68,11 @@
     <dependency>
         <groupId>org.hibernate</groupId>
         <artifactId>hibernate-core</artifactId>
-        <version>5.3.6.Final</version>
+        <version>4.3.6.Final</version>
     </dependency>
 
-    <!-- END Hibernate dependencies -->
+
+        <!-- END Hibernate dependencies -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>

@@ -1,10 +1,14 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.util.Objects;
 
+@Service
 public class CargostateEntitySO {
     private int idCargoState;
     private String cargoState;
+
     public int getIdCargoState() {
         return idCargoState;
     }

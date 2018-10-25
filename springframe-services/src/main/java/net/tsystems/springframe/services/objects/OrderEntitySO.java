@@ -1,11 +1,14 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.Timestamp;
 import java.util.Objects;
 
+@Service
 public class OrderEntitySO {
     private int idOrder;
-    private Byte closed;
+    private boolean closed;
     private Timestamp createDt;
     private Timestamp closeDt;
 
@@ -17,11 +20,11 @@ public class OrderEntitySO {
         this.idOrder = idOrder;
     }
 
-    public Byte getClosed() {
+    public boolean getClosed() {
         return closed;
     }
 
-    public void setClosed(Byte closed) {
+    public void setClosed(boolean closed) {
         this.closed = closed;
     }
 
