@@ -1,5 +1,7 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.CargostateEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CargostateEntityDaoImpl;
 import net.tsystems.springframe.database.CargostateEntity;
 import net.tsystems.springframe.services.mappers.CargostateEntityMapper;
@@ -15,11 +17,12 @@ import java.util.List;
 
 @Component("cargoStateService")
 public class CargostateServiceImpl implements CargostateService {
-    @Autowired
-    private CargostateEntityDaoImpl dao;
 
-    public CargostateServiceImpl(){
-        dao  = new CargostateEntityDaoImpl();
+    private CargostateEntityDao dao;
+
+    @Autowired
+    public void setDao(CargostateEntityDao dao) {
+        this.dao = dao;
     }
 
     @Override
@@ -28,7 +31,7 @@ public class CargostateServiceImpl implements CargostateService {
             return false;
         }
         CargostateEntity cargostateEntity = CargostateEntityMapper.INSTANCE.cargostateDtoToEntity(cargoState);
-        dao.create(cargostateEntity);
+        ((AbstractDaoImpl)dao).create(cargostateEntity);
         return true;
     }
 
@@ -38,7 +41,7 @@ public class CargostateServiceImpl implements CargostateService {
             return false;
         }
         CargostateEntity cargostateEntity = CargostateEntityMapper.INSTANCE.cargostateDtoToEntity(cargoState);
-        dao.update(cargostateEntity);
+        ((AbstractDaoImpl)dao).update(cargostateEntity);
         return true;
     }
 
@@ -49,14 +52,14 @@ public class CargostateServiceImpl implements CargostateService {
         }
 
         CargostateEntity cargostateEntity = CargostateEntityMapper.INSTANCE.cargostateDtoToEntity(cargoState);
-        dao.delete(cargostateEntity);
+        ((AbstractDaoImpl)dao).delete(cargostateEntity);
         return true;
     }
 
     @Override
     public CargostateEntitySO getCargoStateById(int id) {
         CargostateEntitySO result = null;
-        CargostateEntity cargostateEntity = (CargostateEntity) dao.getById(id);
+        CargostateEntity cargostateEntity = (CargostateEntity) ((AbstractDaoImpl)dao).getById(id);
         if (cargostateEntity != null) {
             result = CargostateEntityMapper.INSTANCE.cargostateEntityToDto(cargostateEntity);
         }

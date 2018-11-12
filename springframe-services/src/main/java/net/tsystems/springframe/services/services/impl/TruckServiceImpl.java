@@ -1,5 +1,7 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.TruckEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.TruckEntityDaoImpl;
 import net.tsystems.springframe.dao.impl.TruckstateEntityDaoImpl;
 import net.tsystems.springframe.database.TruckEntity;
@@ -17,10 +19,10 @@ import java.util.List;
 @Component("truckService")
 public class TruckServiceImpl implements TruckService {
 
-    private TruckEntityDaoImpl dao;
+    private TruckEntityDao dao;
 
     @Autowired
-    public void setDao(TruckEntityDaoImpl dao) {
+    public void setDao(TruckEntityDao dao) {
         this.dao = dao;
     }
 
@@ -31,7 +33,7 @@ public class TruckServiceImpl implements TruckService {
             return false;
         }
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        dao.create(truckEntity);
+        ((AbstractDaoImpl)dao).create(truckEntity);
         return true;
     }
 
@@ -42,7 +44,7 @@ public class TruckServiceImpl implements TruckService {
             return false;
         }
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        dao.update(truckEntity);
+        ((AbstractDaoImpl)dao).update(truckEntity);
         return true;
     }
 
@@ -54,7 +56,7 @@ public class TruckServiceImpl implements TruckService {
         }
 
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        dao.delete(truckEntity);
+        ((AbstractDaoImpl)dao).delete(truckEntity);
         return true;
     }
 
@@ -62,7 +64,7 @@ public class TruckServiceImpl implements TruckService {
     @Transactional
     public TruckEntitySO getTruckById(int id) {
         TruckEntitySO result = null;
-        TruckEntity truckEntity = (TruckEntity) dao.getById(id);
+        TruckEntity truckEntity = (TruckEntity) ((AbstractDaoImpl)dao).getById(id);
         if (truckEntity != null) {
             result = TruckEntityMapper.INSTANCE.truckEntityToDto(truckEntity);
         }

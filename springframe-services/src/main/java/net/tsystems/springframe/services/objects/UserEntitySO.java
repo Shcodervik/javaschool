@@ -12,6 +12,20 @@ public class UserEntitySO {
     private boolean isEmployee;
     private DriverEntitySO driverIdDriver;
 
+
+    /**
+     * @param passString is using as just a string without encoding
+     * */
+    private String passString;
+
+    public String getPassString() {
+        return passString;
+    }
+
+    public void setPassString(String passString) {
+        this.passString = passString;
+    }
+
     public int getIdUser() {
         return idUser;
     }
@@ -42,6 +56,10 @@ public class UserEntitySO {
 
     public void setIsEmployee(boolean isEmployee) {
         this.isEmployee = isEmployee;
+    }
+
+    public boolean isEmployee() {
+        return isEmployee;
     }
 
     public DriverEntitySO getDriverIdDriver() {

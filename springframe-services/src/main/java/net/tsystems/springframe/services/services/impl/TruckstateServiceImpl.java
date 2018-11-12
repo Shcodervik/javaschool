@@ -1,5 +1,7 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.TruckstateEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.TruckstateEntityDaoImpl;
 import net.tsystems.springframe.database.TruckstateEntity;
 import net.tsystems.springframe.services.mappers.TruckstateEntityMapper;
@@ -16,11 +18,11 @@ import java.util.List;
 @Component("truckStateService")
 public class TruckstateServiceImpl implements TruckstateService {
 
-    @Autowired
-    private TruckstateEntityDaoImpl dao;
+
+    private TruckstateEntityDao dao;
 
     @Autowired
-    public void setDao(TruckstateEntityDaoImpl dao) {
+    public void setDao(TruckstateEntityDao dao) {
         this.dao = dao;
     }
 
@@ -35,7 +37,7 @@ public class TruckstateServiceImpl implements TruckstateService {
             return false;
         }
         TruckstateEntity truckstateEntity = TruckstateEntityMapper.INSTANCE.truckstateDtoToEntity(truckState);
-        dao.create(truckstateEntity);
+        ((AbstractDaoImpl)dao).create(truckstateEntity);
         return true;
     }
 
@@ -46,7 +48,7 @@ public class TruckstateServiceImpl implements TruckstateService {
             return false;
         }
         TruckstateEntity truckstateEntity = TruckstateEntityMapper.INSTANCE.truckstateDtoToEntity(truckState);
-        dao.update(truckstateEntity);
+        ((AbstractDaoImpl)dao).update(truckstateEntity);
         return true;
     }
 
@@ -58,7 +60,7 @@ public class TruckstateServiceImpl implements TruckstateService {
             }
 
             TruckstateEntity truckstateEntity = TruckstateEntityMapper.INSTANCE.truckstateDtoToEntity(truckState);
-            dao.delete(truckstateEntity);
+        ((AbstractDaoImpl)dao).delete(truckstateEntity);
             return true;
     }
 
@@ -66,7 +68,7 @@ public class TruckstateServiceImpl implements TruckstateService {
     @Transactional
     public TruckstateEntitySO getTruckStateById(int id) {
         TruckstateEntitySO result = null;
-        TruckstateEntity truckstateEntity = (TruckstateEntity) dao.getById(id);
+        TruckstateEntity truckstateEntity = (TruckstateEntity) ((AbstractDaoImpl)dao).getById(id);
         if (truckstateEntity != null) {
             result = TruckstateEntityMapper.INSTANCE.truckstateEntityToDto(truckstateEntity);
         }

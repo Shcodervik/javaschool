@@ -8,6 +8,8 @@
 
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.CargoEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CargoEntityDaoImpl;
 import net.tsystems.springframe.database.CargoEntity;
 import net.tsystems.springframe.services.mappers.CargoEntityMapper;
@@ -25,10 +27,10 @@ import java.util.List;
 @Component("cargoService")
 public class CargoServiceImpl implements CargoService {
 
-    private CargoEntityDaoImpl dao;
+    private CargoEntityDao dao;
 
     @Autowired
-    public void setDao(CargoEntityDaoImpl dao) {
+    public void setDao(CargoEntityDao dao) {
         this.dao = dao;
     }
 
@@ -40,7 +42,7 @@ public class CargoServiceImpl implements CargoService {
             return false;
         }
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        dao.create(cargoEntity);
+        ((AbstractDaoImpl)dao).create(cargoEntity);
         return true;
     }
 
@@ -51,7 +53,7 @@ public class CargoServiceImpl implements CargoService {
             return false;
         }
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        dao.update(cargoEntity);
+        ((AbstractDaoImpl)dao).update(cargoEntity);
         return true;
     }
 
@@ -63,7 +65,7 @@ public class CargoServiceImpl implements CargoService {
         }
 
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        dao.delete(cargoEntity);
+        ((AbstractDaoImpl)dao).delete(cargoEntity);
         return true;
     }
 
@@ -71,7 +73,7 @@ public class CargoServiceImpl implements CargoService {
     @Transactional
     public CargoEntitySO getCargoById(int id) {
         CargoEntitySO result = null;
-        CargoEntity cargoEntity = (CargoEntity) dao.getById(id);
+        CargoEntity cargoEntity = (CargoEntity) ((AbstractDaoImpl)dao).getById(id);
         if (cargoEntity != null) {
             result = CargoEntityMapper.INSTANCE.cargoEntityToDto(cargoEntity);
         }

@@ -38,7 +38,7 @@ public class OrderexecutorEntity {
         return idOrderExecutor;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver", nullable = false)
     public DriverEntity getDriverIdDriver() {
         return driverIdDriver;
@@ -48,7 +48,7 @@ public class OrderexecutorEntity {
         this.driverIdDriver = driverIdDriver;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = false)
     public OrderEntity getOrderIdOrder() {
         return orderIdOrder;
@@ -58,7 +58,7 @@ public class OrderexecutorEntity {
         this.orderIdOrder = orderIdOrder;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Truck_idTruck", referencedColumnName = "idTruck", nullable = false)
     public TruckEntity getTruckIdTruck() {
         return truckIdTruck;

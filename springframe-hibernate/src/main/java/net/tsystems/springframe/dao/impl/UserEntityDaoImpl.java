@@ -19,7 +19,7 @@ public class UserEntityDaoImpl extends AbstractDaoImpl<Integer, UserEntity> impl
     @Override
     public UserEntity getUserByUsername(String username) {
         Criteria crit = getCriteria();
-        crit.add(Restrictions.eq("Username", username));
+        crit.add(Restrictions.eq("username", username));
         UserEntity userByUsername = (UserEntity)crit.uniqueResult();
         return userByUsername;
     }

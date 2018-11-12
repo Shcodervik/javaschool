@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  ~ Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
+  ~ Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
+  ~ Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
+  ~ Vestibulum commodo. Ut rhoncus gravida arcu.
+  -->
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
@@ -6,11 +14,11 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<ui:composition template="templates/adminTemplate.xhtml">
+<ui:composition template="../templates/adminTemplate.xhtml">
 <ui:define name="content">
-    <h:outputLink value="drivers.xhtml">Show All Drivers >></h:outputLink>
-    <h:form id="addDriverForm" onsubmit="return checkForm(this.form)">
-        <h:outputText value="Add Driver"/>
+    <h:outputLink value="orders.xhtml">Show All Orders >></h:outputLink>
+    <h:form id="addOrderForm">
+        <h:outputText value="Add Order"/>
         <br/>
         <p:outputLabel value="UIN: "/>
         <br/>

@@ -2,6 +2,7 @@ package net.tsystems.springframe.database;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 @Entity
 @Table(name = "order")

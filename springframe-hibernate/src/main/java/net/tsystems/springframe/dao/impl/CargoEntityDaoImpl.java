@@ -12,7 +12,7 @@ import java.util.List;
 @Repository("cargoEntityDao")
 public class CargoEntityDaoImpl extends AbstractDaoImpl<Integer, CargoEntity> implements CargoEntityDao {
 
-        @SuppressWarnings("unchecked")
+        @Override
         public List<CargoEntity> getAllCargo()
         {
             Criteria criteria = getCriteria();

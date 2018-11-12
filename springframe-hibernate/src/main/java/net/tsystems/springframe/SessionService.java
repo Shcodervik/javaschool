@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 
 
 public class SessionService {
-    private static final SessionFactory ourSessionFactory;
+   /* private static final SessionFactory ourSessionFactory;
 
 
     static {

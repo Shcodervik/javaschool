@@ -15,6 +15,7 @@
 
     <properties>
         <spring.version>5.1.0.RELEASE</spring.version>
+        <spring.securiry>3.2.4.RELEASE</spring.securiry>
     </properties>
 
     <dependencies>
@@ -72,7 +73,12 @@
         </dependency>
 
         <!-- END Hibernate dependencies -->
-
+        <!-- https://mvnrepository.com/artifact/org.springframework/spring-orm -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.3.1.RELEASE</version>
+        </dependency>
 
 
         <dependency>
@@ -151,6 +157,33 @@
             <version>16.0.2</version>
             <scope>compile</scope>
         </dependency>
+
+        <!--Spring security BEGIN-->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${spring.securiry}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+            <version>${spring.securiry}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${spring.securiry}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${spring.securiry}</version>
+        </dependency>
+
+        <!--Spring security END-->
     </dependencies>
 
     <build>

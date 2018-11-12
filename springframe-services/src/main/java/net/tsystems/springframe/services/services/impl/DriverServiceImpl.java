@@ -1,5 +1,7 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.DriverEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.DriverEntityDaoImpl;
 import net.tsystems.springframe.database.DriverEntity;
 import net.tsystems.springframe.services.mappers.DriverEntityMapper;
@@ -17,10 +19,10 @@ import java.util.List;
 public class DriverServiceImpl implements DriverService {
 
 
-    private DriverEntityDaoImpl dao;
+    private DriverEntityDao dao;
 
     @Autowired
-    public void setDao(DriverEntityDaoImpl dao) {
+    public void setDao(DriverEntityDao dao) {
         this.dao = dao;
     }
 
@@ -31,7 +33,7 @@ public class DriverServiceImpl implements DriverService {
             return false;
         }
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        dao.create(driverEntity);
+        ((AbstractDaoImpl)dao).create(driverEntity);
         return true;
     }
 
@@ -42,7 +44,7 @@ public class DriverServiceImpl implements DriverService {
             return false;
         }
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        dao.update(driverEntity);
+        ((AbstractDaoImpl)dao).update(driverEntity);
         return true;
     }
 
@@ -54,7 +56,7 @@ public class DriverServiceImpl implements DriverService {
         }
 
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        dao.delete(driverEntity);
+        ((AbstractDaoImpl)dao).delete(driverEntity);
         return true;
     }
 
@@ -62,7 +64,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public DriverEntitySO getDriverById(int id) {
         DriverEntitySO result = null;
-        DriverEntity driverEntity = (DriverEntity) dao.getById(id);
+        DriverEntity driverEntity = (DriverEntity) ((AbstractDaoImpl)dao).getById(id);
         if (driverEntity != null) {
             result = DriverEntityMapper.INSTANCE.driverEntityToDto(driverEntity);
         }

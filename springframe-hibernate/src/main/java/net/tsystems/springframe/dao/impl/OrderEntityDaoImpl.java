@@ -3,8 +3,10 @@ package net.tsystems.springframe.dao.impl;
 import net.tsystems.springframe.dao.OrderEntityDao;
 import net.tsystems.springframe.database.OrderEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -26,10 +28,11 @@ public class OrderEntityDaoImpl extends AbstractDaoImpl<Integer, OrderEntity> im
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<OrderEntity> getAllOrders() {
-        Criteria criteria = getCriteria();
-        List<OrderEntity> orders = (List<OrderEntity>)criteria.list();
-
-        return orders;
+        Session session = getEntityManager();
+        Query query = session.createQuery("from OrderEntity");
+        List list = query.list();
+        return list;
     }
 }

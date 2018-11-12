@@ -25,7 +25,7 @@ public class ErrorController {
         return "error";
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+ /*   @RequestMapping(method = RequestMethod.GET)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
         ModelAndView errorPage = new ModelAndView("templates/error");
         String errorMsg = "";
@@ -52,13 +52,16 @@ public class ErrorController {
         }
         errorPage.addObject("errorMsg", errorMsg);
         return errorPage;
-    }
+
+
+    }*/
 
     private int getErrorCode(HttpServletRequest httpRequest) {
-       // int response = httpRequest.getIntHeader("statusCode");
+      //  int response = httpRequest.getIntHeader("statusCode");
 
         Object status = httpRequest.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
         return (Integer)status;
+       // return (Integer)response;
 
 
                // .getAttribute("javax.servlet.error.status_code");

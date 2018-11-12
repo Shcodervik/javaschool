@@ -11,4 +11,7 @@ public interface OrderexecutorEntityMapper {
     OrderexecutorEntityMapper INSTANCE = Mappers.getMapper(OrderexecutorEntityMapper.class);
     @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.byteToBool(orderEntity.getClosed()))")
     OrderexecutorEntitySO orderexecutorEntityToDto(OrderexecutorEntity orderexecutorEntity);
+
+    @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.boolToByte(orderEntitySO.getClosed()))")
+    OrderexecutorEntity orderexecutorDtoToEntity(OrderexecutorEntitySO orderexecutorEntitySO);
 }

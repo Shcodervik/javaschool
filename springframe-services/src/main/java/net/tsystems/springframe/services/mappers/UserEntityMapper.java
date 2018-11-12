@@ -12,4 +12,7 @@ public interface UserEntityMapper {
 
     @Mapping(target="isEmployee", expression="java(net.tsystems.springframe.services.Utils.byteToBool(userEntity.getIsEmployee()))")
     UserEntitySO userEntityToDto(UserEntity userEntity);
+
+    @Mapping(target="isEmployee", expression="java(net.tsystems.springframe.services.Utils.boolToByte(userEntitySO.getIsEmployee()))")
+    UserEntity userDtoToEntity(UserEntitySO userEntitySO);
 }

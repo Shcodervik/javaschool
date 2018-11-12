@@ -3,14 +3,15 @@ package net.tsystems.springframe.services.objects;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Service
 public class OrderEntitySO {
     private int idOrder;
     private boolean closed;
-    private Timestamp createDt;
-    private Timestamp closeDt;
+    private Date createDt;
+    private Date closeDt;
 
     public int getIdOrder() {
         return idOrder;
@@ -28,19 +29,19 @@ public class OrderEntitySO {
         this.closed = closed;
     }
 
-    public Timestamp getCreateDt() {
+    public Date getCreateDt() {
         return createDt;
     }
 
-    public void setCreateDt(Timestamp createDt) {
+    public void setCreateDt(Date createDt) {
         this.createDt = createDt;
     }
 
-    public Timestamp getCloseDt() {
+    public Date getCloseDt() {
         return closeDt;
     }
 
-    public void setCloseDt(Timestamp closeDt) {
+    public void setCloseDt(Date closeDt) {
         this.closeDt = closeDt;
     }
 

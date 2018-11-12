@@ -9,6 +9,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 
@@ -16,6 +17,8 @@ import org.springframework.web.servlet.DispatcherServlet;
  * @author storgovt
  */
 public class ApplicationInitializer  implements WebApplicationInitializer {
+
+
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
@@ -27,6 +30,8 @@ public class ApplicationInitializer  implements WebApplicationInitializer {
 
         servletContext.addListener(new ContextLoaderListener(annotationConfigWebApplicationContext));
         servletContext.addListener(new RequestContextListener());
+        //servletContext.addFilter("springSecurityFilterChain", new DelegatingFilterProxy("springSecurityFilterChain"))
+        //       .addMappingForUrlPatterns(null, true, "/*");
 
         ServletRegistration.Dynamic dynamic = servletContext.addServlet("dispatcher", new DispatcherServlet(annotationConfigWebApplicationContext));
         dynamic.addMapping("/");

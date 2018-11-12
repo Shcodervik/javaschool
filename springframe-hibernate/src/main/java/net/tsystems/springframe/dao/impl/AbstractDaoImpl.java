@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
-import net.tsystems.springframe.SessionService;
+//import net.tsystems.springframe.SessionService;
 import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.Dao;
 import org.hibernate.*;
@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao, AbstractDao<PK, T> {
     private final Class<T> persistentClass;
 
-    //@Autowired
-    //private SessionFactory sessionFactory;
+    @Autowired
+    private SessionFactory sessionFactory;
 
     @SuppressWarnings("unchecked")
     public AbstractDaoImpl()
@@ -26,8 +26,8 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
 
     public Session getSession()
     {
-        return SessionService.getSession();
-       // return sessionFactory.getCurrentSession();
+       // return SessionService.getSession();
+        return sessionFactory.getCurrentSession();
 
     }
 
