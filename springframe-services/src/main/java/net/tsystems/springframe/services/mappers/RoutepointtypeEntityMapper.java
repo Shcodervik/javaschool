@@ -9,4 +9,5 @@ import org.mapstruct.factory.Mappers;
 public interface RoutepointtypeEntityMapper {
     RoutepointtypeEntityMapper INSTANCE = Mappers.getMapper(RoutepointtypeEntityMapper.class);
     RoutepointtypeEntitySO routepointtypeEntityToDto(RoutepointtypeEntity routepointtypeEntity);
+    RoutepointtypeEntity routepointtypeDtoToEntity(RoutepointtypeEntitySO routepointtypeEntitySO);
 }

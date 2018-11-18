@@ -20,70 +20,70 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 //@Configuration
 //@EnableWebMvcSecurity
-public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
-/*
-    @Autowired
-    @Qualifier("customUserDetailsService")
-    UserDetailsService userDetailsService;
+public class AppSecurityConfig { //extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    AuthenticationSuccessHandler authenticationSuccessHandler;
-
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
-    {
-
-        auth
-                .userDetailsService(userDetailsService)
-                .passwordEncoder(getShaPasswordEncoder());
-    }
-
-    @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception
-    {
-        auth.userDetailsService(userDetailsService).passwordEncoder(new ShaPasswordEncoder(512));
-
-    }
-*/
- //   @Override
+//    @Autowired
+//    @Qualifier("customUserDetailsService")
+//    UserDetailsService userDetailsService;
+//
+//    @Autowired
+//    AuthenticationSuccessHandler authenticationSuccessHandler;
+//
+//    @Autowired
+//    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception
+//    {
+//
+//        auth
+//                .userDetailsService(userDetailsService)
+//                .passwordEncoder(getShaPasswordEncoder());
+//    }
+//
+//    @Override
+//    protected void configure(AuthenticationManagerBuilder auth) throws Exception
+//    {
+//        auth.userDetailsService(userDetailsService).passwordEncoder(new ShaPasswordEncoder(512));
+//
+//    }
+//
+//    @Override
 //    protected void configure(HttpSecurity http) throws Exception
 //    {
-
- //       http.csrf().disable()
-
+//
+//        http.csrf().disable()
+//
 //                .authorizeRequests()
-
- //               .antMatchers("/admincp/**").hasAnyRole("ADMINISTRATOR", "SUPERADMINISTRATOR")
-
- //               .antMatchers("/workspace/**").hasAnyRole("SUPERADMINISTRATOR", "ADMINISTRATOR", "USER")
-
- //               .antMatchers("/login**","/css/**", "/js/**", "/images/**", "/**/favicon.ico", "/error").permitAll()
-
- //               .and()
-
- //               .formLogin()
- //               .loginPage("/login")
- //               .loginProcessingUrl("/login.xhtml")
- //               .failureUrl("/login.xhtml?error")
- //               .defaultSuccessUrl("/index.xhtml", true)
- //               .successHandler(authenticationSuccessHandler)
-
- //               .and()
-
-  //              .logout().invalidateHttpSession(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-
- //               .and()
-
- //               .httpBasic();
-
-
-
- //   }
-
-
-  //  @Bean
-  //  public ShaPasswordEncoder getShaPasswordEncoder(){
-  //      return new ShaPasswordEncoder();
-  //  }
+//
+//                .antMatchers("/admincp/**").hasAnyRole("ADMINISTRATOR", "SUPERADMINISTRATOR")
+//
+//                .antMatchers("/workspace/**").hasAnyRole("SUPERADMINISTRATOR", "ADMINISTRATOR", "USER")
+//
+//                .antMatchers("/login**","/css/**", "/js/**", "/images/**", "/**/favicon.ico", "/error").permitAll()
+//
+//                .and()
+//
+//                .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/login.xhtml")
+//                .failureUrl("/login.xhtml?error")
+//                .defaultSuccessUrl("/index.xhtml", true)
+//                .successHandler(authenticationSuccessHandler)
+//
+//                .and()
+//
+//                .logout().invalidateHttpSession(true).logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+//
+//                .and()
+//
+//                .httpBasic();
+//
+//
+//
+//    }
+//
+//
+//    @Bean
+//    public ShaPasswordEncoder getShaPasswordEncoder(){
+//        return new ShaPasswordEncoder();
+//    }
 
 }

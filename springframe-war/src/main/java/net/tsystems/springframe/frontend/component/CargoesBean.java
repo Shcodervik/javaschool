@@ -1,18 +1,12 @@
 package net.tsystems.springframe.frontend.component;
 
-import net.tsystems.springframe.services.objects.CargoEntitySO;
-import net.tsystems.springframe.services.objects.CargostateEntitySO;
-import net.tsystems.springframe.services.services.CargoService;
-import net.tsystems.springframe.services.services.CargostateService;
-import net.tsystems.springframe.services.services.impl.CargoServiceImpl;
-import net.tsystems.springframe.services.services.impl.CargostateServiceImpl;
+import net.tsystems.springframe.services.objects.*;
+import net.tsystems.springframe.services.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import java.io.Serializable;
@@ -32,20 +26,39 @@ import java.util.Set;
 @Component(value = "cargoesBean")
 public class CargoesBean implements Serializable {
 
-    @Autowired
-    @Qualifier("cargoService")
     private CargoService cargoService;
+    private CargostateService cargoStateService;
+    private RoutepointtypeService routepointtypeService;
+    private RoutepointService routepointService;
+    private CityService cityService;
 
     @Autowired
-    @Qualifier("cargoStateService")
-    private CargostateService cargoStateService;
+    public void CargoesBean(CargoService cargoService,
+                            CargostateService cargoStateService,
+                            RoutepointtypeService routepointtypeService,
+                            RoutepointService routepointService,
+                            CityService cityService){
+        this.cargoService = cargoService;
+        this.cargoStateService = cargoStateService;
+        this.routepointtypeService = routepointtypeService;
+        this.routepointService = routepointService;
+        this.cityService = cityService;
+    }
+
+
 
     CargoEntitySO cargo;
     CargostateEntitySO cargoState;
+    RoutepointEntitySO routePointOrigin;
+    RoutepointEntitySO routePointDestination;
+    RoutepointtypeEntitySO routePointType;
+    CityEntitySO cityEntitySO;
 
     private HtmlInputText newDescription;
     private HtmlInputText newWeight;
     private HtmlSelectOneMenu newCargoState;
+    private HtmlSelectOneMenu newOriginCity;
+    private HtmlSelectOneMenu newDestinationCity;
     private String cargoStateName;
 
     private static int editCargoId;
@@ -78,6 +91,22 @@ public class CargoesBean implements Serializable {
         this.newCargoState = newCargoState;
     }
 
+    public HtmlSelectOneMenu getNewOriginCity() {
+        return newOriginCity;
+    }
+
+    public void setNewOriginCity(HtmlSelectOneMenu newOriginCity) {
+        this.newOriginCity = newOriginCity;
+    }
+
+    public HtmlSelectOneMenu getNewDestinationCity() {
+        return newDestinationCity;
+    }
+
+    public void setNewDestinationCity(HtmlSelectOneMenu newDestinationCity) {
+        this.newDestinationCity = newDestinationCity;
+    }
+
     public Set<CargoEntitySO> getCargo() {
         if (cargo == null) {
             int editId = editCargoId;
@@ -91,20 +120,48 @@ public class CargoesBean implements Serializable {
         return result;
     }
 
-    public List getCargoes() {
+    public List<CargoEntitySO> getCargoes() {
         return cargoService.getAllCargoes();
     }
 
-    public List getCargoStates() {
+    private List<CargostateEntitySO> getCargoStates() {
         return cargoStateService.getAllCargoStates();
     }
 
-    public Set getCargoStateNames() {
+    public Set<String> getCargoStateNames() {
         Set<String> result = new HashSet<>();
-        Set<CargostateEntitySO> states = new HashSet<>();
-        states.addAll(getCargoStates());
+        Set<CargostateEntitySO> states = new HashSet<>(getCargoStates());
         for (CargostateEntitySO state : states) {
             result.add(state.getCargoState());
+        }
+        return result;
+
+    }
+
+    private List getRoutePoints() {
+        return routepointService.getAllRoutePoints();
+    }
+
+    public Set<String> getRoutePointTypes() {
+        Set<String> result = new HashSet<>();
+        Set<RoutepointtypeEntitySO> routepointtypes = new HashSet<>(getRoutePoints());
+        for (RoutepointtypeEntitySO type : routepointtypes) {
+            result.add(type.getRpType());
+        }
+        return result;
+
+    }
+
+    public List getAllCities() {
+        return cityService.getAllCities();
+    }
+
+    public Set getCities() {
+        Set<String> result = new HashSet<>();
+        Set<CityEntitySO> cities = new HashSet<>();
+        cities.addAll(getAllCities());
+        for(CityEntitySO city : cities){
+            result.add(city.getName());
         }
         return result;
 
@@ -138,29 +195,30 @@ public class CargoesBean implements Serializable {
         return "cargoes?faces-redirect=true";
     }
 
-    public String create(String newDescription, String newWeight, String cargoState) {
+    public String create(String newDescription, String newWeight, String cargoState,
+                         String newOriginCity, String newDestinationCity) {
         CargoEntitySO cargo = new CargoEntitySO();
+        RoutepointEntitySO origin = new RoutepointEntitySO();
+        RoutepointEntitySO destination = new RoutepointEntitySO();
         this.cargoState = cargoStateService.getCargoStateByState(cargoState);
         cargo.setDescription(newDescription);
         cargo.setWeight(Double.valueOf(newWeight));
         cargo.setCargoStateIdCargoState(this.cargoState);
         cargoService.addCargo(cargo);
+        origin.setRoutePointTypeIdRpType(this.routePointType);
+       // this.routePointOrigin = routepointService.getRoutePointById(
+      //          origin.getRoutePointTypeIdRpType(this.routePointType).getIdRpType());
+       // origin.setCityIdCity(newOriginCity);
         return "cargoes?faces-redirect=true";
     }
 
-    @Autowired
-    public void setCargoService(CargoService cargoService) {
-        this.cargoService = cargoService;
-    }
-    @Autowired
-    public void setCargoStateService(CargostateService cargoStateService) {
-        this.cargoStateService = cargoStateService;
-    }
 
-    public void clearItems(){
+    private void clearItems(){
         this.cargo = null;
         this.newDescription = null;
         this.newWeight = null;
         this.newCargoState = null;
+        this.newOriginCity = null;
+        this.newDestinationCity = null;
     }
 }

@@ -10,8 +10,10 @@ import net.tsystems.springframe.dao.Dao;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
+@EnableTransactionManagement
 public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao, AbstractDao<PK, T> {
     private final Class<T> persistentClass;
 
@@ -26,9 +28,14 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
 
     public Session getSession()
     {
-       // return SessionService.getSession();
-        return sessionFactory.getCurrentSession();
+        Session session;
+        try {
+            session = sessionFactory.getCurrentSession();
+        } catch (HibernateException e) {
 
+            session = sessionFactory.openSession();
+        }
+        return session;
     }
 
 

@@ -3,6 +3,7 @@ package net.tsystems.springframe.dao.impl;
 import net.tsystems.springframe.dao.CargostateEntityDao;
 import net.tsystems.springframe.database.CargostateEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -30,11 +31,12 @@ public class CargostateEntityDaoImpl extends AbstractDaoImpl<Integer, Cargostate
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<CargostateEntity> getAllCargoStates() {
-        Criteria criteria = getCriteria();
-        List<CargostateEntity> cargoStates = (List<CargostateEntity>)criteria.list();
-
-        return cargoStates;
+        Session session = getSession();
+        Query query = session.createQuery("from CargostateEntity");
+        List list = query.list();
+        return list;
     }
 
     @Override

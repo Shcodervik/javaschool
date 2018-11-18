@@ -30,7 +30,7 @@ public class OrderEntityDaoImpl extends AbstractDaoImpl<Integer, OrderEntity> im
     @Override
     @SuppressWarnings("unchecked")
     public List<OrderEntity> getAllOrders() {
-        Session session = getEntityManager();
+        Session session = getSession();
         Query query = session.createQuery("from OrderEntity");
         List list = query.list();
         return list;

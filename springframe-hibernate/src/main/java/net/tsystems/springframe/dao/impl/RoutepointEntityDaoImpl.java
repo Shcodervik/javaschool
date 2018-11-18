@@ -26,6 +26,14 @@ public class RoutepointEntityDaoImpl extends AbstractDaoImpl<Integer, Routepoint
     }
 
     @Override
+    public List<RoutepointEntity> getRoutePointByType(int idRPType) {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("idRPType", idRPType));
+        List<RoutepointEntity> routePoints = (List<RoutepointEntity>)crit.list();
+        return routePoints;
+    }
+
+    @Override
     public List<RoutepointEntity> getAllRoutePoints() {
         Criteria criteria = getCriteria();
         List<RoutepointEntity> routePoints = (List<RoutepointEntity>)criteria.list();

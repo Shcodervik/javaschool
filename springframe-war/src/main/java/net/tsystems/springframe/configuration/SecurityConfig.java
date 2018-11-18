@@ -6,6 +6,5 @@ package net.tsystems.springframe.configuration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-public class SecurityConfig{
-// extends AbstractSecurityWebApplicationInitializer {
+public class SecurityConfig {//extends AbstractSecurityWebApplicationInitializer {
 }

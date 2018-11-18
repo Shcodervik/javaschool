@@ -20,7 +20,7 @@ public class IndexController {
 
     @RequestMapping(value = { "/index", "/" })
     public String getIndex(){
-        return "/admincp/main";
+        return "index";
     }
 
 

@@ -11,4 +11,7 @@ public interface RoutepointEntityMapper {
     RoutepointEntityMapper INSTANCE = Mappers.getMapper(RoutepointEntityMapper.class);
     @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.byteToBool(orderEntity.getClosed()))")
     RoutepointEntitySO routepointEntityToDto(RoutepointEntity routepointEntity);
+
+    @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.boolToByte(orderEntitySO.getClosed()))")
+    RoutepointEntity routepointDtoToEntity(RoutepointEntitySO routepointEntitySO);
 }

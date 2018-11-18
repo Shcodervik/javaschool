@@ -39,7 +39,7 @@ public class RoutepointEntity {
         return idRoutePoint;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "Cargo_idCargo", referencedColumnName = "idCargo", nullable = false)
     public CargoEntity getCargoIdCargo() {
         return cargoIdCargo;
@@ -49,7 +49,7 @@ public class RoutepointEntity {
         this.cargoIdCargo = cargoIdCargo;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "City_idCity", referencedColumnName = "idCity", nullable = false)
     public CityEntity getCityIdCity() {
         return cityIdCity;
@@ -59,8 +59,8 @@ public class RoutepointEntity {
         this.cityIdCity = cityIdCity;
     }
 
-    @OneToOne
-    @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = false)
+    @ManyToOne
+    @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = true)
     public OrderEntity getOrderIdOrder() {
         return orderIdOrder;
     }
@@ -69,7 +69,7 @@ public class RoutepointEntity {
         this.orderIdOrder = orderIdOrder;
     }
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "RoutePointType_idRPType", referencedColumnName = "idRPType", nullable = false)
     public RoutepointtypeEntity getRoutePointTypeIdRpType() {
         return routePointTypeIdRpType;

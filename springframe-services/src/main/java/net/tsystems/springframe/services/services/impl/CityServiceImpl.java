@@ -1,24 +1,29 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.CityEntityDao;
+import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CityEntityDaoImpl;
 import net.tsystems.springframe.database.CityEntity;
 import net.tsystems.springframe.services.mappers.CityEntityMapper;
 import net.tsystems.springframe.services.objects.CityEntitySO;
 import net.tsystems.springframe.services.services.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Component("cityService")
 public class CityServiceImpl implements CityService {
 
-    @Autowired
-    private CityEntityDaoImpl dao;
 
-    public CityServiceImpl(){
-      dao  = new CityEntityDaoImpl();
+    private CityEntityDao dao;
+
+    @Autowired
+    public void setDao(CityEntityDao dao) {
+        this.dao = dao;
     }
 
 
@@ -37,7 +42,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        dao.create(cityEntity);
+        ((AbstractDaoImpl)dao).create(cityEntity);
         return true;
     }
 
@@ -48,7 +53,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        dao.update(cityEntity);
+        ((AbstractDaoImpl)dao).update(cityEntity);
         return true;
     }
 
@@ -60,7 +65,7 @@ public class CityServiceImpl implements CityService {
         }
 
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        dao.delete(cityEntity);
+        ((AbstractDaoImpl)dao).delete(cityEntity);
         return true;
     }
 
@@ -68,7 +73,7 @@ public class CityServiceImpl implements CityService {
     @Transactional
     public CityEntitySO getCityById(int id) {
         CityEntitySO result = null;
-        CityEntity cityEntity = (CityEntity) dao.getById(id);
+        CityEntity cityEntity = (CityEntity) ((AbstractDaoImpl)dao).getById(id);
         if (cityEntity != null) {
             result = CityEntityMapper.INSTANCE.cityEntityToDto(cityEntity);
         }

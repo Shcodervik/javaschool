@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface RoutepointEntityDao {
     RoutepointEntity getRoutePointById(int idRoutePoint);
+    List<RoutepointEntity> getRoutePointByType(int idRPType);
     List<RoutepointEntity> getAllRoutePoints();
 }
