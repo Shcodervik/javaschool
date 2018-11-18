@@ -8,6 +8,7 @@
 
 package net.tsystems.springframe.services.services;
 
+import net.tsystems.springframe.services.objects.CargoEntitySO;
 import net.tsystems.springframe.services.objects.RoutepointEntitySO;
 
 import java.util.List;
@@ -19,8 +20,11 @@ public interface RoutepointService {
 
     boolean deleteRoutePoint(RoutepointEntitySO routePointType);
 
+    boolean deleteRoutePoints(List<RoutepointEntitySO> points);
+
     RoutepointEntitySO getRoutePointById(int id);
     RoutepointEntitySO getRoutePointByType(String type);
+    List<RoutepointEntitySO> getRoutePointsByCargo(CargoEntitySO cargo);
 
     List<RoutepointEntitySO> getAllRoutePoints();
 }

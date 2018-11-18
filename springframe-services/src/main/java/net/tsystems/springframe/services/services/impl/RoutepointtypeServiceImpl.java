@@ -8,6 +8,7 @@
 
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.RoutepointtypeEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.database.RoutepointtypeEntity;
@@ -39,7 +40,7 @@ public class RoutepointtypeServiceImpl implements RoutepointtypeService {
             return false;
         }
         RoutepointtypeEntity routepointtypeEntity = RoutepointtypeEntityMapper.INSTANCE.routepointtypeDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).create(routepointtypeEntity);
+        ((AbstractDao)dao).create(routepointtypeEntity);
         return true;
     }
 
@@ -50,7 +51,7 @@ public class RoutepointtypeServiceImpl implements RoutepointtypeService {
             return false;
         }
         RoutepointtypeEntity routepointtypeEntity = RoutepointtypeEntityMapper.INSTANCE.routepointtypeDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).update(routepointtypeEntity);
+        ((AbstractDao)dao).update(routepointtypeEntity);
         return true;
     }
 
@@ -62,7 +63,7 @@ public class RoutepointtypeServiceImpl implements RoutepointtypeService {
         }
 
         RoutepointtypeEntity routepointtypeEntity = RoutepointtypeEntityMapper.INSTANCE.routepointtypeDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).delete(routepointtypeEntity);
+        ((AbstractDao)dao).delete(routepointtypeEntity);
         return true;
     }
 
@@ -70,7 +71,9 @@ public class RoutepointtypeServiceImpl implements RoutepointtypeService {
     @Transactional
     public RoutepointtypeEntitySO getRoutePointTypeById(int id) {
         RoutepointtypeEntitySO result = null;
-        RoutepointtypeEntity routepointtypeEntity = (RoutepointtypeEntity) ((AbstractDaoImpl)dao).getById(id);
+        AbstractDao daoImpl = (AbstractDao)dao;
+        Object getByIdResult = daoImpl.getById(id);
+        RoutepointtypeEntity routepointtypeEntity = (RoutepointtypeEntity) getByIdResult;
         if (routepointtypeEntity != null) {
             result = RoutepointtypeEntityMapper.INSTANCE.routepointtypeEntityToDto(routepointtypeEntity);
         }

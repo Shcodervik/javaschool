@@ -1,5 +1,6 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.CargostateEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CargostateEntityDaoImpl;
@@ -52,14 +53,14 @@ public class CargostateServiceImpl implements CargostateService {
         }
 
         CargostateEntity cargostateEntity = CargostateEntityMapper.INSTANCE.cargostateDtoToEntity(cargoState);
-        ((AbstractDaoImpl)dao).delete(cargostateEntity);
+        ((AbstractDao)dao).delete(cargostateEntity);
         return true;
     }
 
     @Override
     public CargostateEntitySO getCargoStateById(int id) {
         CargostateEntitySO result = null;
-        CargostateEntity cargostateEntity = (CargostateEntity) ((AbstractDaoImpl)dao).getById(id);
+        CargostateEntity cargostateEntity = (CargostateEntity) ((AbstractDao)dao).getById(id);
         if (cargostateEntity != null) {
             result = CargostateEntityMapper.INSTANCE.cargostateEntityToDto(cargostateEntity);
         }

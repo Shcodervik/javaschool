@@ -7,6 +7,7 @@ import java.util.List;
 public interface CityEntityDao {
     CityEntity getCityById(int idCity);
     List<CityEntity> getAllCities();
+    CityEntity getCityByName(String name);
     void deleteAllCities();
 
 }

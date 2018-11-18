@@ -39,7 +39,7 @@ public class RoutepointEntity {
         return idRoutePoint;
     }
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "Cargo_idCargo", referencedColumnName = "idCargo", nullable = false)
     public CargoEntity getCargoIdCargo() {
         return cargoIdCargo;
@@ -49,7 +49,7 @@ public class RoutepointEntity {
         this.cargoIdCargo = cargoIdCargo;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "City_idCity", referencedColumnName = "idCity", nullable = false)
     public CityEntity getCityIdCity() {
         return cityIdCity;
@@ -59,7 +59,7 @@ public class RoutepointEntity {
         this.cityIdCity = cityIdCity;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = true)
     public OrderEntity getOrderIdOrder() {
         return orderIdOrder;
@@ -69,7 +69,7 @@ public class RoutepointEntity {
         this.orderIdOrder = orderIdOrder;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "RoutePointType_idRPType", referencedColumnName = "idRPType", nullable = false)
     public RoutepointtypeEntity getRoutePointTypeIdRpType() {
         return routePointTypeIdRpType;

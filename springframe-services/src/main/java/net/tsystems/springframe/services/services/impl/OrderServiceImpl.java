@@ -8,6 +8,7 @@
 
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.OrderEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.database.OrderEntity;
@@ -39,7 +40,7 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         OrderEntity orderEntity = OrderEntityMapper.INSTANCE.orderDtoToEntity(order);
-        ((AbstractDaoImpl)dao).create(orderEntity);
+        ((AbstractDao)dao).create(orderEntity);
         return true;
     }
 
@@ -50,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
             return false;
         }
         OrderEntity orderEntity = OrderEntityMapper.INSTANCE.orderDtoToEntity(order);
-        ((AbstractDaoImpl)dao).update(orderEntity);
+        ((AbstractDao)dao).update(orderEntity);
         return true;
     }
 
@@ -62,7 +63,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         OrderEntity orderEntity = OrderEntityMapper.INSTANCE.orderDtoToEntity(order);
-        ((AbstractDaoImpl)dao).delete(orderEntity);
+        ((AbstractDao)dao).delete(orderEntity);
         return true;
     }
 
@@ -70,7 +71,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderEntitySO getOrderById(int id) {
         OrderEntitySO result = null;
-        OrderEntity orderEntity = (OrderEntity) ((AbstractDaoImpl)dao).getById(id);
+        OrderEntity orderEntity = (OrderEntity) ((AbstractDao)dao).getById(id);
         if (orderEntity != null) {
             result = OrderEntityMapper.INSTANCE.orderEntityToDto(orderEntity);
         }

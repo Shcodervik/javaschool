@@ -2,18 +2,14 @@ package net.tsystems.springframe.dao.impl;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
-import java.util.List;
 
-//import net.tsystems.springframe.SessionService;
+
 import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.Dao;
 import org.hibernate.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
-@EnableTransactionManagement
 public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao, AbstractDao<PK, T> {
     private final Class<T> persistentClass;
 
@@ -36,6 +32,9 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
             session = sessionFactory.openSession();
         }
         return session;
+
+
+
     }
 
 
@@ -47,10 +46,10 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
         return (T)getSession().get(persistentClass, id);
     }
 
-    @Transactional
+
     public void create(T entity)
     {
-        Session session = getSession();
+       /* Session session = getSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
@@ -63,13 +62,14 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
         }
         finally {
             session.close();
-        }
+        }*/
+        getSession().saveOrUpdate(entity);
     }
 
     @Transactional
     public void update(T entity)
     {
-        Session session = getSession();
+       /* Session session = getSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
@@ -82,13 +82,14 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
         }
         finally {
             session.close();
-        }
+        }*/
+        getSession().update(entity);
     }
 
     @Transactional
     public void delete(T entity)
     {
-        Session session = getSession();
+        /*Session session = getSession();
         Transaction transaction = null;
         try {
             transaction = session.beginTransaction();
@@ -101,7 +102,8 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
         }
         finally {
             session.close();
-        }
+        }*/
+        getSession().delete(entity);
 
     }
 

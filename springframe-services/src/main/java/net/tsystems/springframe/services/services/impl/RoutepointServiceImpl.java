@@ -8,10 +8,14 @@
 
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.RoutepointEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
+import net.tsystems.springframe.database.CargoEntity;
 import net.tsystems.springframe.database.RoutepointEntity;
+import net.tsystems.springframe.services.mappers.CargoEntityMapper;
 import net.tsystems.springframe.services.mappers.RoutepointEntityMapper;
+import net.tsystems.springframe.services.objects.CargoEntitySO;
 import net.tsystems.springframe.services.objects.RoutepointEntitySO;
 import net.tsystems.springframe.services.services.RoutepointService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +46,7 @@ public class RoutepointServiceImpl implements RoutepointService {
             return false;
         }
         RoutepointEntity routepointEntity = RoutepointEntityMapper.INSTANCE.routepointDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).create(routepointEntity);
+        ((AbstractDao)dao).create(routepointEntity);
         return true;
     }
 
@@ -53,7 +57,7 @@ public class RoutepointServiceImpl implements RoutepointService {
             return false;
         }
         RoutepointEntity routepointEntity = RoutepointEntityMapper.INSTANCE.routepointDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).update(routepointEntity);
+        ((AbstractDao)dao).update(routepointEntity);
         return true;
     }
 
@@ -64,15 +68,29 @@ public class RoutepointServiceImpl implements RoutepointService {
             return false;
         }
         RoutepointEntity routepointEntity = RoutepointEntityMapper.INSTANCE.routepointDtoToEntity(routePointType);
-        ((AbstractDaoImpl)dao).delete(routepointEntity);
+        ((AbstractDao)dao).delete(routepointEntity);
         return true;
+    }
+
+    @Override
+    public boolean deleteRoutePoints(List<RoutepointEntitySO> points) {
+        if(points.isEmpty()){
+            return false;
+        }
+        for (RoutepointEntitySO data : points) {
+            RoutepointEntity result = RoutepointEntityMapper.INSTANCE.routepointDtoToEntity(data);
+            ((AbstractDao)dao).delete(result);
+        }
+        return true;
+
+
     }
 
     @Override
     @Transactional
     public RoutepointEntitySO getRoutePointById(int id) {
         RoutepointEntitySO result = null;
-        RoutepointEntity routepointEntity = (RoutepointEntity) ((AbstractDaoImpl)dao).getById(id);
+        RoutepointEntity routepointEntity = (RoutepointEntity) ((AbstractDao)dao).getById(id);
         if (routepointEntity != null) {
             result = RoutepointEntityMapper.INSTANCE.routepointEntityToDto(routepointEntity);
         }
@@ -83,6 +101,23 @@ public class RoutepointServiceImpl implements RoutepointService {
     @Transactional
     public RoutepointEntitySO getRoutePointByType(String type) {
         return null;
+    }
+
+    @Override
+    public List<RoutepointEntitySO> getRoutePointsByCargo(CargoEntitySO cargo) {
+        final List<RoutepointEntitySO> result = new ArrayList<RoutepointEntitySO>();
+        CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
+        List<RoutepointEntity> routepointsEntity = dao.getRoutePointsByCargo(cargoEntity);
+        if (CollectionUtils.isEmpty(routepointsEntity)) {
+            //LOG.error("NULL reference on users");
+            return result;
+        }
+        for (RoutepointEntity data : routepointsEntity) {
+            RoutepointEntitySO routepoint = RoutepointEntityMapper.INSTANCE.routepointEntityToDto(data);
+            result.add(routepoint);
+        }
+        return result;
+
     }
 
     @Override

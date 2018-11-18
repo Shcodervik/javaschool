@@ -1,8 +1,10 @@
 package net.tsystems.springframe.dao.impl;
 
 import net.tsystems.springframe.dao.RoutepointEntityDao;
+import net.tsystems.springframe.database.CargoEntity;
 import net.tsystems.springframe.database.RoutepointEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -26,11 +28,21 @@ public class RoutepointEntityDaoImpl extends AbstractDaoImpl<Integer, Routepoint
     }
 
     @Override
-    public List<RoutepointEntity> getRoutePointByType(int idRPType) {
+    public List<RoutepointEntity> getRoutePointsByType(int idRPType) {
         Criteria crit = getCriteria();
         crit.add(Restrictions.eq("idRPType", idRPType));
         List<RoutepointEntity> routePoints = (List<RoutepointEntity>)crit.list();
         return routePoints;
+    }
+
+    @Override
+    public List<RoutepointEntity> getRoutePointsByCargo(CargoEntity cargo) {
+        Session session = getSession();
+        Query query = session.createQuery("from RoutepointEntity r where r.cargoIdCargo= :cargo");
+        query.setParameter("cargo", cargo);
+        List list = query.list();
+        return list;
+        //return routePoints;
     }
 
     @Override

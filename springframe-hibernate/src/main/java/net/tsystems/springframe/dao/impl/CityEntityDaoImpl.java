@@ -36,6 +36,15 @@ public class CityEntityDaoImpl extends AbstractDaoImpl<Integer, CityEntity> impl
     }
 
     @Override
+    public CityEntity getCityByName(String name) {
+        Criteria crit = getCriteria();
+        crit.add(Restrictions.eq("name", name));
+
+        CityEntity city = (CityEntity) crit.uniqueResult();
+        return city;
+    }
+
+    @Override
     public void deleteAllCities() {
         List<CityEntity> entityList = getAllCities();
         for (CityEntity entity : entityList) {

@@ -14,4 +14,6 @@ public interface RoutepointEntityMapper {
 
     @Mapping(target="orderIdOrder.closed", expression="java(net.tsystems.springframe.services.Utils.boolToByte(orderEntitySO.getClosed()))")
     RoutepointEntity routepointDtoToEntity(RoutepointEntitySO routepointEntitySO);
+
+
 }

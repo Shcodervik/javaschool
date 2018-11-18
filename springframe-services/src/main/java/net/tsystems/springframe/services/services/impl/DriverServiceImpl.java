@@ -1,5 +1,6 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.DriverEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.DriverEntityDaoImpl;
@@ -33,7 +34,7 @@ public class DriverServiceImpl implements DriverService {
             return false;
         }
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        ((AbstractDaoImpl)dao).create(driverEntity);
+        ((AbstractDao)dao).create(driverEntity);
         return true;
     }
 
@@ -44,7 +45,7 @@ public class DriverServiceImpl implements DriverService {
             return false;
         }
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        ((AbstractDaoImpl)dao).update(driverEntity);
+        ((AbstractDao)dao).update(driverEntity);
         return true;
     }
 
@@ -56,7 +57,7 @@ public class DriverServiceImpl implements DriverService {
         }
 
         DriverEntity driverEntity = DriverEntityMapper.INSTANCE.driverDtoToEntity(driver);
-        ((AbstractDaoImpl)dao).delete(driverEntity);
+        ((AbstractDao)dao).delete(driverEntity);
         return true;
     }
 
@@ -64,7 +65,7 @@ public class DriverServiceImpl implements DriverService {
     @Transactional
     public DriverEntitySO getDriverById(int id) {
         DriverEntitySO result = null;
-        DriverEntity driverEntity = (DriverEntity) ((AbstractDaoImpl)dao).getById(id);
+        DriverEntity driverEntity = (DriverEntity) ((AbstractDao)dao).getById(id);
         if (driverEntity != null) {
             result = DriverEntityMapper.INSTANCE.driverEntityToDto(driverEntity);
         }

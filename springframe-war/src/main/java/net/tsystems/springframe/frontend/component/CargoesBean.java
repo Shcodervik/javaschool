@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -182,6 +183,9 @@ public class CargoesBean implements Serializable {
     public String delete() {
         int editId = editCargoId;
         CargoEntitySO cargo = cargoService.getCargoById(editId);
+        final List<RoutepointEntitySO> points = new ArrayList<>();
+        points.addAll(this.routepointService.getRoutePointsByCargo(cargo));
+        routepointService.deleteRoutePoints(points);
         cargoService.deleteCargo(cargo);
         return "cargoes?faces-redirect=true";
     }
@@ -204,11 +208,17 @@ public class CargoesBean implements Serializable {
         cargo.setDescription(newDescription);
         cargo.setWeight(Double.valueOf(newWeight));
         cargo.setCargoStateIdCargoState(this.cargoState);
+
+        origin.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(1));
+        destination.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(2));
+        origin.setCargoIdCargo(cargo);
+        origin.setCityIdCity(this.cityService.getCityByName(newOriginCity));
+        destination.setCargoIdCargo(cargo);
+        destination.setCityIdCity(this.cityService.getCityByName(newDestinationCity));
+
         cargoService.addCargo(cargo);
-        origin.setRoutePointTypeIdRpType(this.routePointType);
-       // this.routePointOrigin = routepointService.getRoutePointById(
-      //          origin.getRoutePointTypeIdRpType(this.routePointType).getIdRpType());
-       // origin.setCityIdCity(newOriginCity);
+        routepointService.addRoutePoint(origin);
+        routepointService.addRoutePoint(destination);
         return "cargoes?faces-redirect=true";
     }
 

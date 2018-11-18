@@ -8,6 +8,7 @@
 
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.CargoEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CargoEntityDaoImpl;
@@ -43,7 +44,8 @@ public class CargoServiceImpl implements CargoService {
             return false;
         }
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        ((AbstractDaoImpl)dao).create(cargoEntity);
+        ((AbstractDao)dao).create(cargoEntity);
+        cargo.setIdCargo(cargoEntity.getIdCargo());
         return true;
     }
 
@@ -54,7 +56,7 @@ public class CargoServiceImpl implements CargoService {
             return false;
         }
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        ((AbstractDaoImpl)dao).update(cargoEntity);
+        ((AbstractDao)dao).update(cargoEntity);
         return true;
     }
 
@@ -66,7 +68,7 @@ public class CargoServiceImpl implements CargoService {
         }
 
         CargoEntity cargoEntity = CargoEntityMapper.INSTANCE.cargoDtoToEntity(cargo);
-        ((AbstractDaoImpl)dao).delete(cargoEntity);
+        ((AbstractDao)dao).delete(cargoEntity);
         return true;
     }
 
@@ -74,7 +76,7 @@ public class CargoServiceImpl implements CargoService {
     @Transactional
     public CargoEntitySO getCargoById(int id) {
         CargoEntitySO result = null;
-        CargoEntity cargoEntity = (CargoEntity) ((AbstractDaoImpl)dao).getById(id);
+        CargoEntity cargoEntity = (CargoEntity) ((AbstractDao)dao).getById(id);
         if (cargoEntity != null) {
             result = CargoEntityMapper.INSTANCE.cargoEntityToDto(cargoEntity);
         }

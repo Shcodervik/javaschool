@@ -1,5 +1,6 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.CityEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.CityEntityDaoImpl;
@@ -42,7 +43,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        ((AbstractDaoImpl)dao).create(cityEntity);
+        ((AbstractDao)dao).create(cityEntity);
         return true;
     }
 
@@ -53,7 +54,7 @@ public class CityServiceImpl implements CityService {
             return false;
         }
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        ((AbstractDaoImpl)dao).update(cityEntity);
+        ((AbstractDao)dao).update(cityEntity);
         return true;
     }
 
@@ -65,7 +66,7 @@ public class CityServiceImpl implements CityService {
         }
 
         CityEntity cityEntity = CityEntityMapper.INSTANCE.cityDtoToEntity(city);
-        ((AbstractDaoImpl)dao).delete(cityEntity);
+        ((AbstractDao)dao).delete(cityEntity);
         return true;
     }
 
@@ -73,12 +74,22 @@ public class CityServiceImpl implements CityService {
     @Transactional
     public CityEntitySO getCityById(int id) {
         CityEntitySO result = null;
-        CityEntity cityEntity = (CityEntity) ((AbstractDaoImpl)dao).getById(id);
+        CityEntity cityEntity = (CityEntity) ((AbstractDao)dao).getById(id);
         if (cityEntity != null) {
             result = CityEntityMapper.INSTANCE.cityEntityToDto(cityEntity);
         }
         return result;
 
+    }
+
+    @Override
+    public CityEntitySO getCityByName(String name) {
+        CityEntitySO result = null;
+        CityEntity cityEntity = (CityEntity) dao.getCityByName(name);
+        if (cityEntity != null) {
+            result = CityEntityMapper.INSTANCE.cityEntityToDto(cityEntity);
+        }
+        return result;
     }
 
     @Override
