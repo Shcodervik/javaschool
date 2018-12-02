@@ -13,20 +13,28 @@ import java.util.Locale;
  * */
 
 public class Utils {
+
+    /**
+     * It's for converting byte to another meaning of boolean (UI needs it)
+     * **/
     public static boolean byteToBool (byte i){
         if(i==1) {
-            return true;
+            return false; //actually true
         }
         else{
-            return false;
+            return true;  //actually false
         }
     }
 
+
+    /**
+     * It's for converting boolean to another meaning of byte (UI needs it)
+     * **/
     public static byte boolToByte (boolean i){
         if(i){
-            return 1;
+            return 0; //actually 1
         }
-        return 0;
+        return 1;  //actually 0
     }
 
     /**
@@ -38,17 +46,34 @@ public class Utils {
     }
 
     public static Date datetimeToDate(Timestamp ts) {
-        Date dt = new Date(ts.getTime());
-        return dt;
+        if(ts==null){
+            return null;
+        }else {
+            long millis2 = ts.getTime();
+            java.util.Date date = new java.util.Date(millis2);
+            // Date dt = new Date(ts.getTime());
+            return date;
+        }
     }
     public static Timestamp dateToDatetime(Date dt) {
-        Timestamp ts = new Timestamp(dt.getTime());
-        return ts;
+        if(dt==null){
+            return null;
+        }else {
+            long millis1 = dt.getTime();
+            java.sql.Timestamp ts = new java.sql.Timestamp(millis1);
+            // Timestamp ts = new Timestamp(dt.getTime());
+            return ts;
+        }
     }
 
     public static Date stringToDate(String str) throws ParseException {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd-mm-yyyy hh.mm.ss", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss", Locale.ENGLISH);
         Date date = formatter.parse(str);
-        return null;
+        return date;
+    }
+    public static String dateToString(Date dt) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss", Locale.ENGLISH);
+
+        return formatter.format(dt);
     }
 }

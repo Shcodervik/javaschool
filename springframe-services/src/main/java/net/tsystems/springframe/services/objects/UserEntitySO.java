@@ -1,11 +1,18 @@
 package net.tsystems.springframe.services.objects;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 
 @Service
-public class UserEntitySO {
+public class UserEntitySO implements UserDetails {
     private int idUser;
     private String username;
     private String passHash;
@@ -32,6 +39,64 @@ public class UserEntitySO {
 
     public void setIdUser(int idUser) {
         this.idUser = idUser;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        username = this.getUsername();
+        String password = this.getPassHash();
+        boolean enabled = true;
+        boolean accountNonExpired = true;
+        boolean credentialsNonExpired = true;
+        boolean accountNonLocked = true;
+        Collection<? extends GrantedAuthority> authorities = getGrantedAuthorities(this);
+
+        return authorities;
+    }
+
+    private List<GrantedAuthority> getGrantedAuthorities(UserEntitySO user)
+    {
+        List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+        if(!user.isEmployee()) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
+        }
+        else{
+            if(user.getDriverIdDriver()!=null){
+                authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+            }
+            else{
+                authorities.add(new SimpleGrantedAuthority("ROLE_GUEST"));
+            }
+        }
+
+        return authorities;
+    }
+
+
+    @Override
+    public String getPassword() {
+        return this.getPassHash();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public String getUsername() {

@@ -24,6 +24,8 @@ public interface OrderexecutorService {
 
     List<OrderexecutorEntitySO> getAllOrderexecutors();
 
+    List<OrderexecutorEntitySO> getWorkingOrderexecutors();
+
 
 
 

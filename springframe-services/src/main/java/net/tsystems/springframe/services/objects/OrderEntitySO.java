@@ -10,8 +10,8 @@ import java.util.Objects;
 public class OrderEntitySO {
     private int idOrder;
     private boolean closed;
-    private Date createDt;
-    private Date closeDt;
+    private Date createDT;
+    private Date closeDT;
 
     public int getIdOrder() {
         return idOrder;
@@ -29,20 +29,20 @@ public class OrderEntitySO {
         this.closed = closed;
     }
 
-    public Date getCreateDt() {
-        return createDt;
+    public Date getCreateDT() {
+        return createDT;
     }
 
-    public void setCreateDt(Date createDt) {
-        this.createDt = createDt;
+    public void setCreateDT(Date createDt) {
+        this.createDT = createDt;
     }
 
-    public Date getCloseDt() {
-        return closeDt;
+    public Date getCloseDT() {
+        return closeDT;
     }
 
-    public void setCloseDt(Date closeDt) {
-        this.closeDt = closeDt;
+    public void setCloseDT(Date closeDt) {
+        this.closeDT = closeDt;
     }
 
     @Override
@@ -52,12 +52,12 @@ public class OrderEntitySO {
         OrderEntitySO that = (OrderEntitySO) o;
         return idOrder == that.idOrder &&
                 Objects.equals(closed, that.closed) &&
-                Objects.equals(createDt, that.createDt) &&
-                Objects.equals(closeDt, that.closeDt);
+                Objects.equals(createDT, that.createDT) &&
+                Objects.equals(closeDT, that.closeDT);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idOrder, closed, createDt, closeDt);
+        return Objects.hash(idOrder, closed, createDT, closeDT);
     }
 }

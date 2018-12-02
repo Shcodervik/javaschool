@@ -17,49 +17,54 @@
 <ui:composition template="../templates/adminTemplate.xhtml">
 <ui:define name="content">
     <h1>Orders</h1>
-    <h:outputText value="Table is empty!" rendered="#{empty ordersBean.getOrders()}" />
+    <!--h:outputText value="Table is empty!" rendered="#{not empty ordersBean.getOrderExecutors()}" /-->
 
-    <h:dataTable value="#{ordersBean.getOrders()}" rendered="#{not empty ordersBean.getOrders()}">
-            var="order" styleClass="data-table">
+    <h:dataTable value="#{ordersBean.getWorkingOrderExecutors()}" rendered="#{not empty ordersBean.getWorkingOrderExecutors()}"
+            var="orderExecutor" styleClass="data-table">
 
         <h:column>
             <f:facet name="header">
-                <h:outputText value="ID" />
+                <h:outputText value="Order ID" />
             </f:facet>
-            <h:outputLabel value = "#{order.idOrder}"/>
+            <h:outputLabel value = "#{orderExecutor.orderIdOrder.idOrder}"/>
         </h:column>
         <h:column>
             <f:facet name="header">
                 <h:outputText value="Status" />
             </f:facet>
-            <h:outputLabel value="#{order.closed}"/>
+            <h:selectBooleanCheckbox value="#{orderExecutor.orderIdOrder.closed}" readonly="true" disabled="true"/>
         </h:column>
         <h:column>
             <f:facet name="header">
                 <h:outputText value="Creating time" />
             </f:facet>
-            <h:outputLabel value="#{order.createDT}">
-                <f:convertDateTime pattern="dd/mm/yyyy hh:mm:ss"/>
+            <h:outputLabel value="#{orderExecutor.orderIdOrder.createDT}">
+                <f:convertDateTime pattern="dd.MM.yyyy HH:mm:ss"/>
             </h:outputLabel>
         </h:column>
         <h:column>
             <f:facet name="header">
-                <h:outputText value="Closing time" />
+                <h:outputText value="Truck" />
             </f:facet>
-            <h:outputLabel value="#{order.closeDT}">
-                <f:convertDateTime pattern="dd/mm/yyyy hh:mm:ss"/>
+            <h:outputLabel value="#{orderExecutor.truckIdTruck.serial}">
+
             </h:outputLabel>
         </h:column>
         <h:column>
+            <f:facet name="header">
+                <h:outputText value="Driver" />
+            </f:facet>
+            <h:outputLabel value="#{orderExecutor.drivers}"/>
+        </h:column>
+        <h:column>
             <h:form>
-                <p:commandButton action="#{ordersBean.editOrder}" value="Edit">
-                    <f:setPropertyActionListener value="#{order.idOrder}"
-                                                 target="#{ordersBean.editOrderId}" />
+                <p:commandButton action="#{ordersBean.getCargoes()}" value="Show">
+                    <f:setPropertyActionListener value="#{orderExecutor.orderIdOrder.idOrder}"
+                                                 target="#{ordersBean.editOrderExecutorId}" />
+                    <f:ajax render="cargo"/>
                 </p:commandButton>
-                <p:commandButton action="#{ordersBean.delete}" value="Delete">
-                    <f:setPropertyActionListener value="#{order.idOrder}"
-                                                 target="#{ordersBean.editOrderId}" />
-                </p:commandButton>
+
+                <p:commandButton action="#{ordersBean.delete(orderExecutor.orderExecutors)}" value="Delete"/>
 
 
             </h:form>
@@ -68,7 +73,9 @@
     <h:form>
         <p:commandButton action="#{ordersBean.newOrder()}" value="Add New Order"/>
     </h:form>
+    <!--p:dataTable id="cargo">
 
+    </p:dataTable-->
 </ui:define>
 </ui:composition>
 </html>

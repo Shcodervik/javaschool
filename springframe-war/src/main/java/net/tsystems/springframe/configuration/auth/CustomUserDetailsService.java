@@ -20,18 +20,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-//@Service
-public class CustomUserDetailsService implements UserDetailsService {
-
+//@Service("customUserDetailsService")
+public class CustomUserDetailsService {//implements UserDetailsService {
+/*
     @Autowired
-    @Qualifier("userService")
-    private UserService userService;
+    public UserService userService;
 
-    @Transactional(readOnly = true)
+
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException
     {
-        //TODO: remove it
-        //        username = username.toLowerCase();
         UserEntitySO user = userService.getUserByUsername(username);
         if (user == null)
         {
@@ -40,7 +38,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
         username = user.getUsername();
         String password = user.getPassHash();
-        boolean enabled = user.getIsEmployee();
+        boolean enabled = true;
         boolean accountNonExpired = true;
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
@@ -60,7 +58,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-        if(user.isEmployee()) {
+        if(!user.isEmployee()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMINISTRATOR"));
         }
         else{
@@ -73,6 +71,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         }
 
         return authorities;
-    }
+    }*/
 
 }

@@ -9,6 +9,7 @@
 package net.tsystems.springframe.services.services.impl;
 
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.OrderexecutorEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.database.OrderexecutorEntity;
@@ -40,7 +41,7 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
             return false;
         }
         OrderexecutorEntity orderexecutorEntity = OrderexecutorEntityMapper.INSTANCE.orderexecutorDtoToEntity(orderExecutor);
-        ((AbstractDaoImpl)dao).create(orderexecutorEntity);
+        ((AbstractDao)dao).create(orderexecutorEntity);
         return true;
     }
 
@@ -51,7 +52,7 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
             return false;
         }
         OrderexecutorEntity orderexecutorEntity = OrderexecutorEntityMapper.INSTANCE.orderexecutorDtoToEntity(orderExecutor);
-        ((AbstractDaoImpl)dao).update(orderexecutorEntity);
+        ((AbstractDao)dao).update(orderexecutorEntity);
         return true;
     }
 
@@ -63,7 +64,7 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
         }
 
         OrderexecutorEntity orderexecutorEntity = OrderexecutorEntityMapper.INSTANCE.orderexecutorDtoToEntity(orderExecutor);
-        ((AbstractDaoImpl)dao).delete(orderexecutorEntity);
+        ((AbstractDao)dao).delete(orderexecutorEntity);
         return true;
     }
 
@@ -71,7 +72,7 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
     @Transactional
     public OrderexecutorEntitySO getOrderexecutorById(int id) {
         OrderexecutorEntitySO result = null;
-        OrderexecutorEntity orderexecutorEntity = (OrderexecutorEntity) ((AbstractDaoImpl)dao).getById(id);
+        OrderexecutorEntity orderexecutorEntity = (OrderexecutorEntity) ((AbstractDao)dao).getById(id);
         if (orderexecutorEntity != null) {
             result = OrderexecutorEntityMapper.INSTANCE.orderexecutorEntityToDto(orderexecutorEntity);
         }
@@ -83,6 +84,20 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
     public List<OrderexecutorEntitySO> getAllOrderexecutors() {
         final List<OrderexecutorEntitySO> result = new ArrayList<OrderexecutorEntitySO>();
         List<OrderexecutorEntity> orderexecutorsEntity = dao.getAllOrderExecutors();
+        if (CollectionUtils.isEmpty(orderexecutorsEntity)) {
+            return result;
+        }
+        for (OrderexecutorEntity data : orderexecutorsEntity) {
+            OrderexecutorEntitySO orderexecutor = OrderexecutorEntityMapper.INSTANCE.orderexecutorEntityToDto(data);
+            result.add(orderexecutor);
+        }
+        return result;
+    }
+
+    @Override
+    public List<OrderexecutorEntitySO> getWorkingOrderexecutors() {
+        final List<OrderexecutorEntitySO> result = new ArrayList<OrderexecutorEntitySO>();
+        List<OrderexecutorEntity> orderexecutorsEntity = dao.getWorkingOrderExecutors();
         if (CollectionUtils.isEmpty(orderexecutorsEntity)) {
             return result;
         }

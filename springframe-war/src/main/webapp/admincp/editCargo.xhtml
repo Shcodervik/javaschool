@@ -31,12 +31,27 @@
                 <br/>
                 <p:outputLabel id="State" value="State: "/>
                 <br/>
-                <p:selectOneMenu id="selectMenuCargo" binding="#{cargoesBean.newCargoState}"  value="#{cargo.cargoStateIdCargoState.cargoState}" required="true" style="width:200px">
+                <p:selectOneMenu id="selectMenuCargo" binding="#{cargoesBean.newCargoState}"  value="#{cargo.cargoStateIdCargoState.cargoState}" style="width:200px">
                     <f:selectItems id="selectItems" value="#{cargoesBean.cargoStateNames}" />
                 </p:selectOneMenu>
                 <br/>
+                <p:outputLabel value="From: "/>
+                <br/>
+                <p:selectOneMenu id="selectMenuOrigin" binding="#{cargoesBean.newOriginCity}" valueChangeListener="#{cargoesBean.changeCityOrigin}" value="#{cargoesBean.newOriginName}" style="width:200px">
+                    <f:selectItems value="#{cargoesBean.cities}" />
+                   <!-- <p:ajax event="change" update="@this" />-->
+                </p:selectOneMenu>
+                <br/>
+                <p:outputLabel value="To: "/>
+                <br/>
+                <p:selectOneMenu id="selectMenuDestination" binding="#{cargoesBean.newDestinationCity}"  valueChangeListener="#{cargoesBean.changeCityDestination}" value="#{cargoesBean.newDestinationName}" style="width:200px">
+                    <f:selectItems value="#{cargoesBean.cities}" />
+                   <!-- <p:ajax event="change" update="value" />-->
+                </p:selectOneMenu>
+                <br/>
                 <p:commandButton action="#{cargoesBean.update(cargoesBean.newDescription.value,
-                    cargoesBean.newWeight.value, cargoesBean.newCargoState.value)}" type="submit"
+                    cargoesBean.newWeight.value, cargoesBean.newCargoState.value,
+                    cargoesBean.newOriginCity.value, cargoesBean.newDestinationCity.value)}" type="submit"
                                  value="Save">
                 </p:commandButton>
             </p:column>

@@ -18,12 +18,29 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class IndexController {
 
-    @RequestMapping(value = { "/index", "/" })
-    public String getIndex(){
-        return "index";
+    @RequestMapping(value = { "/" }, method = { RequestMethod.GET })
+    public ModelAndView homePage()
+    {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("homePage");
+        return model;
     }
 
+    @RequestMapping(value = { "/admincp/" }, method = { RequestMethod.GET })
+    public ModelAndView admincpPage()
+    {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("/admincp/orders");
+        return model;
+    }
 
+    @RequestMapping(value = { "/workspace/**" }, method = { RequestMethod.GET })
+    public ModelAndView calendarPage()
+    {
+        ModelAndView model = new ModelAndView();
+        model.setViewName("/workspace/driverworkinfo");
+        return model;
+    }
 
     @RequestMapping(value = { "/login", "/login.xhtml" }, method = RequestMethod.GET)
     public ModelAndView login(@RequestParam(value = "error", required = false) String error,
@@ -44,14 +61,6 @@ public class IndexController {
         model.setViewName("login");
         return model;
 
-    }
-
-    @RequestMapping(value = { "/admincp/" }, method = { RequestMethod.GET })
-    public ModelAndView admincpPage()
-    {
-        ModelAndView model = new ModelAndView();
-        model.setViewName("/admincp/main");
-        return model;
     }
 
 }

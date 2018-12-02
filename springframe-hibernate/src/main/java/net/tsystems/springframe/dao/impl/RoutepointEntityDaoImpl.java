@@ -2,6 +2,7 @@ package net.tsystems.springframe.dao.impl;
 
 import net.tsystems.springframe.dao.RoutepointEntityDao;
 import net.tsystems.springframe.database.CargoEntity;
+import net.tsystems.springframe.database.OrderEntity;
 import net.tsystems.springframe.database.RoutepointEntity;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -51,5 +52,14 @@ public class RoutepointEntityDaoImpl extends AbstractDaoImpl<Integer, Routepoint
         List<RoutepointEntity> routePoints = (List<RoutepointEntity>)criteria.list();
 
         return routePoints;
+    }
+
+    @Override
+    public List<RoutepointEntity> getRoutePointsByOrder(OrderEntity order) {
+        Session session = getSession();
+        Query query = session.createQuery("from RoutepointEntity r where r.orderIdOrder= :orderId");
+        query.setParameter("orderId", order);
+        List list = query.list();
+        return list;
     }
 }

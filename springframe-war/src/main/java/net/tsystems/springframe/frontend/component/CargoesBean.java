@@ -9,6 +9,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.event.ValueChangeEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,17 +53,38 @@ public class CargoesBean implements Serializable {
     CargostateEntitySO cargoState;
     RoutepointEntitySO routePointOrigin;
     RoutepointEntitySO routePointDestination;
-    RoutepointtypeEntitySO routePointType;
-    CityEntitySO cityEntitySO;
+
+    private String newOriginName = null;
+    private String newDestinationName = null;
+
+   // RoutepointtypeEntitySO routePointType;
+   // CityEntitySO cityEntitySO;
 
     private HtmlInputText newDescription;
     private HtmlInputText newWeight;
     private HtmlSelectOneMenu newCargoState;
     private HtmlSelectOneMenu newOriginCity;
     private HtmlSelectOneMenu newDestinationCity;
-    private String cargoStateName;
+   // private String cargoStateName;
+
 
     private static int editCargoId;
+
+    public void setNewOriginName(String newOriginName){
+        //this.newOriginName = newOriginName;
+    }
+
+    public String getNewOriginName(){
+        return this.newOriginName;
+    }
+
+    public void setNewDestinationName(String newDestinationName){
+        //this.newDestinationName = newDestinationName;
+    }
+
+    public String getNewDestinationName(){
+        return this.newDestinationName;
+    }
 
     public void setEditCargoId(int cargoId) {
         editCargoId = cargoId;
@@ -107,17 +129,44 @@ public class CargoesBean implements Serializable {
     public void setNewDestinationCity(HtmlSelectOneMenu newDestinationCity) {
         this.newDestinationCity = newDestinationCity;
     }
+    public RoutepointEntitySO getRoutePointOrigin() {
+        return routePointOrigin;
+    }
 
-    public Set<CargoEntitySO> getCargo() {
+    public void setRoutePointOrigin(RoutepointEntitySO routePointOrigin) {
+        this.routePointOrigin = routePointOrigin;
+    }
+
+    public RoutepointEntitySO getRoutePointDestination() {
+        return routePointDestination;
+    }
+
+    public void setRoutePointDestination(RoutepointEntitySO routePointDestination) {
+        this.routePointDestination = routePointDestination;
+    }
+
+    public CargoEntitySO getCargo() {
+        final List<RoutepointEntitySO> points = new ArrayList<>();
+
         if (cargo == null) {
             int editId = editCargoId;
             this.cargo = cargoService.getCargoById(editId);
+
             this.newDescription.setValue(this.cargo.getDescription());
             this.newWeight.setValue(this.cargo.getWeight());
             this.newCargoState.setValue(this.cargo.getCargoStateIdCargoState().getCargoState());
+
+            points.addAll(routepointService.getRoutePointsByCargo(this.cargo));
+            if (!points.isEmpty()) {
+                this.routePointOrigin = points.get(0);
+                this.routePointDestination = points.get(1);
+                this.newOriginCity.setValue(this.routePointOrigin.getCityIdCity().getName());
+                this.newDestinationCity.setValue(this.routePointDestination.getCityIdCity().getName());
+                this.newDestinationName = (this.routePointDestination.getCityIdCity().getName());
+                this.newOriginName = (this.routePointOrigin.getCityIdCity().getName());
+            }
         }
-        Set<CargoEntitySO> result = new HashSet<>();
-        result.add(cargo);
+        CargoEntitySO result = cargo;
         return result;
     }
 
@@ -175,27 +224,50 @@ public class CargoesBean implements Serializable {
 
     public String editCargo() {
         clearItems();
-        int editId = this.editCargoId;
-        this.cargo = cargoService.getCargoById(editId);
+       // int editId = this.editCargoId;
+        //this.cargo = cargoService.getCargoById(editId);
         return "editCargo?faces-redirect=true";
     }
 
     public String delete() {
         int editId = editCargoId;
         CargoEntitySO cargo = cargoService.getCargoById(editId);
+
         final List<RoutepointEntitySO> points = new ArrayList<>();
         points.addAll(this.routepointService.getRoutePointsByCargo(cargo));
+
         routepointService.deleteRoutePoints(points);
         cargoService.deleteCargo(cargo);
         return "cargoes?faces-redirect=true";
     }
 
-    public String update(String newDescription, String newWeight, String cargoState) {
+    public String update(String newDescription, String newWeight, String cargoState, String newOriginCity, String newDestinationCity) {
+        int editId = editCargoId;
+        CargoEntitySO cargo = cargoService.getCargoById(editId);
+        final List<RoutepointEntitySO> points = new ArrayList<>();
+        points.addAll(this.routepointService.getRoutePointsByCargo(cargo));
+        points.get(0).setCityIdCity(this.cityService.getCityByName(newOriginName));
+        points.get(1).setCityIdCity(this.cityService.getCityByName(newDestinationName));
+
+
+       /* origin.setCityIdCity(this.cityService.getCityByName(newOriginCity));
+        destination.setCityIdCity(this.cityService.getCityByName(newDestinationCity));
+        origin.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(1));
+        destination.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(2));
+        origin.setCargoIdCargo(cargo);
+        destination.setCargoIdCargo(cargo);*/
+
+        //points.add(origin);
+        //points.add(destination);
+
         this.cargoState = cargoStateService.getCargoStateByState(cargoState);
-        this.cargo.setDescription(newDescription);
-        this.cargo.setWeight(Double.valueOf(newWeight));
-        this.cargo.setCargoStateIdCargoState(this.cargoState);
+
+        cargo.setDescription(newDescription);
+        cargo.setWeight(Double.valueOf(newWeight));
+        cargo.setCargoStateIdCargoState(this.cargoState);
+
         cargoService.updateCargo(cargo);
+        routepointService.updateRoutePoints(points);
         return "cargoes?faces-redirect=true";
     }
 
@@ -219,12 +291,23 @@ public class CargoesBean implements Serializable {
         cargoService.addCargo(cargo);
         routepointService.addRoutePoint(origin);
         routepointService.addRoutePoint(destination);
+
         return "cargoes?faces-redirect=true";
+    }
+
+    public void changeCityOrigin (ValueChangeEvent event) {
+        newOriginName = event.getNewValue().toString();
+    }
+
+    public void changeCityDestination (ValueChangeEvent event) {
+        newDestinationName = event.getNewValue().toString();
     }
 
 
     private void clearItems(){
         this.cargo = null;
+        this.routePointOrigin = null;
+        this.routePointDestination = null;
         this.newDescription = null;
         this.newWeight = null;
         this.newCargoState = null;

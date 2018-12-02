@@ -1,5 +1,6 @@
 package net.tsystems.springframe.services.services.impl;
 
+import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.TruckEntityDao;
 import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.dao.impl.TruckEntityDaoImpl;
@@ -33,7 +34,7 @@ public class TruckServiceImpl implements TruckService {
             return false;
         }
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        ((AbstractDaoImpl)dao).create(truckEntity);
+        ((AbstractDao)dao).create(truckEntity);
         return true;
     }
 
@@ -44,7 +45,7 @@ public class TruckServiceImpl implements TruckService {
             return false;
         }
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        ((AbstractDaoImpl)dao).update(truckEntity);
+        ((AbstractDao)dao).update(truckEntity);
         return true;
     }
 
@@ -56,7 +57,7 @@ public class TruckServiceImpl implements TruckService {
         }
 
         TruckEntity truckEntity = TruckEntityMapper.INSTANCE.truckDtoToEntity(truck);
-        ((AbstractDaoImpl)dao).delete(truckEntity);
+        ((AbstractDao)dao).delete(truckEntity);
         return true;
     }
 
@@ -64,7 +65,7 @@ public class TruckServiceImpl implements TruckService {
     @Transactional
     public TruckEntitySO getTruckById(int id) {
         TruckEntitySO result = null;
-        TruckEntity truckEntity = (TruckEntity) ((AbstractDaoImpl)dao).getById(id);
+        TruckEntity truckEntity = (TruckEntity) ((AbstractDao)dao).getById(id);
         if (truckEntity != null) {
             result = TruckEntityMapper.INSTANCE.truckEntityToDto(truckEntity);
         }

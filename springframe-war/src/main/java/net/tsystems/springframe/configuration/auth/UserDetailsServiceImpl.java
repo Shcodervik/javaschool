@@ -6,25 +6,22 @@
  * Vestibulum commodo. Ut rhoncus gravida arcu.
  */
 
-package net.tsystems.springframe.frontend.component;
-
+package net.tsystems.springframe.configuration.auth;
 
 import net.tsystems.springframe.services.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
-import javax.enterprise.context.SessionScoped;
-import javax.faces.bean.ManagedBean;
-import java.io.Serializable;
-
-@SessionScoped
-@ManagedBean(name = "usersBean")
-@Component(value = "usersBean")
-public class UsersBean implements Serializable {
+@Component("userDetailsServiceImpl")
+public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
-    public void UsersBean(UserService userService){
-        this.userService = userService;
+    public UserService userService;
+
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return userService.getUserByUsername(s);
     }
-    private UserService userService;
 }

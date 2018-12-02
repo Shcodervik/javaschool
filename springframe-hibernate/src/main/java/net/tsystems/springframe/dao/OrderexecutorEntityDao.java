@@ -8,4 +8,5 @@ public interface OrderexecutorEntityDao {
     OrderexecutorEntity getOrderExecutorById(int idOrderExecutor);
     List<OrderexecutorEntity> getAllOrderExecutors();
     List<OrderexecutorEntity> getAllOrderExecutorsByOrder(int idOrder);
+    List<OrderexecutorEntity> getWorkingOrderExecutors();
 }

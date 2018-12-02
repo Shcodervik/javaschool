@@ -14,11 +14,20 @@ import net.tsystems.springframe.services.services.UserService;
 import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.*;
+import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
@@ -40,44 +49,73 @@ public class UserLoginBean implements Serializable {
 
     private final String STRING_FEEDBACK_INCORRECT_USERNAME = "Incorrect password";
 
+
+    //@ManagedProperty(value="#{authenticationManager}")
+    //@ManagedBean(name = "authenticationManager")
+    //private AuthenticationManager authenticationManager;
+    //public AuthenticationManager getAuthenticationManager() {
+    //    return authenticationManager;
+    //}
+
+    //@Autowired
+    //public void setAuthenticationManager(AuthenticationManager authenticationManager) {
+    //    this.authenticationManager= authenticationManager;
+    //}
+
+    private ShaPasswordEncoder encoder;
     @Autowired
-    @Qualifier("userService")
+    public void setEncoder(ShaPasswordEncoder encoder){
+        this.encoder = encoder;
+    }
+
     private UserService userService;
+    @Autowired
+    public void setUserService(UserService userService){
+        this.userService = userService;
+    }
 
     UserEntitySO user;
 
-    private HtmlInputText username;
-    private HtmlInputText password;
+    private String username;
+    private String password;
 
-    public HtmlInputText getUsername()
+    public String getUsername()
     {
         return username;
     }
 
-    public void setUsername(HtmlInputText username)
+    public void setUsername(String username)
     {
         this.username = username;
     }
 
-    public HtmlInputText getPassword()
+    public String getPassword()
     {
         return password;
     }
 
-    public void setPassword(HtmlInputText password)
+    public void setPassword(String password)
     {
         this.password = password;
     }
 
-    public void login(ActionEvent event)
+    public String login()
     {
         RequestContext context = RequestContext.getCurrentInstance();
         FacesMessage message = null;
-        UserEntitySO user = userService.getUserByUsername(username.toString());
+        UserEntitySO user = userService.getUserByUsername(username);
+        String passH = encoder.encodePassword(password,username);
+        //try {
+            //SecurityContextHolder.getContext().setAuthentication(null);
+        //} catch (Exception e) {
+        //    e.printStackTrace();
+        //}
         if (user != null){
-            if (user.getPassHash().equals(password)){
+            if (encoder.isPasswordValid(user.getPassHash(),password,username)){
                 message = new FacesMessage(FacesMessage.SEVERITY_INFO, STRING_FEEDBACK_LOGGED_IN, username.toString());
-                    context.addCallbackParam("loggedIn", true);
+                context.addCallbackParam("loggedIn", true);
+                FacesContext.getCurrentInstance().addMessage(null, message);
+                return "/login?logout";
             }
             else {
                 message = new FacesMessage(FacesMessage.SEVERITY_ERROR, STRING_FEEDBACK_GENERAL_ERROR,
@@ -88,8 +126,12 @@ public class UserLoginBean implements Serializable {
             message = new FacesMessage(FacesMessage.SEVERITY_ERROR, STRING_FEEDBACK_GENERAL_ERROR, STRING_FEEDBACK_NO_SUCH_USER);
         }
         FacesContext.getCurrentInstance().addMessage(null, message);
-
+        return null;
     }
+
+   /* public void logout(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }*/
 
 
 }

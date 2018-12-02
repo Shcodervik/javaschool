@@ -9,6 +9,7 @@
 package net.tsystems.springframe.services.services;
 
 import net.tsystems.springframe.services.objects.CargoEntitySO;
+import net.tsystems.springframe.services.objects.OrderEntitySO;
 import net.tsystems.springframe.services.objects.RoutepointEntitySO;
 
 import java.util.List;
@@ -22,9 +23,12 @@ public interface RoutepointService {
 
     boolean deleteRoutePoints(List<RoutepointEntitySO> points);
 
+    boolean updateRoutePoints(List<RoutepointEntitySO> points);
+
     RoutepointEntitySO getRoutePointById(int id);
     RoutepointEntitySO getRoutePointByType(String type);
     List<RoutepointEntitySO> getRoutePointsByCargo(CargoEntitySO cargo);
+    List<RoutepointEntitySO> getRoutePointsByOrder(OrderEntitySO order);
 
     List<RoutepointEntitySO> getAllRoutePoints();
 }

@@ -38,7 +38,7 @@ public class OrderexecutorEntity {
         return idOrderExecutor;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "Driver_idDriver", referencedColumnName = "idDriver", nullable = false)
     public DriverEntity getDriverIdDriver() {
         return driverIdDriver;
@@ -48,7 +48,8 @@ public class OrderexecutorEntity {
         this.driverIdDriver = driverIdDriver;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST,
+            CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = false)
     public OrderEntity getOrderIdOrder() {
         return orderIdOrder;
@@ -58,7 +59,7 @@ public class OrderexecutorEntity {
         this.orderIdOrder = orderIdOrder;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @JoinColumn(name = "Truck_idTruck", referencedColumnName = "idTruck", nullable = false)
     public TruckEntity getTruckIdTruck() {
         return truckIdTruck;

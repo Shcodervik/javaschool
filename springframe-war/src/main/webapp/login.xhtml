@@ -15,17 +15,17 @@
             <h:panelGrid columns="2" cellpadding="5">
                 <h:outputLabel for="username" value="Login*"
                                style="font-weight:bold" />
-                <p:inputText id="username" value=""
-                             binding="#{userLoginBean.username}" required="true" label="username" />
+                <p:inputText id="username" value="#{userLoginBean.username}"
+                             required="true" label="username" />
                 <h:outputLabel for="password" value="Password*"
                              style="font-weight:bold" />
                 <p:password id="password" value="#{userLoginBean.password}"
-                            binding="#{userLoginBean.password}" required="true" label="password" />
+                             required="true" label="password" />
 
 
                 <f:facet name="footer">
                     <p:commandButton value="Login" update="growl" ajax="false"
-                                     actionListener="#{userLoginBean.login}" />
+                                     action="#{userLoginBean.login}" />
                 </f:facet>
             </h:panelGrid>
 

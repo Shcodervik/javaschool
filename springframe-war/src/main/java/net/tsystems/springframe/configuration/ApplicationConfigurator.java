@@ -15,5 +15,5 @@ import org.springframework.context.annotation.ScopedProxyMode;
 
 @Configuration
 @ComponentScan(scopedProxy = ScopedProxyMode.INTERFACES, basePackages = {"net.tsystems.springframe"})
-public class Configurator {
+public class ApplicationConfigurator {
 }
