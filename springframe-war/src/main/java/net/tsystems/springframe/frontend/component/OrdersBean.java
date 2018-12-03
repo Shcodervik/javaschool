@@ -38,7 +38,9 @@ public class OrdersBean implements Serializable {
                            CargoService cargoService,
                            TruckService truckService,
                            DriverService driverService,
-                           RoutepointService routepointService
+                           RoutepointService routepointService,
+                           RoadService roadService,
+                           CityService cityService
                            ){
         this.orderService = orderService;
         this.orderExecutorService = orderExecutorService;
@@ -46,6 +48,8 @@ public class OrdersBean implements Serializable {
         this.truckService = truckService;
         this.driverService = driverService;
         this.routepointService = routepointService;
+        this.roadService = roadService;
+        this.cityService = cityService;
 
     }
 
@@ -56,21 +60,28 @@ public class OrdersBean implements Serializable {
     private TruckService truckService;
     private DriverService driverService;
     private RoutepointService routepointService;
+    private RoadService roadService;
+    private CityService cityService;
 
     OrderEntitySO order;
     OrderexecutorEntitySO orderexecutor;
     DriverEntitySO driver;
     TruckEntitySO truck;
     CargoEntitySO cargo;
+    RoadEntitySO road;
 
     private HtmlInputText newClosed;
     private HtmlInputText newCreateDT;
     private HtmlInputText newCloseDT;
 
-    private static int editOrderExecutorId;
+    private int editOrderExecutorId;
+    private int editOrderId;
 
-    public static void setEditOrderExecutorId(int editOrderId) {
-        OrdersBean.editOrderExecutorId = editOrderId;
+    public void setEditOrderExecutorId(int editOrderExecutorId) {
+        this.editOrderExecutorId = editOrderExecutorId;
+    }
+    public void setEditOrderId(int editOrderId) {
+        this.editOrderId = editOrderId;
     }
 
     public HtmlInputText getNewClosed() {
@@ -167,7 +178,7 @@ public class OrdersBean implements Serializable {
 
    // public OrderEntitySO
 
-    public OrderEntitySO getOrderExecutor() {
+   /* public OrderEntitySO getOrderExecutor() {
         if (order == null) {
             int editId = editOrderExecutorId;
             this.order = orderService.getOrderById(editId);
@@ -177,6 +188,58 @@ public class OrdersBean implements Serializable {
         }
         OrderEntitySO result = order;
         return result;
+    }*/
+
+    public List<CustomCargo> getAllCargoesByOrder(){
+        List<RoutepointEntitySO> routePoints = routepointService.getRoutePointsByOrder(this.order);
+        List<RoadEntitySO> roads = roadService.getAllRoads();
+        List<CustomCargo> result = new ArrayList<>();
+        int count = 0;
+        CargoEntitySO crgSO;
+        List<RoutepointEntitySO> routePointsForCargo = new ArrayList<>();
+        for (RoutepointEntitySO routeP:routePoints) {
+            CustomCargo crg = new CustomCargo();
+            if(count%2 == 1){
+                routePointsForCargo.add(routeP);
+                crgSO = routeP.getCargoIdCargo();
+                crg.setIdCargo(crgSO.getIdCargo());
+                crg.setCargoStateIdCargoState(crgSO.getCargoStateIdCargoState());
+                crg.setDescription(crgSO.getDescription());
+                crg.setWeight(crgSO.getWeight());
+                String origin = cityService.getCityById(routePointsForCargo.get(0).getCityIdCity().getIdCity()).getName();
+                String destination = cityService.getCityById(routePointsForCargo.get(1).getCityIdCity().getIdCity()).getName();
+                crg.setRoad("From "+origin+" to "+destination);
+                for (RoadEntitySO r:roads) {
+                    if(((r.getOriginCity().getName().equals(origin))
+                            && (r.getDestinationCity().getName().equals(destination)))
+                            ||
+                            ((r.getDestinationCity().getName().equals(origin))
+                                    &&(r.getOriginCity().getName().equals(destination)))){
+
+                        crg.setRoadLength(r.getLength());
+                        crg.setRoadSpeed(r.getSpeedLimit());
+                        crg.setTimeInRoad(crg.getRoadLength()/crg.getRoadSpeed());
+                        result.add(crg);
+                        break;
+                    }
+                }
+                routePointsForCargo.clear();
+            }
+            else{
+                routePointsForCargo.add(routeP);
+            }
+            count++;
+        }
+        return result;
+    }
+
+
+
+    public String showCargoes() {
+        clearItems();
+        int editId = editOrderId;
+        this.order = orderService.getOrderById(editId);
+        return "showOrder.xhtml?faces-redirect=true";
     }
 
     public String newOrder() {

@@ -57,7 +57,7 @@ public class RoutepointEntityDaoImpl extends AbstractDaoImpl<Integer, Routepoint
     @Override
     public List<RoutepointEntity> getRoutePointsByOrder(OrderEntity order) {
         Session session = getSession();
-        Query query = session.createQuery("from RoutepointEntity r where r.orderIdOrder= :orderId");
+        Query query = session.createQuery("from RoutepointEntity r where r.orderIdOrder= :orderId order by cargoIdCargo");
         query.setParameter("orderId", order);
         List list = query.list();
         return list;

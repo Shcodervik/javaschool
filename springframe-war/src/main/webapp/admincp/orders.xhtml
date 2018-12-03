@@ -58,9 +58,9 @@
         </h:column>
         <h:column>
             <h:form>
-                <p:commandButton action="#{ordersBean.getCargoes()}" value="Show">
+                <p:commandButton action="#{ordersBean.showCargoes()}" value="Show">
                     <f:setPropertyActionListener value="#{orderExecutor.orderIdOrder.idOrder}"
-                                                 target="#{ordersBean.editOrderExecutorId}" />
+                                                 target="#{ordersBean.editOrderId}" />
                     <f:ajax render="cargo"/>
                 </p:commandButton>
 
