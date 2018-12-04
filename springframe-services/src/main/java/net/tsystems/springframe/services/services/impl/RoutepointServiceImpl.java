@@ -10,7 +10,6 @@ package net.tsystems.springframe.services.services.impl;
 
 import net.tsystems.springframe.dao.AbstractDao;
 import net.tsystems.springframe.dao.RoutepointEntityDao;
-import net.tsystems.springframe.dao.impl.AbstractDaoImpl;
 import net.tsystems.springframe.database.CargoEntity;
 import net.tsystems.springframe.database.OrderEntity;
 import net.tsystems.springframe.database.RoutepointEntity;
@@ -27,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Component("routepointService")
@@ -142,6 +142,21 @@ public class RoutepointServiceImpl implements RoutepointService {
         final List<RoutepointEntitySO> result = new ArrayList<RoutepointEntitySO>();
         OrderEntity orderEntity = OrderEntityMapper.INSTANCE.orderDtoToEntity(order);
         List<RoutepointEntity> routepointsEntity = dao.getRoutePointsByOrder(orderEntity);
+        if (CollectionUtils.isEmpty(routepointsEntity)) {
+            //LOG.error("NULL reference on users");
+            return result;
+        }
+        for (RoutepointEntity data : routepointsEntity) {
+            RoutepointEntitySO routepoint = RoutepointEntityMapper.INSTANCE.routepointEntityToDto(data);
+            result.add(routepoint);
+        }
+        return result;
+    }
+
+    @Override
+    public List<RoutepointEntitySO> getRoutePointsWithoutOrder() {
+        final List<RoutepointEntitySO> result = new ArrayList<RoutepointEntitySO>();
+        List<RoutepointEntity> routepointsEntity = dao.getRoutePointsWithoutOrder();
         if (CollectionUtils.isEmpty(routepointsEntity)) {
             //LOG.error("NULL reference on users");
             return result;

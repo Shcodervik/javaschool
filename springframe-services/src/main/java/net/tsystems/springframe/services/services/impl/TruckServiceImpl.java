@@ -84,6 +84,21 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
+    public List<TruckEntitySO> getTrucksForOrder(Double capacity) {
+        final List<TruckEntitySO> result = new ArrayList<TruckEntitySO>();
+        List<TruckEntity> trucksEntity = dao.getTrucksForOrder(capacity);
+        if (CollectionUtils.isEmpty(trucksEntity)) {
+            //LOG.error("NULL reference on users");
+            return result;
+        }
+        for (TruckEntity data : trucksEntity) {
+            TruckEntitySO truck = TruckEntityMapper.INSTANCE.truckEntityToDto(data);
+            result.add(truck);
+        }
+        return result;
+    }
+
+    @Override
     @Transactional
     public List<TruckEntitySO> getAllTrucks() {
         final List<TruckEntitySO> result = new ArrayList<TruckEntitySO>();

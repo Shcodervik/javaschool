@@ -3,6 +3,7 @@ package net.tsystems.springframe.dao.impl;
 import net.tsystems.springframe.dao.CargoEntityDao;
 import net.tsystems.springframe.database.CargoEntity;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Repository;
@@ -38,6 +39,8 @@ public class CargoEntityDaoImpl extends AbstractDaoImpl<Integer, CargoEntity> im
             List<CargoEntity> cargoes = (List<CargoEntity>)criteria.list();
             return cargoes;
         }
+
+
 
     @Override
     public Session getEntityManager() {

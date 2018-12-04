@@ -16,23 +16,12 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/adminTemplate.xhtml">
 <ui:define name="content">
-    <h:outputLink value="orders.xhtml">Show All Orders >></h:outputLink>
-    <h:form id="addOrderForm">
-        <h1>Add Order</h1>
-        <br/>
-        <p:outputLabel value="Select cargoes: "/>
-        <br/>
-        <p:selectManyCheckbox id="selectCheckboxOrder" binding="#{ordersBean.selected}"
-                              required="true" requiredMessage="Please, enter some cargo!">
-            <f:selectItems value="#{ordersBean.routePoints}" />
-        </p:selectManyCheckbox>
-        <br/>
-        <p:commandButton action="#{ordersBean.saveCargoesInOrder(ordersBean.selected)}" type="submit"
-                         value="Save"/>
-
-        <p:commandButton action="/admincp/orders.xhtml" value="Cancel"/>
-
-
+    <h:form id="addOrderForm1">
+        <h1>Add order</h1>
+        <h:outputLabel value="Current weight of cargoes:#{ordersBean.currentWeight}, ton"/>
+        <p:selectOneMenu id="selectMenuTruck" binding="#{ordersBean.newTruck}" required="true" style="width:200px">
+            <f:selectItems value="#{ordersBean.trucksSerials}" />
+        </p:selectOneMenu>
     </h:form>
 </ui:define>
 </ui:composition>

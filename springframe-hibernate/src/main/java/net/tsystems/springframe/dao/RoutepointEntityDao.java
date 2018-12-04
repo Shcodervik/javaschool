@@ -12,4 +12,6 @@ public interface RoutepointEntityDao {
     List<RoutepointEntity> getRoutePointsByCargo(CargoEntity cargo);
     List<RoutepointEntity> getAllRoutePoints();
     List<RoutepointEntity> getRoutePointsByOrder(OrderEntity order);
+    List<RoutepointEntity> getRoutePointsWithoutOrder();
+
 }

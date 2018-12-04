@@ -15,4 +15,5 @@ public interface CargoService {
     CargoEntitySO getCargoById(int id);
 
     List<CargoEntitySO> getAllCargoes();
+
 }

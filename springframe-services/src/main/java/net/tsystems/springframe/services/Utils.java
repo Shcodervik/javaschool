@@ -76,4 +76,13 @@ public class Utils {
 
         return formatter.format(dt);
     }
+
+    public static double roundResult (double d, int precise) {
+
+        precise = 10^precise;
+        d = d*precise;
+        int i = (int) Math.round(d);
+        return (double) i/precise;
+
+    }
 }

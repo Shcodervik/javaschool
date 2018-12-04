@@ -11,4 +11,5 @@ public interface TruckEntityDao {
     List<TruckEntity> getTrucksByCapacity(float capacity);
     List<TruckEntity> getTrucksByState(int idTruckState);
     List<TruckEntity> getTrucksByDriversNumber(int driversNumber);
+    List<TruckEntity> getTrucksForOrder(Double capacity);
 }

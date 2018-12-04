@@ -8,4 +8,5 @@ public interface CargoEntityDao {
     CargoEntity getCargoById(int idCargo);
     List<CargoEntity> getAllCargo();
     List<CargoEntity> getAllCargoByState(String state);
+
 }

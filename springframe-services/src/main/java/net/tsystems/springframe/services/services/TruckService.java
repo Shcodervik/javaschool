@@ -15,5 +15,7 @@ public interface TruckService {
 
     TruckEntitySO getTruckBySerial(String serial);
 
+    List<TruckEntitySO> getTrucksForOrder(Double capacity);
+
     List<TruckEntitySO> getAllTrucks();
 }
