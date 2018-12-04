@@ -367,7 +367,7 @@ public class OrdersBean implements Serializable {
                 }
             }
         }
-        currentWeight = Double.valueOf(weight/1000); //return tons
+        currentWeight = Utils.roundResult(Double.valueOf(weight/1000),2); //return tons
         logger.error(String.valueOf(currentWeight));
         return "addOrder2step?faces-redirect=true";
     }

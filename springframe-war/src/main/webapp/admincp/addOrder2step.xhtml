@@ -19,9 +19,14 @@
     <h:form id="addOrderForm1">
         <h1>Add order</h1>
         <h:outputLabel value="Current weight of cargoes:#{ordersBean.currentWeight}, ton"/>
+        <br/>
         <p:selectOneMenu id="selectMenuTruck" binding="#{ordersBean.newTruck}" required="true" style="width:200px">
             <f:selectItems value="#{ordersBean.trucksSerials}" />
         </p:selectOneMenu>
+        <p:commandButton action="" type="submit"
+                         value="Save"/>
+
+        <p:commandButton action="/admincp/orders.xhtml" value="Cancel"/>
     </h:form>
 </ui:define>
 </ui:composition>
