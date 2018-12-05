@@ -1,9 +1,7 @@
-/*
- * Copyright (c) 2018. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
- * Morbi non lorem porttitor neque feugiat blandit. Ut vitae ipsum eget quam lacinia accumsan.
- * Etiam sed turpis ac ipsum condimentum fringilla. Maecenas magna.
- * Proin dapibus sapien vel ante. Aliquam erat volutpat. Pellentesque sagittis ligula eget metus.
- * Vestibulum commodo. Ut rhoncus gravida arcu.
+/**
+ * <p>Bean for create, delete and view orders.</p>
+ *
+ *
  */
 
 package net.tsystems.springframe.frontend.component;
@@ -228,6 +226,12 @@ public class OrdersBean implements Serializable {
         return result;
     }
 
+    /**
+     * <p>This method returns executors who at work now</p>
+     *
+     *@return List of SO executors, contains: order, truck, drivers
+     *
+     */
     public List getWorkingOrderExecutors(){
          List<CustomOrderExecutor> result;
         try{
@@ -272,7 +276,13 @@ public class OrdersBean implements Serializable {
         return null;
     }
 
-
+    /**
+     * <p>This method returns cargoes in the order</p>
+     *
+     *@return List of custom class objects, there are same cargoes, but with extended fields
+     * It needs for UI
+     *
+     */
     public List<CustomCargo> getAllCargoesByOrder(){
         List<RoutepointEntitySO> routePoints = routepointService.getRoutePointsByOrder(this.order);
         List<RoadEntitySO> roads = roadService.getAllRoads();
@@ -340,12 +350,24 @@ public class OrdersBean implements Serializable {
         return null;
     }
 
-    public List<RoutepointEntitySO> getRoutePointsWithoutOrder(){
+    /**
+     * <p>This method returns route points with null ID of order inside</p>
+     *
+     *@return List of SO route points
+     *
+     */
+    private List<RoutepointEntitySO> getRoutePointsWithoutOrder(){
         List<RoutepointEntitySO> result = new ArrayList<RoutepointEntitySO>();
         result.addAll(routepointService.getRoutePointsWithoutOrder());
         return result;
     }
 
+    /**
+     * <p>This method returns route points for UI</p>
+     *
+     *@return Set of SO route points from method getRoutePointsWithoutOrder()
+     *
+     */
     public Set getRoutePoints() {
         Set<String> result = new HashSet<>();
         Set<RoutepointEntitySO> rps = new HashSet<>();
@@ -369,7 +391,13 @@ public class OrdersBean implements Serializable {
         return "addOrder.xhtml?faces-redirect=true";
     }
 
-
+    /**
+     * <p>Deleting order executors, order and updating route points</p>
+     *
+     * @param orderExecutorIds List of IDs executors for deleting
+     * @return String for redirect to page of another orders
+     *
+     */
     public String delete(List<Integer> orderExecutorIds) {
         OrderEntitySO order = null;
         for(Integer i : orderExecutorIds) {
@@ -391,6 +419,13 @@ public class OrdersBean implements Serializable {
         return "orders?faces-redirect=true";
     }
 
+    /**
+     * <p>Saving in field routePointsInOrder route points of cargoes for the order</p>
+     *
+     * @param rps Checkboxes with checked cargoes in UI, saves route points
+     * @return String for redirect to page for step 2 (saving truck)
+     *
+     */
     public String saveCargoesInOrder(SelectManyCheckbox rps){
         int idCarg;
         Pattern p = Pattern.compile("([0-9]{1,15})");
@@ -427,7 +462,13 @@ public class OrdersBean implements Serializable {
         }
         return "addOrder2step?faces-redirect=true";
     }
-
+    /**
+     * <p>Saving truck for the order</p>
+     *
+     * @param serial String field of serial number of truck for the order
+     * @return String for redirect to page for step 3 (saving driver(s))
+     *
+     */
     public String saveTruckForOrder(String serial){
 
         truck = truckService.getTruckBySerial(serial);
@@ -435,6 +476,12 @@ public class OrdersBean implements Serializable {
         return "addOrder3step?faces-redirect=true";
     }
 
+    /**
+     * <p>Saving all free drivers in field 'drvs', needs  for UI</p>
+     *
+     * @return Set of free drivers
+     *
+     */
     public Set getDriversInOrder() {
         Set<String> result = new HashSet<>();
         if(drvs.isEmpty()) {
@@ -447,6 +494,13 @@ public class OrdersBean implements Serializable {
 
     }
 
+    /**
+     * <p>Saving the order</p>
+     *
+     * @param drvs Checked drivers on 3 step page
+     * @return String for redirect to page of all orders after saving
+     *
+     */
     public String saveOrder(SelectManyCheckbox drvs){
         String uinDriver;
         Pattern p = Pattern.compile("([0-9]{1,15})");
@@ -535,7 +589,7 @@ public class OrdersBean implements Serializable {
         return truckSerials;
     }
 
-    public void clearItems(){
+    private void clearItems(){
         this.order = null;
         this.newClosed = null;
         this.newCreateDT = null;

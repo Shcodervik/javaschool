@@ -13,9 +13,13 @@ import java.util.Locale;
  * */
 
 public class Utils {
-
+    private static double EPSILON = 0.0001;
     /**
      * It's for converting byte to another meaning of boolean (UI needs it)
+     * Mappers use this method
+     *
+     * @param i Byte value for converting
+     * @return Another meaning of boolean value
      * **/
     public static boolean byteToBool (byte i){
         if(i==1) {
@@ -29,20 +33,17 @@ public class Utils {
 
     /**
      * It's for converting boolean to another meaning of byte (UI needs it)
+     * Mappers use this method
+     *
+     * @param i Boolean value for converting
+     * @return Another meaning of byte value
+     *
      * **/
     public static byte boolToByte (boolean i){
         if(i){
             return 0; //actually 1
         }
         return 1;  //actually 0
-    }
-
-    /**
-     * Encoding pass to SHA-1
-     * */
-    public static String toSHA(String pass){
-
-        return DigestUtils.sha1Hex(pass);
     }
 
     public static Date datetimeToDate(Timestamp ts) {
@@ -66,6 +67,7 @@ public class Utils {
         }
     }
 
+
     public static Date stringToDate(String str) throws ParseException {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss", Locale.ENGLISH);
         Date date = formatter.parse(str);
@@ -73,16 +75,23 @@ public class Utils {
     }
     public static String dateToString(Date dt) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH.mm.ss", Locale.ENGLISH);
-
         return formatter.format(dt);
     }
 
+    /**Rounding double value
+     *
+     * @param d Double value for rounding
+     * @param precise Accuracy for rounding value
+     *
+     * @return Rounding value
+     * */
     public static double roundResult (double d, int precise) {
-
-        precise = 10^precise;
-        d = d*precise;
-        int i = (int) Math.round(d);
-        return (double) i/precise;
+        double c = 0.5 * EPSILON * d;
+        //  double p = Math.pow(10, precision); //slow
+        double p = 1; while (precise-- > 0) p *= 10;
+        if (d < 0)
+            p *= -1;
+        return Math.round((d + c) * p) / p;
 
     }
 }

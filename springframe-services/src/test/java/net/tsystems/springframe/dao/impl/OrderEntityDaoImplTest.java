@@ -21,23 +21,20 @@ public class OrderEntityDaoImplTest extends TestCase {
 
     OrderEntityDao dao = new OrderEntityDaoImpl();
 
-    public void testGetAllOrders() {
-
-    }
-   /* public void testCreateInvalidOrder(){
+    public void testCreateInvalidOrder() {
         OrderEntity o = new OrderEntity();
         o.setIdOrder(0);
         o.setClosed((byte) 2);
-        Timestamp date = new Timestamp();
-        o.setCreateDt(date);
+        Timestamp date = new Timestamp(System.currentTimeMillis());
+        o.setCreateDT(date);
         boolean thrown = false;
-        try{
-            ((AbstractDao)dao).create(o);
+        try {
+            ((AbstractDao) dao).create(o);
             thrown = true;
-        }catch(Exception e){
+        } catch (Exception e) {
             thrown = false;
         }
 
         assertFalse(thrown);
-    }*/
+    }
 }
