@@ -249,17 +249,6 @@ public class CargoesBean implements Serializable {
         points.get(0).setCityIdCity(this.cityService.getCityByName(newOriginName));
         points.get(1).setCityIdCity(this.cityService.getCityByName(newDestinationName));
 
-
-       /* origin.setCityIdCity(this.cityService.getCityByName(newOriginCity));
-        destination.setCityIdCity(this.cityService.getCityByName(newDestinationCity));
-        origin.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(1));
-        destination.setRoutePointTypeIdRpType(this.routepointtypeService.getRoutePointTypeById(2));
-        origin.setCargoIdCargo(cargo);
-        destination.setCargoIdCargo(cargo);*/
-
-        //points.add(origin);
-        //points.add(destination);
-
         this.cargoState = cargoStateService.getCargoStateByState(cargoState);
 
         cargo.setDescription(newDescription);

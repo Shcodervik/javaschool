@@ -16,14 +16,15 @@
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/adminTemplate.xhtml">
 <ui:define name="content">
-    <h:form id="addOrderForm1">
+    <h:form id="addOrderForm2step">
         <h1>Add order</h1>
         <h:outputLabel value="Current weight of cargoes:#{ordersBean.currentWeight}, ton"/>
         <br/>
         <p:selectOneMenu id="selectMenuTruck" binding="#{ordersBean.newTruck}" required="true" style="width:200px">
             <f:selectItems value="#{ordersBean.trucksSerials}" />
         </p:selectOneMenu>
-        <p:commandButton action="" type="submit"
+        <br/>
+        <p:commandButton action="#{ordersBean.saveTruckForOrder(ordersBean.newTruck.getValue().toString())}" type="submit"
                          value="Save"/>
 
         <p:commandButton action="/admincp/orders.xhtml" value="Cancel"/>

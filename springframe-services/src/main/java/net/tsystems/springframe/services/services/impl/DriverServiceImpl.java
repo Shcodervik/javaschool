@@ -74,9 +74,36 @@ public class DriverServiceImpl implements DriverService {
 
     @Override
     @Transactional
+    public DriverEntitySO getDriverByUIN(String uin) {
+        DriverEntitySO result = null;
+        DriverEntity driverEntity = dao.getDriverByUIN(uin);
+        if (driverEntity != null) {
+            result = DriverEntityMapper.INSTANCE.driverEntityToDto(driverEntity);
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional
     public List<DriverEntitySO> getAllDrivers() {
         final List<DriverEntitySO> result = new ArrayList<DriverEntitySO>();
         List<DriverEntity> driversEntity = dao.getAllDrivers();
+        if (CollectionUtils.isEmpty(driversEntity)) {
+            //LOG.error("NULL reference on users");
+            return result;
+        }
+        for (DriverEntity data : driversEntity) {
+            DriverEntitySO driver = DriverEntityMapper.INSTANCE.driverEntityToDto(data);
+            result.add(driver);
+        }
+        return result;
+    }
+
+    @Override
+    @Transactional
+    public List<DriverEntitySO> getDriversForOrder() {
+        final List<DriverEntitySO> result = new ArrayList<DriverEntitySO>();
+        List<DriverEntity> driversEntity = dao.getDriversForOrder();
         if (CollectionUtils.isEmpty(driversEntity)) {
             //LOG.error("NULL reference on users");
             return result;

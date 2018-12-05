@@ -20,6 +20,8 @@ public interface OrderexecutorService {
 
     boolean deleteOrderexecutor(OrderexecutorEntitySO orderExecutor);
 
+    boolean createOrderexecutorsForOrder(List<OrderexecutorEntitySO> executors);
+
     OrderexecutorEntitySO getOrderexecutorById(int id);
 
     List<OrderexecutorEntitySO> getAllOrderexecutors();

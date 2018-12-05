@@ -84,6 +84,7 @@ public class TruckServiceImpl implements TruckService {
     }
 
     @Override
+    @Transactional
     public List<TruckEntitySO> getTrucksForOrder(Double capacity) {
         final List<TruckEntitySO> result = new ArrayList<TruckEntitySO>();
         List<TruckEntity> trucksEntity = dao.getTrucksForOrder(capacity);

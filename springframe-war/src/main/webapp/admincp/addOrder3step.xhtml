@@ -15,25 +15,25 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <ui:composition template="../templates/adminTemplate.xhtml">
-<ui:define name="content">
-    <h:outputLink value="orders.xhtml">Show All Orders >></h:outputLink>
-    <h:form id="addOrderForm">
-        <h1>Add Order</h1>
-        <br/>
-        <p:outputLabel value="Select cargoes: "/>
-        <br/>
-        <p:selectManyCheckbox id="selectCheckboxOrder" binding="#{ordersBean.selectedCargoes}"
-                              required="true" requiredMessage="Please, enter some cargo!">
-            <f:selectItems value="#{ordersBean.routePoints}" />
-        </p:selectManyCheckbox>
-        <br/>
-        <p:commandButton action="#{ordersBean.saveCargoesInOrder(ordersBean.selectedCargoes)}" type="submit"
-                         value="Save"/>
+    <ui:define name="content">
+        <h:outputLink value="orders.xhtml">Show All Orders >></h:outputLink>
+        <h:form id="addOrderForm3step">
+            <h1>Add Order</h1>
+            <br/>
+            <p:outputLabel value="Please, choose #{ordersBean.countDriversForOrder}"/>
+            <br/>
+            <p:selectManyCheckbox id="selectCheckboxOrder3step" binding="#{ordersBean.selectedDrivers}"
+                                  required="true" requiredMessage="Please, enter some drivers!">
+                <f:selectItems value="#{ordersBean.driversInOrder}" />
+            </p:selectManyCheckbox>
+            <br/>
+            <p:commandButton action="#{ordersBean.saveOrder(ordersBean.selectedDrivers)}" type="submit"
+                             value="Save"/>
 
-        <p:commandButton action="/admincp/orders.xhtml" value="Cancel"/>
+            <p:commandButton action="/admincp/orders.xhtml" value="Cancel"/>
 
 
-    </h:form>
-</ui:define>
+        </h:form>
+    </ui:define>
 </ui:composition>
 </html>

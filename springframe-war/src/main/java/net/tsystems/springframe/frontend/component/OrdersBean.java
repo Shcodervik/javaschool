@@ -67,12 +67,12 @@ public class OrdersBean implements Serializable {
     private RoadService roadService;
     private CityService cityService;
 
-    OrderEntitySO order;
-    OrderexecutorEntitySO orderexecutor;
-    DriverEntitySO driver;
-    TruckEntitySO truck;
-    CargoEntitySO cargo;
-    RoadEntitySO road;
+    private OrderEntitySO order;
+    private OrderexecutorEntitySO orderexecutor;
+    private DriverEntitySO driver;
+    private TruckEntitySO truck;
+    private CargoEntitySO cargo;
+    private RoadEntitySO road;
 
     private HtmlInputText newClosed;
     private HtmlInputText newCreateDT;
@@ -82,16 +82,53 @@ public class OrdersBean implements Serializable {
 
 
     private SelectItem[] selectedRoutePoints;
-    private SelectManyCheckbox selected;
-    private List<RoutepointEntitySO> routePointsInOrder = new ArrayList<>();
+    private SelectManyCheckbox selectedCargoes;
+    private SelectManyCheckbox selectedDrivers;
+    private List<RoutepointEntitySO> routePointsInOrder;
+    private List<DriverEntitySO> driversForOrder;
+
+    private List<TruckEntitySO> trucks;
+    private List<OrderexecutorEntitySO> executorsForOrder;
+    private Set<DriverEntitySO> drvs;
+    private Set<String> truckSerials;
 
     private int editOrderExecutorId;
     private int editOrderId;
+    private int countDriversForOrder;
 
-    private Double currentWeight;  //in tons
+    private double currentWeight;  //in tons
+
+    public List<OrderexecutorEntitySO> getExecutorsForOrder() {
+        return executorsForOrder;
+    }
+
+    public void setExecutorsForOrder(List<OrderexecutorEntitySO> executorsForOrder) {
+        this.executorsForOrder = executorsForOrder;
+    }
 
     public HtmlSelectOneMenu getNewTruck() {
         return newTruck;
+    }
+
+
+    public List<TruckEntitySO> getTrucks() {
+        return trucks;
+    }
+
+    public void setTrucks(List<TruckEntitySO> trucks) {
+        this.trucks = trucks;
+    }
+
+    public int getEditOrderExecutorId() {
+        return editOrderExecutorId;
+    }
+
+    public int getCountDriversForOrder() {
+        return countDriversForOrder;
+    }
+
+    public void setCountDriversForOrder(int countDriversForOrder) {
+        this.countDriversForOrder = countDriversForOrder;
     }
 
     public void setNewTruck(HtmlSelectOneMenu newTruck) {
@@ -143,12 +180,28 @@ public class OrdersBean implements Serializable {
         this.newCloseDT = newCloseDT;
     }
 
-    public SelectManyCheckbox getSelected() {
-        return selected;
+    public SelectManyCheckbox getSelectedCargoes() {
+        return selectedCargoes;
     }
 
-    public void setSelected(SelectManyCheckbox selected) {
-        this.selected = selected;
+    public void setSelectedCargoes(SelectManyCheckbox selected) {
+        this.selectedCargoes = selected;
+    }
+
+    public SelectManyCheckbox getSelectedDrivers() {
+        return selectedDrivers;
+    }
+
+    public void setSelectedDrivers(SelectManyCheckbox selectedDrivers) {
+        this.selectedDrivers = selectedDrivers;
+    }
+
+    public Set<String> getTruckSerials() {
+        return truckSerials;
+    }
+
+    public void setTruckSerials(Set<String> truckSerials) {
+        this.truckSerials = truckSerials;
     }
 
     public List getOrders() {
@@ -369,7 +422,68 @@ public class OrdersBean implements Serializable {
         }
         currentWeight = Utils.roundResult(Double.valueOf(weight/1000),2); //return tons
         logger.error(String.valueOf(currentWeight));
+        if(getTruckSerials().isEmpty()) {
+            setTruckSerials(getTrucksSerials());
+        }
         return "addOrder2step?faces-redirect=true";
+    }
+
+    public String saveTruckForOrder(String serial){
+
+        truck = truckService.getTruckBySerial(serial);
+        countDriversForOrder = truck.getDriversNumber();
+        return "addOrder3step?faces-redirect=true";
+    }
+
+    public Set getDriversInOrder() {
+        Set<String> result = new HashSet<>();
+        if(drvs.isEmpty()) {
+            drvs.addAll(driverService.getDriversForOrder());
+        }
+        for(DriverEntitySO drv : drvs){
+            result.add(drv.getUIN() + " " + drv.getName() + " " + drv.getSurname());
+        }
+        return result;
+
+    }
+
+    public String saveOrder(SelectManyCheckbox drvs){
+        String uinDriver;
+        Pattern p = Pattern.compile("([0-9]{1,15})");
+        List<String> selItemsStrings = new ArrayList<>();
+        Object[] selItems = drvs.getSelectedValues();
+        for (Object o:selItems) {
+            selItemsStrings.add(String.valueOf(o.toString()));
+            logger.error(String.valueOf(o.toString()));
+        }
+        for (String si:selItemsStrings) {
+            Matcher m = p.matcher(si);
+            if(m.find()) {
+                uinDriver = m.group(0);
+                logger.error(String.valueOf(uinDriver));
+                driver = driverService.getDriverByUIN(uinDriver);
+                driversForOrder.add(driver);
+            }
+        }
+        final List<OrderexecutorEntitySO> executors = new ArrayList<>();
+        order = new OrderEntitySO();
+        order.setClosed(true);
+        order.setCreateDT(new Date());
+        for (int i=0;i<countDriversForOrder;i++) {
+            orderexecutor = new OrderexecutorEntitySO();
+            orderexecutor.setOrderIdOrder(order);
+            orderexecutor.setTruckIdTruck(truck);
+            orderexecutor.setDriverIdDriver(driversForOrder.get(i));
+            executorsForOrder.add(orderexecutor);
+            orderexecutor = null;
+        }
+        orderService.addOrder(order);
+        orderExecutorService.createOrderexecutorsForOrder(executorsForOrder);
+        for (RoutepointEntitySO rp: routePointsInOrder) {
+            rp.setOrderIdOrder(order);
+        }
+        routepointService.updateRoutePoints(routePointsInOrder);
+        return "orders?faces-redirect=true";
     }
 
     public String create(String newClosed, String newCreateDt, String newCloseDt) {
@@ -399,17 +513,26 @@ public class OrdersBean implements Serializable {
     }
 
     public List getTrucks(Double capacity){
-        return truckService.getTrucksForOrder(capacity);
+        if (trucks.isEmpty()) {
+            trucks = truckService.getTrucksForOrder(capacity);
+        }
+        return trucks;
     }
 
-    public Set getTrucksSerials(){
-        Set<String> result = new HashSet<>();
-        Set<TruckEntitySO> trucks = new HashSet<>();
-        trucks.addAll(getTrucks(getCurrentWeight()));
-        for(TruckEntitySO truck : trucks){
-            result.add(truck.getSerial());
+    public Set<String> getTrucksSerials(){
+        if(truckSerials.isEmpty()) {
+            Set<String> result = new HashSet<>();
+            //Set<TruckEntitySO> trucks = new HashSet<>();
+            //trucks.addAll(getTrucks(getCurrentWeight()));
+            if (trucks.isEmpty()) {
+                trucks = truckService.getTrucksForOrder(getCurrentWeight());
+            }
+            for (TruckEntitySO truck : trucks) {
+                result.add(truck.getSerial());
+            }
+            truckSerials.addAll(result);
         }
-        return result;
+        return truckSerials;
     }
 
     public void clearItems(){
@@ -417,5 +540,19 @@ public class OrdersBean implements Serializable {
         this.newClosed = null;
         this.newCreateDT = null;
         this.newCloseDT = null;
+        this.truck = null;
+        this.countDriversForOrder = 0;
+        this.driversForOrder = new ArrayList<>();
+        this.orderexecutor = null;
+        this.currentWeight = 0;
+        this.selectedRoutePoints = null;
+        this.selectedCargoes = null;
+        this.selectedDrivers = null;
+        this.drvs = new HashSet<>();
+        this.executorsForOrder = new ArrayList<>();
+        this.trucks = new ArrayList<>();
+        this.truckSerials  = new HashSet<>();
+        this.routePointsInOrder = new ArrayList<>();
+
     }
 }

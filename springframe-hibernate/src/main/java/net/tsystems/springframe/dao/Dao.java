@@ -7,11 +7,6 @@ import javax.persistence.EntityManager;
 
 public interface Dao {
 
-    //TODO: getEntityManager must have return - EntityManager
-    //public void getEntityManager();
-    //public void setEntityManager();
-
-    //Session getSession();
     Session getEntityManager();
 
 

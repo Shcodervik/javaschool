@@ -49,62 +49,19 @@ public abstract class AbstractDaoImpl<PK extends Serializable, T> implements Dao
 
     public void create(T entity)
     {
-       /* Session session = getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.persist(entity);
-            transaction.commit();
-        }
-        catch (Exception ex) {
-            if (transaction != null)
-                transaction.rollback();
-        }
-        finally {
-            session.close();
-        }*/
         getSession().saveOrUpdate(entity);
     }
 
     @Transactional
     public void update(T entity)
     {
-       /* Session session = getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.update(entity);
-            transaction.commit();
-        }
-        catch (Exception ex) {
-            if (transaction != null)
-                transaction.rollback();
-        }
-        finally {
-            session.close();
-        }*/
         getSession().update(entity);
     }
 
     @Transactional
     public void delete(T entity)
     {
-        /*Session session = getSession();
-        Transaction transaction = null;
-        try {
-            transaction = session.beginTransaction();
-            session.delete(entity);
-            transaction.commit();
-        }
-        catch (Exception ex) {
-            if (transaction != null)
-                transaction.rollback();
-        }
-        finally {
-            session.close();
-        }*/
         getSession().delete(entity);
-
     }
 
 

@@ -70,6 +70,19 @@ public class OrderexecutorServiceImpl implements OrderexecutorService {
 
     @Override
     @Transactional
+    public boolean createOrderexecutorsForOrder(List<OrderexecutorEntitySO> executors) {
+        if (executors.isEmpty()){
+            return false;
+        }
+        for (OrderexecutorEntitySO oe:executors) {
+            OrderexecutorEntity orderexecutorEntity = OrderexecutorEntityMapper.INSTANCE.orderexecutorDtoToEntity(oe);
+            ((AbstractDao)dao).create(orderexecutorEntity);
+        }
+        return true;
+    }
+
+    @Override
+    @Transactional
     public OrderexecutorEntitySO getOrderexecutorById(int id) {
         OrderexecutorEntitySO result = null;
         OrderexecutorEntity orderexecutorEntity = (OrderexecutorEntity) ((AbstractDao)dao).getById(id);

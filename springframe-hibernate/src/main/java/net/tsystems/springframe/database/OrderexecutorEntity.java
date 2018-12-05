@@ -48,8 +48,7 @@ public class OrderexecutorEntity {
         this.driverIdDriver = driverIdDriver;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST,
-            CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "Order_idOrder", referencedColumnName = "idOrder", nullable = false)
     public OrderEntity getOrderIdOrder() {
         return orderIdOrder;

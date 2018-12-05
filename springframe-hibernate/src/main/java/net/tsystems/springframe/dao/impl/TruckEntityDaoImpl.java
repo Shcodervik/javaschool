@@ -33,7 +33,7 @@ public class TruckEntityDaoImpl extends AbstractDaoImpl<Integer, TruckEntity> im
     @Override
     public TruckEntity getTruckBySerial(String serial) {
         Criteria crit = getCriteria();
-        crit.add(Restrictions.eq("Serial", serial));
+        crit.add(Restrictions.eq("serial", serial));
         TruckEntity truckBySerial = (TruckEntity)crit.uniqueResult();
         return truckBySerial;
     }
@@ -49,7 +49,7 @@ public class TruckEntityDaoImpl extends AbstractDaoImpl<Integer, TruckEntity> im
     @Override
     public List<TruckEntity> getTrucksByCapacity(float capacity) {
         Criteria criteria = getCriteria();
-        criteria.add(Restrictions.eq("Capacity", capacity));
+        criteria.add(Restrictions.eq("capacity", capacity));
         List<TruckEntity> trucksByCapacity = (List<TruckEntity>)criteria.list();
         return trucksByCapacity;
     }
@@ -73,7 +73,8 @@ public class TruckEntityDaoImpl extends AbstractDaoImpl<Integer, TruckEntity> im
     @Override
     public List<TruckEntity> getTrucksForOrder(Double capacity) {
         Session session = getSession();
-        Query query = session.createQuery("from TruckEntity t where t.truckStateIdTruckState=1 and capacity >= :cap order by capacity");
+        //Query query = session.createQuery("from TruckEntity t where t.truckStateIdTruckState=1 and capacity >= :cap order by capacity");
+        Query query = session.createQuery("from TruckEntity t where t.truckStateIdTruckState=1 and capacity >= :cap and idTruck not in (select truckIdTruck from OrderexecutorEntity where orderIdOrder in (select idOrder from OrderEntity where closed=0)) order by capacity");
         query.setParameter("cap", capacity);
         logger.error(query.toString());
         List list = query.list();

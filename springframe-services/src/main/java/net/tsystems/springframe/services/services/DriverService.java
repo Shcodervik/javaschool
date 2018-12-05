@@ -13,5 +13,9 @@ public interface DriverService {
 
     DriverEntitySO getDriverById(int id);
 
+    DriverEntitySO getDriverByUIN(String uin);
+
     List<DriverEntitySO> getAllDrivers();
+
+    List<DriverEntitySO> getDriversForOrder();
 }

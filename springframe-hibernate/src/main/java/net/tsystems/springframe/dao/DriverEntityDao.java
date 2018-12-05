@@ -15,4 +15,5 @@ public interface DriverEntityDao {
     * */
 
     List<DriverEntity> getAllDriversByState(int driverState);
+    List<DriverEntity> getDriversForOrder();
 }

@@ -41,6 +41,7 @@ public class OrderServiceImpl implements OrderService {
         }
         OrderEntity orderEntity = OrderEntityMapper.INSTANCE.orderDtoToEntity(order);
         ((AbstractDao)dao).create(orderEntity);
+        order.setIdOrder(orderEntity.getIdOrder());
         return true;
     }
 
